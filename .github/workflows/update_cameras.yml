@@ -23,7 +23,8 @@ jobs:
           pip install beautifulsoup4 requests
 
       - name: Run update script
-        run: python update_cameras.py
+        run: python scripts/update_cameras.py
+
 
       - name: Commit and push changes
         run: |
