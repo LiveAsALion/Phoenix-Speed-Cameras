@@ -1,44 +1,29 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import os
 
 def update_camera_data():
-    # Adjusted to lowercase to match your repository
-    local_kml = "locations.kml" 
+    # We are now hardcoding the URL you provided directly into the script
+    KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw&lid=zEYtk9GgoDg"
     output_json = "camera_data.json"
     
-    # Check for both cases just to be safe
-    if not os.path.exists(local_kml):
-        if os.path.exists("Locations.kml"):
-            local_kml = "Locations.kml"
-        else:
-            print(f"Error: No KML file found in the repository root.")
-            return
+    print(f"Fetching camera data directly from: {KML_URL}")
 
     try:
-        with open(local_kml, 'r') as f:
-            soup = BeautifulSoup(f, 'xml')
-        
-        # Follow the NetworkLink to the actual Google content
-        network_link = soup.find('href')
-        if not network_link:
-            print("No <href> found inside the KML file.")
-            return
-
-        remote_url = network_link.text.strip()
-        print(f"Fetching actual data from: {remote_url}")
-        
-        response = requests.get(remote_url)
+        response = requests.get(KML_URL)
         response.raise_for_status()
-        remote_soup = BeautifulSoup(response.content, 'xml')
+        
+        # Parse the remote Google data
+        soup = BeautifulSoup(response.content, 'xml')
         
         cameras = []
-        for pm in remote_soup.find_all('Placemark'):
+        # Find all camera locations in the Google Map data
+        for pm in soup.find_all('Placemark'):
             name = pm.find('name').text.strip() if pm.find('name') else "Unknown"
             coords = pm.find('coordinates').text.strip() if pm.find('coordinates') else ""
             
             if coords:
+                # KML coords are: longitude, latitude, altitude
                 parts = coords.split(',')
                 if len(parts) >= 2:
                     cameras.append({
@@ -46,6 +31,10 @@ def update_camera_data():
                         "longitude": parts[0],
                         "latitude": parts[1]
                     })
+
+        if not cameras:
+            print("No cameras found. The URL might not be returning data correctly.")
+            return
 
         with open(output_json, 'w') as f:
             json.dump(cameras, f, indent=4)
