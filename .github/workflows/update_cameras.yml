@@ -22,12 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install beautifulsoup4 requests lxml
 
-      - name: Verify File Location
-        run: ls -R # This will print the directory structure in your logs
+      - name: List files (Debug Step)
+        run: ls -R # This shows us exactly where your files are hiding
 
       - name: Run update script
-        # Ensure the filename below matches your repository exactly (case-sensitive)
-        run: python update_cameras.py
+        run: python update_cameras.py # Ensure this name matches your file exactly
 
       - name: Commit and push changes
         run: |
