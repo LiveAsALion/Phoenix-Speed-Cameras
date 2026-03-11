@@ -9,6 +9,7 @@ jobs:
   update-cameras:
     runs-on: ubuntu-latest
     steps:
+      # CRITICAL: This step pulls your code from GitHub into the runner
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -22,11 +23,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install beautifulsoup4 requests lxml
 
-      - name: List files (Debug Step)
-        run: ls -R # This shows us exactly where your files are hiding
-
       - name: Run update script
-        run: python update_cameras.py # Ensure this name matches your file exactly
+        # This will now find the file because of the checkout step
+        run: python update_cameras.py
 
       - name: Commit and push changes
         run: |
