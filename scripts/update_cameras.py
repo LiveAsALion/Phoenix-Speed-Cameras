@@ -1,101 +1,59 @@
-#!/usr/bin/env python3
-"""
-Daily updater for Phoenix photo safety corridor JSON.
-
-Parses City Photo Safety page → geocodes corridors → builds direction‑aware JSON.
-"""
-
-import json
-import os
-import re
-import sys
-from typing import List, Dict
-
 import requests
 from bs4 import BeautifulSoup
+import json
 
-# CONFIG
-PHOTO_SAFETY_PAGE = (
-    "https://www.phoenix.gov/administration/departments/streets/safety-improvements/road-safety-action-plan/photo-safety.html"
-)
-NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-OUTPUT_PATH = "data/phoenix_speed_cameras.json"
-DEFAULT_RADIUS_METERS = 800
-
-DIR_TO_DEG = {"N/B": 0, "E/B": 90, "S/B": 180, "W/B": 270}
-DIRECTION_TAG_PATTERN = re.compile(r"\b([NESW]/B)\b", re.IGNORECASE)
-
-
-def fetch_page(url: str) -> str:
-    resp = requests.get(url, timeout=30)
-    resp.raise_for_status()
-    return resp.text
-
-
-def geocode_corridor(name: str) -> Dict[str, float]:
-    """
-    Geocode a corridor name to approximate center lat/lng using Nominatim.
-    """
-    params = {
-        "q": name + ", Phoenix, AZ",
-        "format": "json",
-        "limit": 1,
-        "addressdetails": 1,
-    }
-    headers = {"User-Agent": "PhoenixSpeedCamerasBot/1.0"}
+def update_camera_data():
+    local_kml = "Locations.kml"
+    output_json = "camera_data.json"
     
-    resp = requests.get(NOMINATIM_URL, params=params, headers=headers, timeout=10)
-    if resp.status_code == 200:
-        results = resp.json()
-        if results:
-            result = results[0]
-            return {
-                "lat": float(result["lat"]),
-                "lng": float(result["lon"]),
-            }
+    try:
+        # 1. Read your local pointer file
+        with open(local_kml, 'r') as f:
+            local_soup = BeautifulSoup(f, 'xml')
+        
+        # 2. Find the remote data URL 
+        network_link = local_soup.find('href')
+        if not network_link:
+            print("No NetworkLink found in Locations.kml")
+            return
+        
+        remote_url = network_link.text.strip()
+        print(f"Fetching actual data from: {remote_url}")
+        
+        # 3. Fetch the actual camera data from Google
+        response = requests.get(remote_url)
+        response.raise_for_status()
+        remote_soup = BeautifulSoup(response.content, 'xml')
+        
+    except Exception as e:
+        print(f"Error during KML processing: {e}")
+        return
+
+    # 4. Parse the actual locations
+    camera_list = []
+    placemarks = remote_soup.find_all('Placemark')
     
-    # Fallback coordinates if geocoding fails (Phoenix center + offset)
-    print(f"WARN: Geocoding failed for '{name}'; using fallback.", file=sys.stderr)
-    return {"lat": 33.4484, "lng": -112.0740}
+    for pm in placemarks:
+        name = pm.find('name').text.strip() if pm.find('name') else "Unknown"
+        coords = pm.find('coordinates').text.strip() if pm.find('coordinates') else ""
+        
+        if coords:
+            # Coordinates are usually: longitude, latitude, altitude
+            parts = coords.split(',')
+            if len(parts) >= 2:
+                camera_list.append({
+                    "name": name,
+                    "longitude": parts[0],
+                    "latitude": parts[1]
+                })
 
+    # 5. Save the final data
+    if camera_list:
+        with open(output_json, 'w') as f:
+            json.dump(camera_list, f, indent=4)
+        print(f"Success! Saved {len(camera_list)} cameras to {output_json}")
+    else:
+        print("No camera coordinates found at the remote URL.")
 
-def parse_corridors(html: str) -> List[str]:
-    """
-    Extract corridor names from City page.
-    """
-    soup = BeautifulSoup(html, "html.parser")
-    
-    # Try to find list items with "to" and road names
-    corridors = []
-    for li in soup.find_all("li"):
-        text = li.get_text(strip=True)
-        if ":" in text and "to" in text.lower():
-            corridors.append(text)
-    
-    if corridors:
-        return corridors
-    
-    # Fallback: known 9 corridors from City page [page:0][web:3][web:8]
-    print("WARN: No corridors found via parsing; using known list.", file=sys.stderr)
-    return [
-        "Thunderbird Road: 35th Avenue to Interstate 17",
-        "32nd Street: Greenway Parkway to Bell Road",
-        "Thunderbird Road: Interstate 17 to 19th Avenue",
-        "7th Street: Thunderbird Road to Peoria Avenue",
-        "Camelback Road: 24th Street to 32nd Street",
-        "19th Avenue: Thunderbird Road to Peoria Avenue",
-        "Northern Avenue: 7th Street to 19th Avenue",
-        "7th Street: Indian School Road to Camelback Road",
-        "19th Avenue: Indian School Road to Camelback Road",
-    ]
-
-
-def normalize_id(name: str) -> str:
-    s = re.sub(r"[^a-z0-9]+", "_", name.lower())
-    return re.sub(r"_+", "_", s).strip("_")
-
-
-def extract_direction_tags(text: str) -> List[str]:
-    tags = []
-    for m in DIRECTION_TAG_PATTERN.findall(text):
-        tag
+if __name__ == "__main__":
+    update_camera_data()
