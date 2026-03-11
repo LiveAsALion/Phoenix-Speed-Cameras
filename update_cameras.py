@@ -4,34 +4,41 @@ import json
 import os
 
 def update_camera_data():
-    local_kml = "Locations.kml"
+    # Adjusted to lowercase to match your repository
+    local_kml = "locations.kml" 
     output_json = "camera_data.json"
     
+    # Check for both cases just to be safe
     if not os.path.exists(local_kml):
-        print(f"Error: {local_kml} not found in the repository root.")
-        return
+        if os.path.exists("Locations.kml"):
+            local_kml = "Locations.kml"
+        else:
+            print(f"Error: No KML file found in the repository root.")
+            return
 
     try:
-        # Read the pointer KML you uploaded
         with open(local_kml, 'r') as f:
             soup = BeautifulSoup(f, 'xml')
         
         # Follow the NetworkLink to the actual Google content
-        remote_url = soup.find('href').text.strip()
-        print(f"Fetching real data from: {remote_url}")
+        network_link = soup.find('href')
+        if not network_link:
+            print("No <href> found inside the KML file.")
+            return
+
+        remote_url = network_link.text.strip()
+        print(f"Fetching actual data from: {remote_url}")
         
         response = requests.get(remote_url)
         response.raise_for_status()
         remote_soup = BeautifulSoup(response.content, 'xml')
         
         cameras = []
-        # Parse actual Placemarks from the remote Google data
         for pm in remote_soup.find_all('Placemark'):
             name = pm.find('name').text.strip() if pm.find('name') else "Unknown"
             coords = pm.find('coordinates').text.strip() if pm.find('coordinates') else ""
             
             if coords:
-                # KML format: longitude, latitude, altitude
                 parts = coords.split(',')
                 if len(parts) >= 2:
                     cameras.append({
