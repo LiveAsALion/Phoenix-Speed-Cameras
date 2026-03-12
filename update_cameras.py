@@ -5,7 +5,7 @@ import os
 
 # 1. Configuration
 # Replace this with your actual public Google My Maps URL
-MAPS_URL = "https://www.google.com/maps/d/u/0/viewer?mid=YOUR_MAP_ID_HERE"
+MAPS_URL = "https://www.google.com/maps/d/embed?mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw&ehbc=2E312F"
 
 def get_direction_deg(name):
     """
