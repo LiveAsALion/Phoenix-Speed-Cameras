@@ -1,74 +1,68 @@
 import requests
-from bs4 import BeautifulSoup
-import json
 import re
+import json
+import os
 
-def extract_direction(text):
-    """Maps text descriptions to degree headings (0, 90, 180, 270)."""
-    mapping = {
-        "N/B": 0, "NB": 0, "NORTHBOUND": 0,
-        "S/B": 180, "SB": 180, "SOUTHBOUND": 180,
-        "E/B": 90, "EB": 90, "EASTBOUND": 90,
-        "W/B": 270, "WB": 270, "WESTBOUND": 270
-    }
-    text_upper = text.upper()
-    for key, degree in mapping.items():
-        if re.search(rf'\b{key}\b', text_upper):
-            return degree
-    return None
+# 1. Configuration
+# Replace this with your actual public Google My Maps URL
+MAPS_URL = "https://www.google.com/maps/d/u/0/viewer?mid=YOUR_MAP_ID_HERE"
+
+def get_direction_deg(name):
+    """
+    Translates compass shorthand into degrees for Tasker math.
+    EB = 90, WB = 270, NB = 0, SB = 180
+    """
+    name = name.upper()
+    if any(x in name for x in ['EB', 'EAST']): return 90
+    if any(x in name for x in ['WB', 'WEST']): return 270
+    if any(x in name for x in ['NB', 'NORTH']): return 0
+    if any(x in name for x in ['SB', 'SOUTH']): return 180
+    return 0  # Default fallback
 
 def update_camera_data():
-    # Primary KML pointer
-    KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw&lid=zEYtk9GgoDg"
-    output_json = "camera_data.json"
-    
+    print("Fetching data from Google Maps...")
     try:
-        # Step 1: Fetch the initial KML
-        response = requests.get(KML_URL)
+        response = requests.get(MAPS_URL, timeout=15)
         response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'xml')
-        
-        # Step 2: Extract the actual data from the Network Link
-        # If the URL is just a pointer, this finds the real source
-        network_link = soup.find('href')
-        if network_link:
-            actual_url = network_link.text.strip()
-            print(f"Following Network Link to: {actual_url}")
-            response = requests.get(actual_url)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, 'xml')
-
-        cameras = []
-        # Step 3: Parse Placemarks
-        for pm in soup.find_all('Placemark'):
-            name = pm.find('name').text.strip() if pm.find('name') else ""
-            desc = pm.find('description').text.strip() if pm.find('description') else ""
-            coords = pm.find('coordinates').text.strip() if pm.find('coordinates') else ""
-            
-            # Combine name and description to search for directional tags
-            direction = extract_direction(f"{name} {desc}")
-            
-            if coords and direction is not None:
-                # KML coords are: longitude, latitude, altitude
-                parts = coords.split(',')
-                if len(parts) >= 2:
-                    cameras.append({
-                        "name": name,
-                        "latitude": float(parts[1]),
-                        "longitude": float(parts[0]),
-                        "direction_deg": direction
-                    })
-
-        # Step 4: Save the final JSON
-        if cameras:
-            with open(output_json, 'w') as f:
-                json.dump(cameras, f, indent=4)
-            print(f"Success! {len(cameras)} cameras processed with directional data.")
-        else:
-            print("No valid camera locations found.")
-
+        content = response.text
     except Exception as e:
-        print(f"Error during execution: {e}")
+        print(f"Failed to fetch map: {e}")
+        return
+
+    # 2. Extract Data using Regex
+    # This pattern captures: [longitude, latitude, 0], "Camera Name"
+    # Note: Google stores it as [long, lat], but Tasker needs [lat, long]
+    pattern = r'\[(-?\d+\.\d+),(-?\d+\.\d+),0\],\"(.*?)\"'
+    matches = re.findall(pattern, content)
+
+    camera_list = []
+    
+    for lon, lat, name in matches:
+        # Clean up the name (Google sometimes escapes characters)
+        clean_name = name.encode('utf-8').decode('unicode_escape').replace('\\', '')
+        
+        camera_list.append({
+            "name": clean_name,
+            "latitude": float(lat),
+            "longitude": float(lon),
+            "direction_deg": get_direction_deg(clean_name)
+        })
+
+    # 3. Validation & Saving
+    if not camera_list:
+        print("Error: No cameras found. The Regex pattern may need adjustment.")
+        # Print a snippet of content for debugging in GitHub Logs
+        print("Page Content Snippet:", content[:500])
+        return
+
+    # Remove duplicates if any
+    unique_cameras = { (c['latitude'], c['longitude']): c for c in camera_list }.values()
+    final_list = list(unique_cameras)
+
+    with open('camera_data.json', 'w', encoding='utf-8') as f:
+        json.dump(final_list, f, indent=4)
+    
+    print(f"Success! Found and saved {len(final_list)} camera locations.")
 
 if __name__ == "__main__":
     update_camera_data()
