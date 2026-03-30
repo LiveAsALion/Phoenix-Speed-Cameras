@@ -1,68 +1,77 @@
 import requests
-import re
+from bs4 import BeautifulSoup
 import json
-import os
+import re
 
-# 1. Configuration
-# Replace this with your actual public Google My Maps URL
-MAPS_URL = "https://www.google.com/maps/d/embed?mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw&ehbc=2E312F"
+KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw"
+OUTPUT_JSON = "camera_data.json"
 
-def get_direction_deg(name):
-    """
-    Translates compass shorthand into degrees for Tasker math.
-    EB = 90, WB = 270, NB = 0, SB = 180
-    """
-    name = name.upper()
-    if any(x in name for x in ['EB', 'EAST']): return 90
-    if any(x in name for x in ['WB', 'WEST']): return 270
-    if any(x in name for x in ['NB', 'NORTH']): return 0
-    if any(x in name for x in ['SB', 'SOUTH']): return 180
-    return 0  # Default fallback
+DIRECTION_MAP = {
+    "E/B": 90, "EB": 90, "EAST": 90,
+    "W/B": 270, "WB": 270, "WEST": 270,
+    "N/B": 0,  "NB": 0,  "NORTH": 0,
+    "S/B": 180, "SB": 180, "SOUTH": 180,
+}
+
+def get_direction(text):
+    text_upper = text.upper()
+    for key, deg in DIRECTION_MAP.items():
+        if re.search(rf'\b{re.escape(key)}\b', text_upper):
+            return deg
+    return None
 
 def update_camera_data():
-    print("Fetching data from Google Maps...")
+    print(f"Fetching: {KML_URL}")
     try:
-        response = requests.get(MAPS_URL, timeout=15)
+        response = requests.get(KML_URL, timeout=15)
         response.raise_for_status()
-        content = response.text
+        soup = BeautifulSoup(response.content, "xml")
     except Exception as e:
-        print(f"Failed to fetch map: {e}")
+        print(f"Failed to fetch KML: {e}")
         return
 
-    # 2. Extract Data using Regex
-    # This pattern captures: [longitude, latitude, 0], "Camera Name"
-    # Note: Google stores it as [long, lat], but Tasker needs [lat, long]
-    pattern = r'\[(-?\d+\.\d+),(-?\d+\.\d+),0\],\"(.*?)\"'
-    matches = re.findall(pattern, content)
+    cameras = []
+    for pm in soup.find_all("Placemark"):
+        desc_tag = pm.find("description")
+        coords_tag = pm.find("coordinates")
 
-    camera_list = []
-    
-    for lon, lat, name in matches:
-        # Clean up the name (Google sometimes escapes characters)
-        clean_name = name.encode('utf-8').decode('unicode_escape').replace('\\', '')
-        
-        camera_list.append({
+        if not desc_tag or not coords_tag:
+            continue
+
+        # Description contains direction + corridor, e.g. "E/B, Thunderbird Rd: 35th Ave to I-17"
+        desc = re.sub(r"<[^>]+>", "", desc_tag.get_text()).strip()
+        direction_deg = get_direction(desc)
+
+        if direction_deg is None:
+            print(f"  Skipped (no direction found): {desc}")
+            continue
+
+        coords = coords_tag.get_text().strip()
+        parts = coords.split(",")
+        if len(parts) < 2:
+            continue
+
+        lon, lat = float(parts[0]), float(parts[1])
+
+        # Strip trailing "Portable tower location" noise and whitespace
+        clean_name = re.split(r"(?i)\s*<br", desc)[0]
+        clean_name = re.sub(r"(?i)\s*portable tower location.*", "", clean_name).strip()
+
+        cameras.append({
             "name": clean_name,
-            "latitude": float(lat),
-            "longitude": float(lon),
-            "direction_deg": get_direction_deg(clean_name)
+            "latitude": lat,
+            "longitude": lon,
+            "direction_deg": direction_deg
         })
 
-    # 3. Validation & Saving
-    if not camera_list:
-        print("Error: No cameras found. The Regex pattern may need adjustment.")
-        # Print a snippet of content for debugging in GitHub Logs
-        print("Page Content Snippet:", content[:500])
+    if not cameras:
+        print("No valid camera locations found.")
         return
 
-    # Remove duplicates if any
-    unique_cameras = { (c['latitude'], c['longitude']): c for c in camera_list }.values()
-    final_list = list(unique_cameras)
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(cameras, f, indent=4)
 
-    with open('camera_data.json', 'w', encoding='utf-8') as f:
-        json.dump(final_list, f, indent=4)
-    
-    print(f"Success! Found and saved {len(final_list)} camera locations.")
+    print(f"Success! Saved {len(cameras)} cameras to {OUTPUT_JSON}.")
 
 if __name__ == "__main__":
     update_camera_data()
