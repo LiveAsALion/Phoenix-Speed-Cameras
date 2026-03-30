@@ -1,47 +1,56 @@
 [
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.129570020092",
-        "latitude": "33.6107377912465"
+        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
+        "latitude": 33.6107377912465,
+        "longitude": -112.129570020092,
+        "direction_deg": 90
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.013295987503",
-        "latitude": "33.6306925590751"
+        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
+        "latitude": 33.6306925590751,
+        "longitude": -112.013295987503,
+        "direction_deg": 0
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.108167386106",
-        "latitude": "33.6111001946346"
+        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
+        "latitude": 33.6111001946346,
+        "longitude": -112.108167386106,
+        "direction_deg": 270
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.064939622434",
-        "latitude": "33.4908277615037"
+        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
+        "latitude": 33.4908277615037,
+        "longitude": -112.064939622434,
+        "direction_deg": 0
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.225754995848",
-        "latitude": "33.4946761609931"
+        "name": "W/B,\u00a0 Indian School Rd: 83rd Ave to 75th Ave",
+        "latitude": 33.4946761609931,
+        "longitude": -112.225754995848,
+        "direction_deg": 270
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.018763605383",
-        "latitude": "33.5099728268574"
+        "name": "W/B Camelback Rd: 24th St to 32nd St",
+        "latitude": 33.5099728268574,
+        "longitude": -112.018763605383,
+        "direction_deg": 270
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.169019611102",
-        "latitude": "33.4555827502405"
+        "name": "N/B, 51st Ave: Van Buren St to I-10",
+        "latitude": 33.4555827502405,
+        "longitude": -112.169019611102,
+        "direction_deg": 0
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.039357278235",
-        "latitude": "33.3779075016387"
+        "name": "W/B, Baseline Rd: 16th St to 24th St",
+        "latitude": 33.3779075016387,
+        "longitude": -112.039357278235,
+        "direction_deg": 270
     },
     {
-        "name": "Photo Safety Camera",
-        "longitude": "-112.105172846625",
-        "latitude": "33.6402100874448"
+        "name": "W/B, Bell Rd: I-17 to 19th Ave",
+        "latitude": 33.6402100874448,
+        "longitude": -112.105172846625,
+        "direction_deg": 270
     }
 ]
