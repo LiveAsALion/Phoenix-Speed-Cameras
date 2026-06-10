@@ -23,6 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install beautifulsoup4 requests lxml
 
+      - name: Archive current active corridor camera JSON
+        run: python scripts/archive_json_snapshot.py camera_data.json archive/camera_data
+
+      - name: Archive current active school zone camera JSON
+        run: python scripts/archive_json_snapshot.py school_zone_cameras.json archive/school_zone_cameras
+
       - name: Run update script
         # This will now find the file because of the checkout step
         run: python update_cameras.py
