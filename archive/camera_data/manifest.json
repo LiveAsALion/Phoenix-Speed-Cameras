@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "file": "archive/camera_data/camera_data__through_2026-06-11T02-37-27Z.json",
+    "sha256": "ac8901920ffc9f04ded6e198018f4e55051f6cb7422adbdd34e3488baa822f9e",
+    "valid_from": null,
+    "valid_to": null,
+    "archived_at": "2026-06-11T02:37:27Z",
+    "source_active_file": "camera_data.json"
+  }
+]

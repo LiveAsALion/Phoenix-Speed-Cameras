@@ -1,86 +1,56 @@
 [
-  {
-    "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
-    "latitude": 33.6107377912465,
-    "longitude": -112.129570020092,
-    "direction_deg": 90
-  },
-  {
-    "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
-    "latitude": 33.6306925590751,
-    "longitude": -112.013295987503,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
-    "latitude": 33.6111001946346,
-    "longitude": -112.108167386106,
-    "direction_deg": 270
-  },
-  {
-    "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
-    "latitude": 33.4908277615037,
-    "longitude": -112.064939622434,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Indian School Rd: 83rd Ave to 75th Ave",
-    "latitude": 33.4946761609931,
-    "longitude": -112.225754995848,
-    "direction_deg": 270
-  },
-  {
-    "name": "W/B, Camelback Rd: 24th St to 32nd St",
-    "latitude": 33.5099728268574,
-    "longitude": -112.018763605383,
-    "direction_deg": 270
-  },
-  {
-    "name": "N/B, 51st Ave: Van Buren St to I-10",
-    "latitude": 33.4555827502405,
-    "longitude": -112.169019611102,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Baseline Rd: 16th St to 24th St",
-    "latitude": 33.3779075016387,
-    "longitude": -112.039357278235,
-    "direction_deg": 270
-  },
-  {
-    "name": "W/B, Bell Rd: I-17 to 19th Ave",
-    "latitude": 33.6402100874448,
-    "longitude": -112.105172846625,
-    "direction_deg": 270
-  },
-  {
-    "name": "N/B, 7th Ave: Indian School Rd to Camelback Rd",
-    "latitude": 33.504466,
-    "longitude": -112.082591,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Missouri Ave: 99th Ave to 101st Ave",
-    "latitude": 33.516002,
-    "longitude": -112.274966,
-    "direction_deg": 270
-  },
-  {
-    "name": "W/B, Chandler Blvd: Desert Foothills Pkwy to 6th St",
-    "latitude": 33.307198,
-    "longitude": -112.067824,
-    "direction_deg": 270
-  },
-  {
-    "name": "E/B, Thunderbird Rd: 7th St to Cave Creek Rd",
-    "latitude": 33.60325,
-    "longitude": -112.05180555555555,
-    "direction_deg": 90
-  },
-  {
-    "name": "N/B, 19th Ave: Peoria Ave to Cactus Rd",
-    "latitude": 33.589111111111116,
-    "longitude": -112.09955555555555,
-    "direction_deg": 0
-  }
+    {
+        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
+        "latitude": 33.6107377912465,
+        "longitude": -112.129570020092,
+        "direction_deg": 90
+    },
+    {
+        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
+        "latitude": 33.6306925590751,
+        "longitude": -112.013295987503,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
+        "latitude": 33.6111001946346,
+        "longitude": -112.108167386106,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
+        "latitude": 33.4908277615037,
+        "longitude": -112.064939622434,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B,\u00a0 Indian School Rd: 83rd Ave to 75th Ave",
+        "latitude": 33.4946761609931,
+        "longitude": -112.225754995848,
+        "direction_deg": 270
+    },
+    {
+        "name": "W/B Camelback Rd: 24th St to 32nd St",
+        "latitude": 33.5099728268574,
+        "longitude": -112.018763605383,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 51st Ave: Van Buren St to I-10",
+        "latitude": 33.4555827502405,
+        "longitude": -112.169019611102,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Baseline Rd: 16th St to 24th St",
+        "latitude": 33.3779075016387,
+        "longitude": -112.039357278235,
+        "direction_deg": 270
+    },
+    {
+        "name": "W/B, Bell Rd: I-17 to 19th Ave",
+        "latitude": 33.6402100874448,
+        "longitude": -112.105172846625,
+        "direction_deg": 270
+    }
 ]
