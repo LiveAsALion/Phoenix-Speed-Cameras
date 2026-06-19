@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elite Tactical Athlete</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0a09">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f1ed">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tactical">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;overflow-x:hidden;}
+input,textarea,button{font-family:inherit;outline:none;}
+textarea{resize:none;}
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;width:100%;}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:var(--border);}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;margin-top:-9px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer;}
+::placeholder{opacity:.7;}
+button{cursor:pointer;border:none;background:none;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+'use strict';
+
+// ─── PROGRAM DATA ────────────────────────────────────────────────────────────
+const PROGRAM = {"meta":{"title":"Elite Tactical Athlete","target":"Maximum real-world athletic capability with longevity, durability & operational readiness.","weeks":12,"daysPerWeek":7},"blocks":[{"id":"b1","name":"Foundation","subtitle":"Accumulation","weeks":"1–4","color":"#0E7490","goal":"Tissue tolerance, aerobic base, hypertrophy base."},{"id":"b2","name":"Strength-Power","subtitle":"Intensification","weeks":"5–8","color":"#B45309","goal":"Max strength + strength-speed, intensive plyos, heavy carries."},{"id":"b3","name":"Expression","subtitle":"Realization","weeks":"9–12","color":"#991B1B","goal":"Contrast power, reactive plyos, agility, carry medleys."}],"weekToBlock":{"1":"b1","2":"b1","3":"b1","4":"b1","5":"b2","6":"b2","7":"b2","8":"b2","9":"b3","10":"b3","11":"b3","12":"b3"},"weeks":[{"week":1,"blockId":"b1","phase":"Intro","mainLiftPct":"65–70%","rir":"3","volumePct":90,"deload":false,"testWeek":true,"focus":"Learn the patterns — positions, landings & intent over load. Baseline test this week."},{"week":2,"blockId":"b1","phase":"Build","mainLiftPct":"68–72%","rir":"2–3","volumePct":100,"deload":false,"testWeek":false,"focus":"Add a little load; groove sprint, carry & cut mechanics."},{"week":3,"blockId":"b1","phase":"Peak","mainLiftPct":"70–75%","rir":"2","volumePct":100,"deload":false,"testWeek":false,"focus":"Top of the block — full volume, real intent on every rep."},{"week":4,"blockId":"b1","phase":"Deload","mainLiftPct":"60–65%","rir":"4","volumePct":55,"deload":true,"testWeek":false,"focus":"Half the sets, no failure, easy conditioning only. Let tissue catch up."},{"week":5,"blockId":"b2","phase":"Intensify","mainLiftPct":"80–85%","rir":"2","volumePct":90,"deload":false,"testWeek":false,"focus":"Switch to heavy 3–5 reps; max intent, full 3–5 min rests."},{"week":6,"blockId":"b2","phase":"Build","mainLiftPct":"85–88%","rir":"1–2","volumePct":100,"deload":false,"testWeek":true,"focus":"Add load on the 3–5 lifts. Mid-program RETEST this week."},{"week":7,"blockId":"b2","phase":"Peak","mainLiftPct":"88–90%","rir":"1","volumePct":100,"deload":false,"testWeek":false,"focus":"Peak intensity; longest rests; intensive plyos at their sharpest."},{"week":8,"blockId":"b2","phase":"Deload","mainLiftPct":"75–80% (a few singles)","rir":"4","volumePct":50,"deload":true,"testWeek":false,"focus":"Keep a few heavy-but-easy singles, slash volume, Zone 2 only."},{"week":9,"blockId":"b3","phase":"Realize","mainLiftPct":"82–85% (heavy element)","rir":"2","volumePct":90,"deload":false,"testWeek":false,"focus":"Contrast pairs — convert strength to power. Reactive plyos enter."},{"week":10,"blockId":"b3","phase":"Build","mainLiftPct":"85%","rir":"1","volumePct":100,"deload":false,"testWeek":false,"focus":"Heaviest contrast loads; sharpest, fastest jumps and throws."},{"week":11,"blockId":"b3","phase":"Peak","mainLiftPct":"85–87%","rir":"1","volumePct":95,"deload":false,"testWeek":false,"focus":"Peak power & reactive output; full recovery between every effort."},{"week":12,"blockId":"b3","phase":"Taper + Test","mainLiftPct":"maintain, low volume","rir":"2","volumePct":45,"deload":true,"testWeek":true,"focus":"Taper — keep intensity, drop volume, bank sleep, then RETEST the battery."}],"sessions":{"b1":[{"day":1,"title":"Lower Speed-Strength","type":"high-cns","est":{"full":"70–80 min","crunch":"~60 min"},"crunch":"KEEP: accel sprints · hinge 3×8 · Nordic · snap-downs · Pallof. CUT: extensive plyo→2 sets, drop lunges & calf.","items":[{"name":"Warm-up + foot prep","prescription":"Dynamic flow + lower CARs + short-foot drills + pogos, 10 min.","track":false},{"name":"Acceleration","prescription":"Wall drives 3×5/leg; A-skips 3×20 m; sled marches; 4–6 × 15 m @ ~85%, full recovery.","track":true},{"name":"Plyo — extensive","prescription":"Pogo 3×10; line hops 2×20 s; low box step-offs 3×5. Quiet landings.","track":true},{"name":"Main lift — hinge","prescription":"Trap-bar DL or RDL 4×8 @ RIR 2–3, 3-s eccentric.","track":true},{"name":"Lower assistance","prescription":"Goblet/front squat 3×10; walking lunge 3×8/leg.","track":true},{"name":"Eccentric resilience","prescription":"Nordic 3×4 (assisted); standing calf eccentric 3×8.","track":true},{"name":"Deceleration / landing","prescription":"Snap-downs 3×5; stick-landing drops 3×4 (absorb & hold 2 s).","track":true},{"name":"Core","prescription":"Pallof press 3×10/side. Then breathing.","track":true}]},{"day":2,"title":"Aerobic + Tissue","type":"working","est":{"full":"60–85 min","crunch":"~50 min"},"crunch":"35 min Zone 2 + foot block + 2 tendon holds.","items":[{"name":"Zone 2","prescription":"45–60 min conversational (ruck/bike/row/easy run).","track":true},{"name":"Tendon isometrics","prescription":"Deep split-squat hold 4×30 s/leg @ 60–70%; spanish-squat hold; chin-up mid-hold.","track":true},{"name":"Foot & ankle block","prescription":"Short-foot 3×30 s/side; toe spreads; single-leg balance 3×30 s; knee-to-wall 2×10/side.","track":true},{"name":"Tibialis & neck","prescription":"Tib raises 3×20; iso neck 2×20 s each direction.","track":true},{"name":"CARs","prescription":"Full-body controlled articular rotations.","track":false}]},{"day":3,"title":"Upper Power-Strength","type":"high-cns","est":{"full":"70–80 min","crunch":"~60 min"},"crunch":"KEEP: med-ball · bench & pull 3×8 · farmer carry. CUT: ballistic push, halve accessories.","items":[{"name":"Warm-up","prescription":"Band pull-aparts, scap & thoracic CARs.","track":false},{"name":"Rotational power","prescription":"Med-ball rotational throw 4×4/side; overhead slam 3×5. Full intent, full recovery.","track":true},{"name":"Ballistic push","prescription":"Plyo push-up or band-resisted press 3×5.","track":true},{"name":"Main push","prescription":"Bench or DB press 4×8 @ RIR 2.","track":true},{"name":"Main pull","prescription":"Weighted pull-up / row 4×8 @ RIR 2.","track":true},{"name":"Accessory (trimmed)","prescription":"DB shoulder press 3×10; face pulls 3×15.","track":true},{"name":"Loaded carry","prescription":"Farmer carry 3×40 m heavy; suitcase carry 2×30 m/side.","track":true},{"name":"Neck","prescription":"Iso neck 2×20 s. Then breathing.","track":true}]},{"day":4,"title":"Regeneration","type":"easy","est":{"full":"30–40 min","crunch":"—"},"crunch":"","items":[{"name":"Mobility flow","prescription":"20–30 min: hips, t-spine, shoulders, ankles.","track":false},{"name":"Static stretch","prescription":"Tightest groups, 30–60 s, toward 5 min/muscle/week.","track":false},{"name":"Optional heat/cold","prescription":"Away from lifting days.","track":false},{"name":"Breathing","prescription":"Physiological sighs + extended exhales.","track":false}]},{"day":5,"title":"Speed + Agility + Strength","type":"high-cns","est":{"full":"70–80 min","crunch":"~60 min"},"crunch":"KEEP: build-ups · pro-agility + lateral stops · split squat · 1 carry. CUT: carioca volume, halve core.","items":[{"name":"Warm-up","prescription":"Sprint drills + build-ups 3×30 m + foot prep.","track":false},{"name":"Max-velocity mechanics","prescription":"Build-ups to ~90% over 30–40 m, full recovery.","track":true},{"name":"Agility — mechanics & braking","prescription":"Shuffle, carioca, backpedal; plant-and-cut @ 80%; lateral STOP drills 3×4/side.","track":true},{"name":"Strength — total body","prescription":"Bulgarian split squat 3×8/leg; single-arm row 3×10/side.","track":true},{"name":"Loaded carries","prescription":"Front-rack carry 3×30 m; bear-hug carry 2×30 m.","track":true},{"name":"Core","prescription":"Side plank 3×30 s/side; dead bug 3×10. Then breathing.","track":true}]},{"day":6,"title":"Energy System","type":"working","est":{"full":"50–55 min","crunch":"—"},"crunch":"","items":[{"name":"Choice A — aerobic power","prescription":"10 × 3 min moderate-hard / 1 min easy. Even, repeatable pace.","track":true},{"name":"Choice B — VO2 intro (wk 3+)","prescription":"4x4: 4 min hard / 4 min easy × 4.","track":true},{"name":"Carry conditioning (optional)","prescription":"4 × 40 m sandbag or sled carry, 60–90 s rest.","track":true},{"name":"Finish","prescription":"5 min down-regulation breathing.","track":false}]},{"day":7,"title":"True Recovery","type":"recovery","est":{"full":"rest / 60–90 min easy","crunch":"—"},"crunch":"","items":[{"name":"Option","prescription":"Rest, or 60–90 min easy Zone 2 hike/ruck.","track":false},{"name":"AMCC (footnote)","prescription":"Optional: one safe, loathed task. Not required.","track":false}]}],"b2":[{"day":1,"title":"Lower Speed-Strength","type":"high-cns","est":{"full":"90–105 min","crunch":"~65 min"},"crunch":"KEEP: sled+free sprint · squat 4×4 · box jump · Nordic · altitude drops. CUT: strength-speed block, halve plyo.","items":[{"name":"Warm-up + foot prep","prescription":"Dynamic + lower CARs + pogos + ramp sets.","track":false},{"name":"Acceleration","prescription":"Sled sprints 4×20 m + free 4×20 m @ 95%, full recovery.","track":true},{"name":"Plyo — intensive","prescription":"Box jump 4×3 (step down); broad jump 4×3; single-leg bound 3×4/leg.","track":true},{"name":"Main lift — squat (3-5)","prescription":"Back/front squat 4×4 heavy, 3–5 min rest, MAX intent.","track":true},{"name":"Strength-speed","prescription":"Trap-bar jump or speed DL 5×3 @ ~40–55% (fast).","track":true},{"name":"Eccentric resilience","prescription":"Nordic 4×5 (fuller range); weighted calf eccentric 3×8.","track":true},{"name":"Deceleration","prescription":"Altitude drops from box 3×4 (stick & hold); single-leg braking 3×3/side.","track":true},{"name":"Core","prescription":"Anti-rotation chop 3×8/side. Breathing.","track":true}]},{"day":2,"title":"Aerobic + Tissue","type":"working","est":{"full":"60–75 min","crunch":"~50 min"},"crunch":"30 min Zone 2 + foot block + 2 tendon holds.","items":[{"name":"Zone 2","prescription":"45 min (maintenance dose).","track":true},{"name":"Tendon isometrics","prescription":"Split-squat & spanish-squat 4×35 s @ 70%; overcoming iso (push into pins) 3×5 s hard.","track":true},{"name":"Foot & ankle","prescription":"Short-foot + single-leg balance (eyes-closed progression) + loaded ankle stiffness hops.","track":true},{"name":"Tibialis/neck/CARs","prescription":"Tib 3×20; iso neck 3×20 s; full CARs.","track":true}]},{"day":3,"title":"Upper Power-Strength","type":"high-cns","est":{"full":"90–105 min","crunch":"~65 min"},"crunch":"KEEP: med-ball · bench 4×4 · pull-up 4×4 · 1 heavy carry. CUT: ballistic push, OH press.","items":[{"name":"Rotational power","prescription":"Rotational throw 4×4/side higher output; overhead throw for distance 4×3.","track":true},{"name":"Ballistic push","prescription":"Push press or speed bench 5×3 @ ~50–60% (fast).","track":true},{"name":"Main push (3-5)","prescription":"Bench / weighted dip 4×4 heavy, 3–5 min rest.","track":true},{"name":"Main pull (3-5)","prescription":"Weighted pull-up 4×4; heavy row 4×5.","track":true},{"name":"Accessory","prescription":"OH press 3×6; face pulls 3×15.","track":true},{"name":"Loaded carry — heavy","prescription":"Heavy farmer 4×30 m; overhead carry 3×20 m.","track":true},{"name":"Grip & neck","prescription":"Thick-bar hold; neck harness 3×15. Breathing.","track":true}]},{"day":4,"title":"Regeneration","type":"easy","est":{"full":"30–40 min","crunch":"—"},"crunch":"","items":[{"name":"Mobility","prescription":"Full flow + targeted stretch toward 5 min/muscle/week.","track":false},{"name":"Optional heat/cold","prescription":"Away from lifting.","track":false},{"name":"Breathing","prescription":"Down-regulation.","track":false}]},{"day":5,"title":"Speed + Agility + Strength","type":"high-cns","est":{"full":"90–105 min","crunch":"~60 min"},"crunch":"KEEP: fly runs · reactive drill · split squat · 1 carry. CUT: pre-planned agility volume, single-arm push.","items":[{"name":"Speed — max velocity","prescription":"Fly runs 4×20 m (20 m build-in). Top-end speed, full recovery.","track":true},{"name":"Agility — reactive intro","prescription":"Mirror drill vs. partner 4×8 s; cue-based 3-cone; pre-planned 5-10-5 @ 90%.","track":true},{"name":"Strength — total body","prescription":"Front-foot-elevated split squat 4×6/leg; single-arm push 3×8.","track":true},{"name":"Loaded carries","prescription":"Sandbag carry 4×40 m; suitcase carry 3×30 m/side.","track":true},{"name":"Core","prescription":"Anti-lateral carry + hanging leg raise 3×10. Breathing.","track":true}]},{"day":6,"title":"Energy System","type":"working","est":{"full":"50–55 min","crunch":"—"},"crunch":"","items":[{"name":"VO2 main","prescription":"4x4 — 4 min hardest sustainable / 4 min easy × 4.","track":true},{"name":"Glycolytic power","prescription":"6 × 2 min hard / 2 min easy — even pacing.","track":true},{"name":"Finish","prescription":"Breathing.","track":false}]},{"day":7,"title":"True Recovery","type":"recovery","est":{"full":"rest / easy 60–75 min","crunch":"—"},"crunch":"","items":[{"name":"Option","prescription":"Rest or easy 60–75 min Zone 2.","track":false},{"name":"AMCC (footnote)","prescription":"Optional loathed task.","track":false}]}],"b3":[{"day":1,"title":"Lower Power (contrast)","type":"high-cns","est":{"full":"75–90 min","crunch":"~65 min"},"crunch":"KEEP: max-V fly · contrast pair A · depth jumps · Nordic · sprint→stop. CUT: resisted/assisted runs, halve core.","items":[{"name":"Warm-up + foot prep","prescription":"Dynamic + pogos + ramp.","track":false},{"name":"Speed — max velocity","prescription":"Fly 4×20–30 m; one resisted + one assisted run.","track":true},{"name":"Contrast pair A","prescription":"Heavy squat 3×3 @ ~85% → 30 s → box/broad jump 3×3.","track":true},{"name":"Reactive plyo (shock)","prescription":"Depth jump from low box 4×3 — minimal contact, FULL recovery.","track":true},{"name":"Resilience","prescription":"Nordic 3×5 (full range); calf/Achilles eccentric 3×8.","track":true},{"name":"Deceleration","prescription":"Sprint→stop 4×4 (decelerate from 90% in 2–3 steps); single-leg landings.","track":true},{"name":"Core","prescription":"Rotational med-ball + anti-rotation 3×6/side. Breathing.","track":true}]},{"day":2,"title":"Aerobic + Tissue (maintenance)","type":"working","est":{"full":"45–60 min","crunch":"~45 min"},"crunch":"25–30 min Zone 2 + foot block + 2 holds.","items":[{"name":"Zone 2","prescription":"35–45 min to hold the base.","track":true},{"name":"Isometrics","prescription":"Split-squat & spanish-squat 3×40 s.","track":true},{"name":"Foot & ankle","prescription":"Reactive: low pogos + single-leg hops + balance perturbations.","track":true},{"name":"Neck/CARs","prescription":"Iso neck; full CARs.","track":true}]},{"day":3,"title":"Upper Power (contrast)","type":"high-cns","est":{"full":"75–90 min","crunch":"~60 min"},"crunch":"KEEP: med-ball · bench contrast · pull contrast · 1 carry. CUT: accessories.","items":[{"name":"Rotational power","prescription":"Rotational + scoop + overhead throws 5×3, max output.","track":true},{"name":"Contrast pair","prescription":"Heavy bench 3×3 @ ~85% → 30 s → plyo push-up 3×4.","track":true},{"name":"Pull power","prescription":"Heavy pull-up 3×3 → band-resisted fast row 3×5.","track":true},{"name":"Accessory (low volume)","prescription":"OH press 2×6; face pulls 2×15.","track":true},{"name":"Loaded carry","prescription":"Max farmer hold/carry 3×30 m; overhead carry 2×20 m.","track":true},{"name":"Neck","prescription":"2×15. Breathing.","track":true}]},{"day":4,"title":"Regeneration","type":"easy","est":{"full":"30–40 min","crunch":"—"},"crunch":"","items":[{"name":"Mobility & stretch","prescription":"Full flow; extra soft-tissue this block.","track":false},{"name":"Optional heat/cold","prescription":"Away from lifting.","track":false},{"name":"Breathing","prescription":"Down-regulation.","track":false}]},{"day":5,"title":"Speed + Reactive Agility + Strength (maintain)","type":"high-cns","est":{"full":"75–90 min","crunch":"~60 min"},"crunch":"KEEP: reactive sprint · reactive agility+throw · 1 carry medley. CUT: extra strength to 2 moves.","items":[{"name":"Speed — reactive","prescription":"Start on a visual/audio cue 6×15 m, full recovery.","track":true},{"name":"Agility — full reactive, multi-planar","prescription":"Partner/light mirror 5×8 s; multi-plane cut-and-go finishing with a med-ball throw.","track":true},{"name":"Strength maintenance","prescription":"Split squat 3×5/leg; single-arm pull 3×6. Lower volume, keep load.","track":true},{"name":"Loaded carries","prescription":"Mixed-carry medley: farmer→front-rack→overhead, 3 rounds × 20 m each.","track":true},{"name":"Core","prescription":"Anti-rotation + rotational power. Breathing.","track":true}]},{"day":6,"title":"Energy System (alactic + repeat-effort)","type":"working","est":{"full":"50–55 min","crunch":"—"},"crunch":"","items":[{"name":"Alactic power","prescription":"8 × 8 s max effort (hill/bike/sled), 60–90 s FULL recovery — no fade.","track":true},{"name":"Repeat-sprint ability","prescription":"6 × 40 m @ ~95% on 30 s.","track":true},{"name":"Tactical carry medley (optional)","prescription":"Sandbag + sled medley for time, 3–4 rounds.","track":true},{"name":"Maintenance VO2","prescription":"Optional short 4x4 every other week. Breathing.","track":true}]},{"day":7,"title":"Recovery / Test Prep","type":"recovery","est":{"full":"rest / easy","crunch":"—"},"crunch":"","items":[{"name":"Option","prescription":"Rest or easy Zone 2.","track":false},{"name":"Week 12","prescription":"Taper: drop volume, keep intensity, sleep-bank, then RETEST the battery.","track":false}]}]},"library":[{"title":"Energy Systems","color":"#166534","sections":[{"heading":"The three systems","rows":[["Alactic / Phosphagen","6–12 s, near-max, 1:10–20 rest. Pure power, speed, jumps, throws (ATP-PC)."],["Glycolytic / Anaerobic","20 s–2 min, hard, 1:1–1:3. Repeat-effort capacity, lactate tolerance."],["Aerobic — Zone 2","30–90 min conversational. Mitochondria, fat use, recovery between efforts."],["Aerobic — VO2 (Zone 5)","3–5 min reps, hardest sustainable, 1:1 (4x4). Aerobic ceiling."]],"notes":[]},{"heading":"Hinshaw method","rows":[],"notes":["Manipulate distance/time/rest/intensity to raise your maximum sustainable pace.","Progressions: 10×3/1 (capacity) → 6×2/2 (power) → 8×8 s/60–90 s (alactic).","Even, repeatable splits beat a fast start and a fade. Fatigue is the ceiling, not intensity."]}]},{"title":"Speed & Power","color":"#5B21B6","sections":[{"heading":"Weekly sprint structure","rows":[["Day A — Acceleration","10–30 m. Push the ground back; aggressive shin angle. (Day 1)"],["Day B — Max velocity","40–80 m via fly runs. Tall posture, front-side mechanics. (Day 5)"],["Volume","~150–300 m of true sprinting/session, FULL recovery. Never let it become conditioning."]],"notes":[]},{"heading":"Plyometric ladder","rows":[["Stage 1 — Extensive (B1)","Many low-intensity contacts: pogos, hops, skips, low step-offs."],["Stage 2 — Intensive (B2)","Max-effort jumps: box, broad, single-leg bound, hurdle hops."],["Stage 3 — Reactive/Shock (B3)","Depth jumps, drop-to-bound. Low volume, full recovery."]],"notes":[]},{"heading":"Force–velocity curve","rows":[],"notes":["Max strength → strength-speed → speed-strength → reactive/contrast.","Even under heavy load, INTEND to move explosively (recruits high-threshold motor units)."]}]},{"title":"Rotational Power","color":"#5B21B6","sections":[{"heading":"Throw menu","rows":[["Rotational throw (side)","Side-on to wall, load hip, fire ball in. 4–5×3–4/side, max intent."],["Scoop toss","Backward/forward scoop, total-body extension. 4×3."],["Overhead slam","Vertical power + anterior-core decel. 3–5×5."],["Side toss / shotput","Horizontal rotational projection (punch/push pattern). 4×3/side."]],"notes":[]},{"heading":"Programming","rows":[],"notes":["Light enough to throw FAST (6–12 lb). Velocity is the goal, not fatigue.","Low volume: 12–20 quality throws, full recovery. Stop when speed drops.","Placement: early Day 3; 'power on exit' to reactive agility Day 5."]}]},{"title":"Loaded Carries","color":"#78350F","sections":[{"heading":"Carry menu","rows":[["Farmer","Two heavy handles. Grip, trunk, traps, gait. Heavy & short."],["Suitcase","One side only. Anti-lateral-flexion; exposes asymmetry."],["Front-rack","At shoulders. Upright posture, anterior core, breathing under load."],["Sandbag","Awkward, shifting. Closest to real-world/occupational lifting."],["Bear-hug","Max anterior load hugged to chest. Brutal core & grip."],["Overhead","Locked overhead. Shoulder stability, t-spine, full-body tension."]],"notes":[]},{"heading":"Programming","rows":[],"notes":["2–3×/week (Days 3 & 5, optional Day 6). A staple like sprinting.","B1 build pattern/grip → B2 go heavy (doubles as conditioning) → B3 medleys for time.","Progress ONE knob at a time: load, distance, time-under-load, or rest. Keep posture."]}]},{"title":"Foot & Ankle","color":"#0E7490","sections":[{"heading":"The block (10 min, Day 2 + warm-ups)","rows":[["Short-foot","Dome the arch without curling toes. 3×30 s/side."],["Toe spreading","Splay & lift big toe vs little toes independently."],["Tibialis raises","3×15–20. Shin — knee tracking & landing resilience."],["Single-leg balance","30–60 s/side; progress eyes-closed, then perturbation."],["Ankle stiffness / pogos","Stiff-ankle pogos & quick low hops — fast spring."],["Knee-to-wall","2×10/side. Restores dorsiflexion for squat/cut/decel."],["Barefoot","Warm-ups, balance & light pogos barefoot where safe."]],"notes":[]}]},{"title":"Durability & Joints","color":"#0E7490","sections":[{"heading":"Tendon & ligament (Bozada/Baar)","rows":[],"notes":["Long-duration isometrics: 30–45 s @ 60–70%. Collagen synthesis in avascular tissue.","Holds: deep split-squat, spanish squat, mid chin-up, dead hang. 2–3×/week year-round.","Overcoming isometrics: push/pull into a pin 3–5×5 s hard for stiffness & RFD (B2)."]},{"heading":"Eccentric resilience","rows":[],"notes":["Hamstrings: Nordic, assisted 3×4 → full 3×5.","Calf/Achilles: slow 3-s eccentric heel drops, weighted.","Patellar: spanish-squat iso + slow-tempo squats."]},{"heading":"Symmetry","rows":[],"notes":["Unilateral work every block. Compare sides; flag >10–15% gaps.","Anti-rotation core (Pallof, chops, suitcase carries). Train neck & grip."]}]},{"title":"Agility & Deceleration","color":"#5B21B6","sections":[{"heading":"Deceleration & landing (train as hard as accel)","rows":[["Snap-downs","Tall → snap into absorbing stance. 3×5."],["Stick landings","Jump/hop, freeze 2 s, perfect alignment. 3×4."],["Altitude drops","Step off low box, absorb & hold. 3×4."],["Sprint → stop","To ~90%, stop in 2–3 steps. 4×4."],["Lateral stop","Shuffle/bound, plant & stop on outside leg. 3×4/side."],["Single-leg braking","Hop & absorb on ONE leg. 3×3/side."]],"notes":[]},{"heading":"Progression","rows":[],"notes":["B1 mechanics & braking → B2 pre-planned + reactive intro → B3 full reactive + power on exit.","Most non-contact ACL/ankle injuries happen during decel & landing — train brakes first.","Combat/grappling: OCCASIONAL light game, not a pillar (high injury & fatigue cost)."]}]},{"title":"Mobility & Warm-up","color":"#166534","sections":[{"heading":"Daily CARs","rows":[],"notes":["One slow rotation each direction per joint. 2–3 min. Morning or pre-session primer."]},{"heading":"Pre-session dynamic (8–12 min)","rows":[],"notes":["5 min easy aerobic; leg swings, lunges w/ rotation, inchworms; foot + banded activation; ramp sets/strides."]},{"heading":"Post-session static (Huberman)","rows":[],"notes":["~5 min/muscle/week in 30–60 s holds. After training, not before explosive work.","Priority: hip flexors, hamstrings, calves, chest/lats, thoracic."]}]},{"title":"Recovery & Fuel","color":"#166534","sections":[{"heading":"Why longevity stays central","rows":[],"notes":["Training gives ~90% of the FUNCTIONAL benefit, not disease prevention.","Sprinting doesn't lower ApoB/Lp(a). Lipid & metabolic management is the top lever — dietary/medical, not trainable."]},{"heading":"Sleep","rows":[],"notes":["7–9 h (toward 9 in hard blocks). Finish intensity by ~4–6 PM. Bank sleep before shift rotations."]},{"heading":"Breathing","rows":[],"notes":["Physiological sigh between hard sets. 3–5 min slow exhale-emphasized breathing after every session."]},{"heading":"Fuel","rows":[],"notes":["~1 g protein/lb. Carbs around hardest sessions, less on easy days. Protein+carbs post-session."]},{"heading":"Biomarkers","rows":[],"notes":["ApoB, Lp(a), fasting insulin/glucose, Vit D, ferritin, Omega-3, hormones. Check before adding training."]}]}],"tests":[{"cat":"Speed","name":"10 m sprint","unit":"s","lower":true,"note":"Acceleration."},{"cat":"Speed","name":"40 yd / 40 m sprint","unit":"s","lower":true,"note":"Top-end speed."},{"cat":"Power","name":"Vertical jump","unit":"in","lower":false,"note":"Countermovement, best of 3."},{"cat":"Power","name":"Broad jump","unit":"in","lower":false,"note":"Best of 3."},{"cat":"Power","name":"Rotational med-ball throw","unit":"ft","lower":false,"note":"Best per side."},{"cat":"Strength","name":"Trap-bar deadlift 3RM","unit":"lb","lower":false,"note":"Lower-body max."},{"cat":"Strength","name":"Weighted pull-up 3RM","unit":"lb added","lower":false,"note":"Relative upper pull."},{"cat":"Conditioning","name":"1.5 mile run","unit":"sec","lower":true,"note":"Enter seconds."},{"cat":"Conditioning","name":"6-minute run","unit":"m","lower":false,"note":"Distance covered."},{"cat":"Conditioning","name":"Repeat-sprint (avg 6×40 m)","unit":"s","lower":true,"note":"Repeat-effort capacity."},{"cat":"Tactical","name":"Farmer carry max / 40 m","unit":"lb","lower":false,"note":"Grip + trunk + gait."},{"cat":"Tactical","name":"Sandbag carry","unit":"load/time","lower":false,"note":"Awkward-load capacity."},{"cat":"Tactical","name":"Sled drag / 40 m","unit":"s","lower":true,"note":"Horizontal force."},{"cat":"Durability","name":"Single-leg balance (eyes closed)","unit":"s","lower":false,"note":"Per side."},{"cat":"Durability","name":"Ankle mobility (knee-to-wall)","unit":"cm","lower":false,"note":"Per side; compare."},{"cat":"Durability","name":"Shoulder mobility (gap)","unit":"cm","lower":true,"note":"Reach behind back; compare sides."},{"cat":"Durability","name":"Hip internal rotation","unit":"deg","lower":false,"note":"Per side; flag asymmetry."},{"cat":"Durability","name":"Dead hang","unit":"s","lower":false,"note":"Grip endurance."}]};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function hexToRgba(hex, a) {
+  var h = hex.replace('#', '');
+  if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  var r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+  return 'rgba('+r+','+g+','+b+','+a+')';
+}
+function parseCrunch(str) {
+  if (!str) return null;
+  var hasKeep = /KEEP:/i.test(str);
+  if (!hasKeep) return { keep:'', cut:'', single:str };
+  var keep='', cut='';
+  var km = str.match(/KEEP:\s*([\s\S]*?)(?:CUT:|$)/i);
+  var cm = str.match(/CUT:\s*([\s\S]*)$/i);
+  if (km) keep = km[1].trim().replace(/\.$/, '');
+  if (cm) cut = cm[1].trim();
+  return { keep:keep, cut:cut, single:'' };
+}
+function el(tag, props, ...children) {
+  var e = document.createElement(tag);
+  if (props) {
+    for (var k in props) {
+      if (k === 'style' && typeof props[k] === 'object') Object.assign(e.style, props[k]);
+      else if (k.startsWith('on')) e.addEventListener(k.slice(2).toLowerCase(), props[k]);
+      else if (k === 'className') e.className = props[k];
+      else if (k === 'htmlFor') e.htmlFor = props[k];
+      else if (k === 'value' && (tag === 'input' || tag === 'textarea')) e.value = props[k] || '';
+      else if (k === 'placeholder') e.placeholder = props[k];
+      else if (k === 'type') e.type = props[k];
+      else if (k === 'min') e.min = props[k];
+      else if (k === 'max') e.max = props[k];
+      else if (k === 'step') e.step = props[k];
+      else if (k === 'accept') e.accept = props[k];
+      else if (k === 'inputmode') e.inputMode = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+  }
+  children.forEach(function(c) {
+    if (c == null || c === false) return;
+    if (typeof c === 'string' || typeof c === 'number') e.appendChild(document.createTextNode(c));
+    else if (c instanceof Node) e.appendChild(c);
+  });
+  return e;
+}
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+var state = {
+  tab: 'today',
+  week: 1,
+  day: 1,
+  isDark: false,
+  logs: {},
+  tests: {},
+  openLib: {},
+  saved: false,
+  _savedTimer: null
+};
+
+function setState(patch) {
+  Object.assign(state, typeof patch === 'function' ? patch(state) : patch);
+  render();
+}
+
+// ─── PERSISTENCE ─────────────────────────────────────────────────────────────
+function lkey() { return 'w'+state.week+':d'+state.day; }
+
+var _persistLogTimer = null;
+function persistLog(key) {
+  clearTimeout(_persistLogTimer);
+  _persistLogTimer = setTimeout(function() {
+    try { localStorage.setItem('tactical:log:'+key, JSON.stringify(state.logs[key]||{})); } catch(e){}
+    flashSaved();
+  }, 350);
+}
+var _persistTestTimer = null;
+function persistTests() {
+  clearTimeout(_persistTestTimer);
+  _persistTestTimer = setTimeout(function() {
+    try { localStorage.setItem('tactical:tests', JSON.stringify(state.tests||{})); } catch(e){}
+    flashSaved();
+  }, 350);
+}
+function flashSaved() {
+  state.saved = true;
+  render();
+  clearTimeout(state._savedTimer);
+  state._savedTimer = setTimeout(function() { state.saved = false; render(); }, 1100);
+}
+
+function loadAll() {
+  var logs = {}, tests = {};
+  try {
+    for (var w=1; w<=12; w++) for (var d=1; d<=7; d++) {
+      var raw = localStorage.getItem('tactical:log:w'+w+':d'+d);
+      if (raw) logs['w'+w+':d'+d] = JSON.parse(raw);
+    }
+  } catch(e){}
+  try { var t = localStorage.getItem('tactical:tests'); if(t) tests = JSON.parse(t); } catch(e){}
+  return { logs:logs, tests:tests };
+}
+function firstUnlogged(logs) {
+  for (var w=1; w<=12; w++) for (var d=1; d<=7; d++) {
+    var l = logs['w'+w+':d'+d];
+    if (!l || !l.complete) return {week:w, day:d};
+  }
+  return {week:12, day:7};
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+function updateItem(i, field, val) {
+  var key = lkey();
+  var logs = Object.assign({}, state.logs);
+  var log = Object.assign({items:{}}, logs[key]);
+  log.items = Object.assign({}, log.items);
+  log.items[i] = Object.assign({}, log.items[i]);
+  log.items[i][field] = val;
+  logs[key] = log;
+  state.logs = logs;
+  persistLog(key);
+  render();
+}
+function cycleStatus(i) {
+  var key = lkey();
+  var cur = ((state.logs[key]||{}).items||{})[i] || {};
+  var order = ['not-started','done','failed'];
+  var idx = order.indexOf(cur.status||'not-started');
+  updateItem(i, 'status', order[(idx+1)%3]);
+}
+function setNotes(val) {
+  var key = lkey();
+  var logs = Object.assign({}, state.logs);
+  var log = Object.assign({items:{}}, logs[key]);
+  log.notes = val; logs[key] = log;
+  state.logs = logs;
+  persistLog(key);
+}
+function toggleComplete() {
+  var key = lkey();
+  var logs = Object.assign({}, state.logs);
+  var log = Object.assign({items:{}}, logs[key]);
+  log.complete = !log.complete;
+  log.ts = log.complete ? Date.now() : log.ts;
+  logs[key] = log; state.logs = logs;
+  persistLog(key);
+  render();
+}
+function setCrunchMode(on) {
+  var key = lkey();
+  var logs = Object.assign({}, state.logs);
+  var log = Object.assign({items:{}}, logs[key]);
+  log.crunch = on; logs[key] = log;
+  state.logs = logs;
+  persistLog(key);
+  render();
+}
+function setTest(idx, col, val) {
+  var tests = Object.assign({}, state.tests);
+  var r = Object.assign({}, tests[idx]); r[col] = val; tests[idx] = r;
+  state.tests = tests;
+  persistTests();
+}
+function toggleLib(i) {
+  var o = Object.assign({}, state.openLib);
+  var cur = (i in o) ? o[i] : (i===0);
+  o[i] = !cur; state.openLib = o;
+  render();
+}
+function goto(w, d) { state.week=w; state.day=d; state.tab='today'; render(); }
+function stepWeek(n) { state.week = Math.min(12, Math.max(1, state.week+n)); render(); }
+
+// ─── BACKUP / RESTORE ────────────────────────────────────────────────────────
+var _fileInput = null;
+function exportBackup() {
+  var data = {};
+  try {
+    for (var i=0; i<localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf('tactical:')===0) data[k] = localStorage.getItem(k);
+    }
+  } catch(e){}
+  var payload = { app:'tactical-trainer', version:1, exportedAt:new Date().toISOString(), data:data };
+  try {
+    var blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href=url; a.download='tactical-trainer-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ try{document.body.removeChild(a);}catch(e){} URL.revokeObjectURL(url); }, 0);
+    flashSaved();
+  } catch(e){ try{window.alert('Export failed.');}catch(_){} }
+}
+function triggerImport() { if (_fileInput) _fileInput.click(); }
+function handleImportFile(e) {
+  var file = e.target.files && e.target.files[0];
+  if (!file) return;
+  var input = e.target;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      var parsed = JSON.parse(ev.target.result);
+      var bucket = (parsed && parsed.data && typeof parsed.data==='object') ? parsed.data : parsed;
+      var keys = Object.keys(bucket||{}).filter(function(k){ return k.indexOf('tactical:')===0; });
+      if (!keys.length) throw new Error('no-keys');
+      if (!window.confirm('Restore this backup? It will replace your current training data on this device.')) { input.value=''; return; }
+      var toRemove = [];
+      for (var i=0; i<localStorage.length; i++) { var k=localStorage.key(i); if(k&&k.indexOf('tactical:')===0) toRemove.push(k); }
+      toRemove.forEach(function(k){ localStorage.removeItem(k); });
+      keys.forEach(function(k){
+        var v = bucket[k];
+        localStorage.setItem(k, typeof v==='string' ? v : JSON.stringify(v));
+      });
+      var loaded = loadAll();
+      var fu = firstUnlogged(loaded.logs);
+      state.logs = loaded.logs; state.tests = loaded.tests;
+      state.week = fu.week; state.day = fu.day;
+      flashSaved();
+      render();
+    } catch(err){ try{window.alert('Could not read that file — make sure it is a Tactical Trainer backup (.json).');}catch(_){} }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+var _renderScheduled = false;
+function render() {
+  if (_renderScheduled) return;
+  _renderScheduled = true;
+  requestAnimationFrame(function() {
+    _renderScheduled = false;
+    _render();
+  });
+}
+
+function _render() {
+  var s = state;
+  var dark = s.isDark;
+  var T = dark
+    ? {bg:'#0c0a09',card:'#1a1715',card2:'#23201d',text:'#f5f4f2',sub:'#a8a29e',faint:'#6f6862',border:'#2c2723',green:'#34d399',red:'#f87171',inBg:'#100d0b'}
+    : {bg:'#f3f1ed',card:'#ffffff',card2:'#faf8f5',text:'#1c1917',sub:'#6b6560',faint:'#aaa39c',border:'#e8e4df',green:'#15803d',red:'#c0392b',inBg:'#ffffff'};
+
+  var wi = PROGRAM.weeks[(s.week||1)-1] || PROGRAM.weeks[0];
+  var block = PROGRAM.blocks.filter(function(b){return b.id===wi.blockId;})[0] || PROGRAM.blocks[0];
+  var baseAccent = block.color;
+  var accent = wi.deload ? (dark?'#8c857c':'#9c948b') : baseAccent;
+  var accentSoft = hexToRgba(accent, dark?0.20:0.10);
+  var accentBorder = hexToRgba(accent, dark?0.40:0.22);
+  var sess = PROGRAM.sessions[wi.blockId][(s.day||1)-1];
+  var key = 'w'+s.week+':d'+s.day;
+  var log = s.logs[key] || {};
+  var crunchMode = !!log.crunch;
+  var estDisplay = (crunchMode && sess.est.crunch && sess.est.crunch!=='—') ? sess.est.crunch : sess.est.full;
+  var complete = !!log.complete;
+
+  // Root container
+  var root = document.getElementById('app');
+  root.innerHTML = '';
+  Object.assign(root.style, {
+    minHeight:'100vh', background:T.bg, color:T.text,
+    WebkitFontSmoothing:'antialiased',
+    fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+  });
+
+  var shell = el('div', {style:{maxWidth:'480px',margin:'0 auto',minHeight:'100vh',position:'relative',paddingBottom:'88px'}});
+  root.appendChild(shell);
+
+  // ── HEADER ──
+  var header = el('div', {style:{
+    position:'sticky',top:0,zIndex:10,background:T.bg,
+    borderBottom:'1px solid '+T.border,padding:'13px 16px 11px'
+  }});
+
+  var brandRow = el('div', {style:{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'10px'}},
+    el('div', {style:{fontSize:'15px',fontWeight:700,letterSpacing:'-.01em'}}, PROGRAM.meta.title),
+    el('div', {style:{fontSize:'11px',fontWeight:600,color:T.green,opacity:s.saved?1:0,transition:'opacity .2s'}}, 'Saved ✓')
+  );
+  header.appendChild(brandRow);
+
+  if (s.tab === 'today') {
+    var weekStep = el('div', {style:{display:'flex',alignItems:'center',gap:'8px',marginBottom:'10px'}},
+      el('button', {
+        style:{width:'40px',height:'40px',flexShrink:0,borderRadius:'10px',background:T.card2,border:'1px solid '+T.border,color:T.text,fontSize:'22px',lineHeight:1,display:'flex',alignItems:'center',justifyContent:'center'},
+        onClick:function(){ stepWeek(-1); }
+      }, '‹'),
+      el('div', {style:{flex:1,textAlign:'center',minWidth:0}},
+        el('div', {style:{fontSize:'15px',fontWeight:700,color:accent,letterSpacing:'-.01em'}}, 'Week '+s.week+' · '+wi.phase),
+        el('div', {style:{fontSize:'11.5px',color:T.sub,marginTop:'1px'}}, block.name+' — '+block.subtitle)
+      ),
+      el('button', {
+        style:{width:'40px',height:'40px',flexShrink:0,borderRadius:'10px',background:T.card2,border:'1px solid '+T.border,color:T.text,fontSize:'22px',lineHeight:1,display:'flex',alignItems:'center',justifyContent:'center'},
+        onClick:function(){ stepWeek(1); }
+      }, '›')
+    );
+    header.appendChild(weekStep);
+
+    // Day pills
+    var dayRow = el('div', {style:{display:'flex',gap:'6px'}});
+    for (var d=1; d<=7; d++) {
+      (function(dd){
+        var ds = PROGRAM.sessions[wi.blockId][dd-1];
+        var active = dd===s.day;
+        var isHard = ds.type==='high-cns';
+        var pill = el('button', {
+          style:{
+            flex:1,height:'46px',borderRadius:'11px',display:'flex',flexDirection:'column',
+            alignItems:'center',justifyContent:'center',gap:'4px',
+            background:active?accent:T.card2, border:'1px solid '+(active?accent:T.border)
+          },
+          onClick:function(){ state.day=dd; render(); }
+        },
+          el('span', {style:{fontSize:'14px',fontWeight:700,color:active?'#fff':T.text}}, String(dd)),
+          el('span', {style:{width:'5px',height:'5px',borderRadius:'50%',display:'block',background:active?'rgba(255,255,255,.75)':(isHard?baseAccent:T.faint)}})
+        );
+        dayRow.appendChild(pill);
+      })(d);
+    }
+    header.appendChild(dayRow);
+  }
+  shell.appendChild(header);
+
+  // ── CONTENT ──
+  var content = el('div', {style:{padding:'16px'}});
+
+  if (s.tab === 'today') {
+    var typeMap = {'high-cns':'High CNS','working':'Working','easy':'Easy','recovery':'Recovery'};
+    var highCns = sess.type==='high-cns';
+    var typeBadgeLabel = typeMap[sess.type] || sess.type;
+
+    // Title row
+    var titleRow = el('div', {style:{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:'12px',marginBottom:'12px'}},
+      el('div', {style:{minWidth:0}},
+        el('div', {style:{fontSize:'22px',fontWeight:800,letterSpacing:'-.02em',lineHeight:1.12}}, sess.title),
+        el('div', {style:{fontSize:'13px',color:T.sub,marginTop:'4px'}}, estDisplay+' · Day '+s.day)
+      ),
+      el('div', {style:{
+        fontSize:'11px',fontWeight:700,letterSpacing:'.06em',textTransform:'uppercase',
+        padding:'5px 9px',borderRadius:'7px',whiteSpace:'nowrap',flexShrink:0,
+        background:highCns?accentSoft:(dark?'#23201d':'#f0ede9'),
+        color:highCns?accent:T.sub,
+        border:'1px solid '+(highCns?accentBorder:T.border)
+      }}, typeBadgeLabel)
+    );
+    content.appendChild(titleRow);
+
+    // Focus banner
+    var banner = el('div', {style:{background:accentSoft,border:'1px solid '+accentBorder,borderRadius:'14px',padding:'14px',marginBottom:'10px'}},
+      el('div', {style:{fontSize:'14px',lineHeight:1.4,color:T.text,marginBottom:'12px',fontWeight:500}}, wi.focus),
+      el('div', {style:{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px'}},
+        el('div', {style:{background:dark?'rgba(0,0,0,.18)':'rgba(255,255,255,.6)',borderRadius:'9px',padding:'8px 9px'}},
+          el('div', {style:{fontSize:'8.5px',fontWeight:700,letterSpacing:'.05em',color:T.sub,lineHeight:1.25,marginBottom:'4px',minHeight:'22px'}}, 'MAIN LIFT'),
+          el('div', {style:{fontSize:'15px',fontWeight:800,color:accent,letterSpacing:'-.01em'}}, wi.mainLiftPct)
+        ),
+        el('div', {style:{background:dark?'rgba(0,0,0,.18)':'rgba(255,255,255,.6)',borderRadius:'9px',padding:'8px 9px'}},
+          el('div', {style:{fontSize:'8.5px',fontWeight:700,letterSpacing:'.05em',color:T.sub,lineHeight:1.25,marginBottom:'4px',minHeight:'22px'}}, 'RIR / REPS IN RESERVE'),
+          el('div', {style:{fontSize:'15px',fontWeight:800,color:accent,letterSpacing:'-.01em'}}, wi.rir)
+        ),
+        el('div', {style:{background:dark?'rgba(0,0,0,.18)':'rgba(255,255,255,.6)',borderRadius:'9px',padding:'8px 9px'}},
+          el('div', {style:{fontSize:'8.5px',fontWeight:700,letterSpacing:'.05em',color:T.sub,lineHeight:1.25,marginBottom:'4px',minHeight:'22px'}}, 'VOLUME'),
+          el('div', {style:{fontSize:'15px',fontWeight:800,color:accent,letterSpacing:'-.01em'}}, (wi.deload?'~':'')+wi.volumePct+'%')
+        )
+      )
+    );
+    content.appendChild(banner);
+
+    // Deload / test banners
+    if (wi.deload) {
+      content.appendChild(el('div', {style:{
+        background:dark?'#2a2410':'#fef6e0',border:'1px solid '+(dark?'#5c4a14':'#f0d896'),
+        color:dark?'#e9c96a':'#8a6a12',borderRadius:'12px',padding:'10px 13px',
+        fontSize:'13px',fontWeight:600,marginBottom:'10px'
+      }}, 'Deload week · ~'+wi.volumePct+'% volume — no failure, easy conditioning only.'));
+    }
+    if (wi.testWeek) {
+      var tb = el('button', {
+        style:{
+          display:'block',width:'100%',textAlign:'left',
+          background:dark?'#102a2e':'#e3f4f6',border:'1px solid '+(dark?'#1d5057':'#aadbe0'),
+          color:dark?'#7fd8e0':'#0a6470',borderRadius:'12px',padding:'11px 13px',
+          fontSize:'13px',fontWeight:700,marginBottom:'10px'
+        },
+        onClick:function(){ state.tab='testing'; render(); }
+      }, 'Testing week — log the battery →');
+      content.appendChild(tb);
+    }
+
+    // Mode toggle
+    var modeRow = el('div', {style:{
+      display:'flex',gap:'8px',background:T.card2,padding:'4px',
+      borderRadius:'12px',border:'1px solid '+T.border,marginBottom:'12px'
+    }});
+    function modeBtn(active) {
+      return {flex:1,padding:'10px',borderRadius:'9px',fontSize:'13.5px',fontWeight:700,
+        background:active?T.card:'transparent',color:active?accent:T.sub,
+        boxShadow:active?'0 1px 3px rgba(0,0,0,'+(dark?'.4':'.10')+')':'none'};
+    }
+    var fullBtn = el('button', {style:modeBtn(!crunchMode), onClick:function(){ setCrunchMode(false); }}, 'Full session');
+    var crunchBtn = el('button', {style:modeBtn(crunchMode), onClick:function(){ setCrunchMode(true); }}, '60-min crunch');
+    modeRow.appendChild(fullBtn); modeRow.appendChild(crunchBtn);
+    content.appendChild(modeRow);
+
+    // Crunch banner
+    var parsed = parseCrunch(sess.crunch);
+    if (crunchMode && parsed) {
+      var cb = el('div', {style:{
+        background:T.card2,border:'1px dashed '+T.border,borderRadius:'12px',
+        padding:'12px 13px',marginBottom:'12px',display:'flex',flexDirection:'column',gap:'9px'
+      }});
+      if (parsed.single) {
+        cb.appendChild(el('div', {style:{fontSize:'13px',lineHeight:1.45,color:T.text}}, parsed.single));
+      } else {
+        if (parsed.keep) {
+          cb.appendChild(el('div', {style:{fontSize:'13px',lineHeight:1.45,color:T.text}},
+            el('span', {style:{display:'inline-block',fontSize:'10px',fontWeight:800,letterSpacing:'.05em',
+              color:T.green,background:hexToRgba(T.green,0.14),padding:'2px 6px',borderRadius:'5px',
+              marginRight:'7px',verticalAlign:'1px'}}, 'KEEP'),
+            parsed.keep
+          ));
+        }
+        if (parsed.cut) {
+          cb.appendChild(el('div', {style:{fontSize:'13px',lineHeight:1.45,color:T.sub}},
+            el('span', {style:{display:'inline-block',fontSize:'10px',fontWeight:800,letterSpacing:'.05em',
+              color:T.red,background:hexToRgba(T.red,0.13),padding:'2px 6px',borderRadius:'5px',
+              marginRight:'7px',verticalAlign:'1px'}}, 'CUT'),
+            parsed.cut
+          ));
+        }
+      }
+      content.appendChild(cb);
+    }
+
+    // Exercise cards
+    sess.items.forEach(function(it, i) {
+      var li = (log.items||{})[i] || {};
+      var status = li.status || 'not-started';
+      var card = el('div', {style:{
+        background:T.card,border:'1px solid '+T.border,borderRadius:'14px',
+        padding:'15px',marginBottom:'10px'
+      }});
+      card.appendChild(el('div', {style:{fontSize:'16px',fontWeight:700,letterSpacing:'-.01em',marginBottom:'5px'}}, it.name));
+      card.appendChild(el('div', {style:{fontSize:'13.5px',lineHeight:1.5,color:T.sub}}, it.prescription));
+
+      if (it.track) {
+        var tw = el('div', {style:{marginTop:'13px',display:'flex',flexDirection:'column',gap:'11px'}});
+        var inp = el('input', {
+          type:'text', value:li.result||'',
+          placeholder:'Load / result — e.g. 225 lb, 8.2 s',
+          style:{width:'100%',padding:'12px 13px',fontSize:'16px',borderRadius:'10px',
+            background:T.inBg,border:'1px solid '+T.border,color:T.text},
+          onInput:(function(ii){ return function(e){ updateItem(ii,'result',e.target.value); }; })(i)
+        });
+        tw.appendChild(inp);
+
+        var hasRpe = (li.rpe != null);
+        var rpeRow = el('div', {style:{display:'flex',alignItems:'center',gap:'13px'}});
+        var slider = document.createElement('input');
+        slider.type='range'; slider.min=1; slider.max=10; slider.step=1;
+        slider.value = hasRpe ? li.rpe : 5;
+        Object.assign(slider.style, {flex:1,height:'24px',accentColor:accent});
+        (function(ii){ slider.addEventListener('input', function(e){ updateItem(ii,'rpe',parseInt(e.target.value,10)); }); })(i);
+        rpeRow.appendChild(slider);
+        rpeRow.appendChild(el('div', {style:{fontSize:'13px',fontWeight:700,color:hasRpe?accent:T.faint,width:'58px',textAlign:'right',flexShrink:0}}, hasRpe?('RPE '+li.rpe):'RPE —'));
+        tw.appendChild(rpeRow);
+
+        var sInfo = status==='done' ? {l:'Done',bg:T.green,fg:'#fff',bd:T.green}
+          : status==='failed' ? {l:'Failed',bg:T.red,fg:'#fff',bd:T.red}
+          : {l:'Tap to log: Done / Failed',bg:'transparent',fg:T.sub,bd:T.border};
+        var statusBtn = el('button', {
+          style:{width:'100%',padding:'11px',borderRadius:'10px',fontSize:'14px',fontWeight:700,
+            background:sInfo.bg,color:sInfo.fg,border:'1px solid '+sInfo.bd},
+          onClick:(function(ii){ return function(){ cycleStatus(ii); }; })(i)
+        }, sInfo.l);
+        tw.appendChild(statusBtn);
+        card.appendChild(tw);
+      } else {
+        var doneBtn = el('button', {
+          style:{marginTop:'13px',width:'100%',padding:'11px',borderRadius:'10px',fontSize:'14px',fontWeight:700,
+            background:li.done?accent:'transparent',color:li.done?'#fff':T.sub,
+            border:'1px solid '+(li.done?accent:T.border)},
+          onClick:(function(ii,ldone){ return function(){ updateItem(ii,'done',!ldone); }; })(i,!!li.done)
+        }, li.done?'Done ✓':'Mark done');
+        card.appendChild(doneBtn);
+      }
+      content.appendChild(card);
+    });
+
+    // Notes + complete card
+    var notesCard = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+    notesCard.appendChild(el('div', {style:{fontSize:'12px',fontWeight:700,letterSpacing:'.03em',textTransform:'uppercase',color:T.sub,marginBottom:'10px'}}, 'Session notes'));
+    var ta = document.createElement('textarea');
+    ta.value = log.notes||'';
+    ta.placeholder = 'How did it go? Pains, PRs, what to adjust next time…';
+    Object.assign(ta.style, {width:'100%',minHeight:'72px',padding:'12px 13px',fontSize:'15px',lineHeight:1.4,
+      borderRadius:'10px',background:T.inBg,border:'1px solid '+T.border,color:T.text,
+      marginBottom:'11px',display:'block',fontFamily:'inherit',resize:'none',outline:'none'});
+    ta.addEventListener('input', function(e){ setNotes(e.target.value); });
+    notesCard.appendChild(ta);
+    notesCard.appendChild(el('button', {
+      style:{width:'100%',padding:'14px',borderRadius:'11px',fontSize:'15px',fontWeight:700,
+        background:complete?T.green:accent,color:'#fff',border:'none'},
+      onClick:toggleComplete
+    }, complete?'Session complete ✓ — tap to undo':'Mark session complete'));
+    if (log.ts) {
+      notesCard.appendChild(el('div', {style:{fontSize:'12px',color:T.faint,marginTop:'9px',textAlign:'center'}},
+        'Logged '+new Date(log.ts).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})
+      ));
+    }
+    content.appendChild(notesCard);
+
+  } else if (s.tab === 'library') {
+    content.appendChild(el('div', {style:{fontSize:'24px',fontWeight:800,letterSpacing:'-.02em',marginBottom:'4px'}}, 'Reference Library'));
+    content.appendChild(el('div', {style:{fontSize:'13px',color:T.sub,lineHeight:1.45,marginBottom:'16px'}}, 'Your paper packet, on the phone.'));
+
+    PROGRAM.library.forEach(function(lib, i) {
+      var open = (i in s.openLib) ? s.openLib[i] : (i===0);
+      var card = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+      var hdr = el('button', {
+        style:{display:'flex',alignItems:'center',gap:'10px',width:'100%',textAlign:'left',background:'none',border:'none',cursor:'pointer',padding:0},
+        onClick:(function(ii){ return function(){ toggleLib(ii); }; })(i)
+      },
+        el('span', {style:{width:'9px',height:'9px',borderRadius:'2px',background:lib.color,flexShrink:0,display:'block'}}),
+        el('span', {style:{fontSize:'16px',fontWeight:700,letterSpacing:'-.01em',color:T.text,flex:1}}, lib.title),
+        el('span', {style:{marginLeft:'auto',fontSize:'18px',fontWeight:700,color:T.faint,width:'18px',textAlign:'center'}}, open?'–':'+')
+      );
+      card.appendChild(hdr);
+      if (open) {
+        var body = el('div', {style:{marginTop:'15px',display:'flex',flexDirection:'column',gap:'17px'}});
+        lib.sections.forEach(function(sec) {
+          var secEl = el('div', {});
+          secEl.appendChild(el('div', {style:{fontSize:'12px',fontWeight:700,letterSpacing:'.03em',textTransform:'uppercase',color:T.sub,marginBottom:'10px'}}, sec.heading));
+          (sec.rows||[]).forEach(function(row) {
+            secEl.appendChild(el('div', {style:{display:'flex',gap:'12px',padding:'8px 0',borderTop:'1px solid '+T.border}},
+              el('div', {style:{fontSize:'13.5px',fontWeight:700,width:'40%',flexShrink:0,lineHeight:1.4,color:T.text}}, row[0]),
+              el('div', {style:{fontSize:'13.5px',color:T.sub,lineHeight:1.45,flex:1}}, row[1])
+            ));
+          });
+          (sec.notes||[]).forEach(function(note) {
+            secEl.appendChild(el('div', {style:{display:'flex',gap:'9px',padding:'5px 0'}},
+              el('span', {style:{width:'5px',height:'5px',borderRadius:'50%',background:accent,marginTop:'7px',flexShrink:0,display:'block'}}),
+              el('span', {style:{fontSize:'13.5px',color:T.sub,lineHeight:1.5}}, note)
+            ));
+          });
+          body.appendChild(secEl);
+        });
+        card.appendChild(body);
+      }
+      content.appendChild(card);
+    });
+
+  } else if (s.tab === 'testing') {
+    content.appendChild(el('div', {style:{fontSize:'24px',fontWeight:800,letterSpacing:'-.02em',marginBottom:'4px'}}, 'Test Battery'));
+    content.appendChild(el('div', {style:{fontSize:'13px',color:T.sub,lineHeight:1.45,marginBottom:'16px'}}, 'Baseline Wk 1 · retest Wk 6 & 12. % vs baseline; green = improvement.'));
+
+    var cats=[], byCat={};
+    PROGRAM.tests.forEach(function(t, idx) {
+      if (!byCat[t.cat]) { byCat[t.cat]={cat:t.cat,items:[]}; cats.push(byCat[t.cat]); }
+      byCat[t.cat].items.push({t:t,idx:idx});
+    });
+    cats.forEach(function(grp) {
+      var card = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+      card.appendChild(el('div', {style:{fontSize:'12px',fontWeight:800,letterSpacing:'.05em',textTransform:'uppercase',color:accent,marginBottom:'12px'}}, grp.cat));
+      grp.items.forEach(function(item, gi) {
+        var t=item.t, idx=item.idx;
+        var r = s.tests[idx] || {};
+        var w1=r.w1||'', w6=r.w6||'', w12=r.w12||'';
+        var base=parseFloat(w1);
+        var lastStr=(w12!=='')?w12:(w6!==''?w6:'');
+        var last=parseFloat(lastStr);
+        var pctLabel='—', pctColor=T.faint;
+        if (!isNaN(base)&&!isNaN(last)&&base!==0) {
+          var ch=(last-base)/base*100;
+          var good = ch===0?null:(t.lower?ch<0:ch>0);
+          pctColor = good===null?T.faint:(good?T.green:T.red);
+          pctLabel=(ch>0?'+':'')+ch.toFixed(1)+'%';
+        }
+        var isLast = gi===grp.items.length-1;
+        var row = el('div', {style:{paddingBottom:'14px',marginBottom:isLast?0:'14px',borderBottom:isLast?'none':'1px solid '+T.border}});
+        row.appendChild(el('div', {style:{display:'flex',alignItems:'baseline',justifyContent:'space-between',gap:'10px'}},
+          el('div', {style:{fontSize:'15px',fontWeight:700,color:T.text}}, t.name),
+          el('div', {style:{fontSize:'13px',fontWeight:800,color:pctColor,flexShrink:0}}, pctLabel)
+        ));
+        row.appendChild(el('div', {style:{fontSize:'12px',color:T.faint,marginTop:'3px',marginBottom:'9px'}}, t.note+' · '+t.unit));
+        var inputs = el('div', {style:{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'7px'}});
+        [['w1','Wk 1',w1],['w6','Wk 6',w6],['w12','Wk 12',w12]].forEach(function(col) {
+          var inp = document.createElement('input');
+          inp.inputMode='decimal'; inp.value=col[2]; inp.placeholder=col[1];
+          Object.assign(inp.style, {width:'100%',padding:'10px 8px',fontSize:'16px',textAlign:'center',
+            borderRadius:'9px',background:T.inBg,border:'1px solid '+T.border,color:T.text,
+            fontFamily:'inherit',outline:'none'});
+          (function(ii,cc){ inp.addEventListener('input',function(e){ setTest(ii,cc,e.target.value); }); })(idx,col[0]);
+          inputs.appendChild(inp);
+        });
+        row.appendChild(inputs);
+        card.appendChild(row);
+      });
+      content.appendChild(card);
+    });
+
+  } else if (s.tab === 'progress') {
+    content.appendChild(el('div', {style:{fontSize:'24px',fontWeight:800,letterSpacing:'-.02em',marginBottom:'4px'}}, 'Progress'));
+
+    // Completed list
+    var completedList=[];
+    Object.keys(s.logs).forEach(function(k) {
+      var l=s.logs[k]; if(!l||!l.complete) return;
+      var m=k.match(/w(\d+):d(\d+)/); if(!m) return;
+      var w=+m[1],d=+m[2];
+      var winfo=PROGRAM.weeks[w-1]; var bl=PROGRAM.blocks.filter(function(b){return b.id===winfo.blockId;})[0];
+      var ses=PROGRAM.sessions[winfo.blockId][d-1];
+      completedList.push({week:w,day:d,title:ses.title,blockName:bl.name,ts:l.ts||0,color:bl.color,
+        dateStr:l.ts?new Date(l.ts).toLocaleDateString(undefined,{month:'short',day:'numeric'}):'—'});
+    });
+    completedList.sort(function(a,b){return b.ts-a.ts;});
+
+    var statRow = el('div', {style:{display:'flex',alignItems:'baseline',gap:'9px',marginBottom:'16px'}},
+      el('div', {style:{fontSize:'38px',fontWeight:800,letterSpacing:'-.03em',color:accent,lineHeight:1}}, String(completedList.length)),
+      el('div', {style:{fontSize:'14px',color:T.sub}}, 'of 84 sessions logged')
+    );
+    content.appendChild(statRow);
+
+    // Grid
+    var gridCard = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+    gridCard.appendChild(el('div', {style:{fontSize:'12px',fontWeight:700,letterSpacing:'.03em',textTransform:'uppercase',color:T.sub,marginBottom:'10px'}}, '12-week map — tap a cell to jump'));
+    for (var gw=1; gw<=12; gw++) {
+      (function(gw){
+        var ginfo=PROGRAM.weeks[gw-1];
+        var gbl=PROGRAM.blocks.filter(function(b){return b.id===ginfo.blockId;})[0];
+        var gridRowEl = el('div', {style:{display:'flex',alignItems:'center',gap:'8px',marginBottom:'5px'}});
+        gridRowEl.appendChild(el('div', {style:{width:'30px',fontSize:'11px',fontWeight:700,color:ginfo.deload?T.faint:T.sub,flexShrink:0}}, 'W'+gw));
+        var cells = el('div', {style:{display:'flex',gap:'4px',flex:1}});
+        for (var gd=1; gd<=7; gd++) {
+          (function(gd){
+            var doneCell=!!(s.logs['w'+gw+':d'+gd]&&s.logs['w'+gw+':d'+gd].complete);
+            var isCur=(gw===s.week&&gd===s.day);
+            var cell = el('button', {
+              style:{
+                flex:1,aspectRatio:'1/1',borderRadius:'5px',
+                background:doneCell?gbl.color:T.card2,
+                border:isCur?'2px solid '+T.text:'1px solid '+(doneCell?gbl.color:T.border),
+                opacity:doneCell?1:0.85
+              },
+              onClick:function(){ goto(gw,gd); }
+            });
+            cells.appendChild(cell);
+          })(gd);
+        }
+        gridRowEl.appendChild(cells);
+        gridCard.appendChild(gridRowEl);
+      })(gw);
+    }
+    // Legend
+    var legendRow = el('div', {style:{display:'flex',alignItems:'center',gap:'6px',marginTop:'13px',flexWrap:'wrap'}});
+    PROGRAM.blocks.forEach(function(bl) {
+      legendRow.appendChild(el('span', {style:{width:'10px',height:'10px',borderRadius:'3px',background:bl.color,display:'inline-block'}}));
+      legendRow.appendChild(el('span', {style:{fontSize:'11px',color:T.sub,marginRight:'8px'}}, bl.name));
+    });
+    gridCard.appendChild(legendRow);
+    content.appendChild(gridCard);
+
+    // Recent sessions
+    var recCard = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+    recCard.appendChild(el('div', {style:{fontSize:'12px',fontWeight:700,letterSpacing:'.03em',textTransform:'uppercase',color:T.sub,marginBottom:'10px'}}, 'Recent sessions'));
+    if (completedList.length===0) {
+      recCard.appendChild(el('div', {style:{fontSize:'13px',color:T.faint,lineHeight:1.5,padding:'4px 0'}}, 'No sessions logged yet. Mark one complete on the Today tab.'));
+    } else {
+      completedList.forEach(function(c) {
+        var row = el('button', {
+          style:{display:'flex',alignItems:'center',gap:'11px',width:'100%',textAlign:'left',padding:'9px 0',borderBottom:'1px solid '+T.border,background:'none',border_bottom:'1px solid '+T.border,cursor:'pointer'},
+          onClick:(function(w,d){ return function(){ goto(w,d); }; })(c.week,c.day)
+        });
+        Object.assign(row.style, {display:'flex',alignItems:'center',gap:'11px',width:'100%',textAlign:'left',padding:'9px 0',borderBottom:'1px solid '+T.border,background:'none',cursor:'pointer'});
+        row.appendChild(el('span', {style:{width:'9px',height:'34px',borderRadius:'3px',background:c.color,flexShrink:0,display:'block'}}));
+        var main = el('div', {style:{flex:1,minWidth:0}},
+          el('div', {style:{fontSize:'14px',fontWeight:700,color:T.text,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}, 'W'+c.week+' · D'+c.day+' — '+c.title),
+          el('div', {style:{fontSize:'12px',color:T.sub,marginTop:'2px'}}, c.blockName)
+        );
+        row.appendChild(main);
+        row.appendChild(el('div', {style:{fontSize:'12px',color:T.faint,flexShrink:0}}, c.dateStr));
+        recCard.appendChild(row);
+      });
+    }
+    content.appendChild(recCard);
+
+    // Backup & restore
+    var backupCard = el('div', {style:{background:T.card,border:'1px solid '+T.border,borderRadius:'14px',padding:'15px',marginBottom:'12px'}});
+    backupCard.appendChild(el('div', {style:{fontSize:'12px',fontWeight:700,letterSpacing:'.03em',textTransform:'uppercase',color:T.sub,marginBottom:'10px'}}, 'Backup & restore'));
+    backupCard.appendChild(el('div', {style:{fontSize:'13px',color:T.sub,lineHeight:1.5,marginBottom:'13px'}}, 'Your training data is stored only on this device. Export a backup file regularly — and before switching phones or clearing your browser.'));
+    var btnRow = el('div', {style:{display:'flex',gap:'9px'}},
+      el('button', {
+        style:{flex:1,padding:'12px',borderRadius:'10px',fontSize:'14px',fontWeight:700,background:accent,color:'#fff',border:'none'},
+        onClick:exportBackup
+      }, 'Export backup'),
+      el('button', {
+        style:{flex:1,padding:'12px',borderRadius:'10px',fontSize:'14px',fontWeight:700,background:'transparent',color:T.text,border:'1px solid '+T.border},
+        onClick:triggerImport
+      }, 'Restore backup')
+    );
+    backupCard.appendChild(btnRow);
+    var fi = el('input', {type:'file',accept:'application/json,.json',style:{display:'none'}});
+    fi.addEventListener('change', handleImportFile);
+    _fileInput = fi;
+    backupCard.appendChild(fi);
+    content.appendChild(backupCard);
+  }
+
+  shell.appendChild(content);
+
+  // ── NAV ──
+  function navBtn(label, tab) {
+    var active = s.tab===tab;
+    var btn = el('button', {
+      style:{
+        flex:1,padding:'12px 4px 14px',fontSize:'11.5px',fontWeight:700,letterSpacing:'.01em',
+        color:active?accent:T.faint,borderTop:'2px solid '+(active?accent:'transparent'),
+        background:'none',border:'none',cursor:'pointer'
+      },
+      onClick:(function(t){ return function(){ state.tab=t; render(); }; })(tab)
+    }, label);
+    return btn;
+  }
+  var nav = el('div', {style:{
+    position:'fixed',bottom:0,left:'50%',transform:'translateX(-50%)',
+    width:'100%',maxWidth:'480px',display:'flex',
+    background:T.card,borderTop:'1px solid '+T.border,zIndex:20
+  }},
+    navBtn('Today','today'),
+    navBtn('Library','library'),
+    navBtn('Testing','testing'),
+    navBtn('Progress','progress')
+  );
+  shell.appendChild(nav);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+(function init() {
+  // Dark mode
+  try {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    state.isDark = mq.matches;
+    mq.addEventListener('change', function(e){ state.isDark=e.matches; render(); });
+  } catch(e){}
+
+  // Load data
+  var loaded = loadAll();
+  state.logs = loaded.logs;
+  state.tests = loaded.tests;
+  var fu = firstUnlogged(loaded.logs);
+  state.week = fu.week;
+  state.day = fu.day;
+
+  render();
+
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  }
+})();
+</script>
+</body>
+</html>
