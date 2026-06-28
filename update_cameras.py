@@ -6,9 +6,10 @@ import re
 KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw"
 OUTPUT_JSON = "camera_data.json"
 
-# Sentinel written when a Placemark has no recognizable direction designator.
-# The SpeedShield app treats direction_deg = -1 as "omnidirectional": it skips
-# the heading-alignment filter and alerts regardless of travel direction.
+# Sentinel written when a Placemark has no recognizable direction designator and
+# no manual override below. The SpeedShield app treats direction_deg = -1 as
+# "omnidirectional": it skips the heading-alignment filter and alerts regardless
+# of travel direction.
 OMNIDIRECTIONAL = -1
 
 DIRECTION_MAP = {
@@ -16,6 +17,22 @@ DIRECTION_MAP = {
     "W/B": 270, "WB": 270, "WEST": 270,
     "N/B": 0,  "NB": 0,  "NORTH": 0,
     "S/B": 180, "SB": 180, "SOUTH": 180,
+}
+
+# Manual direction overrides for cameras whose source-map description carries no
+# direction token. Direction is derived from which side of the corridor the pin
+# sits on (the camera faces oncoming traffic):
+#   north side -> westbound (270)    south side -> eastbound (90)
+#   east side  -> northbound (0)     west side  -> southbound (180)
+# Keyed by the exact cleaned camera name. If a name later changes on the source
+# map the entry simply stops matching and the camera falls back to
+# omnidirectional (safe), so this never produces a silently wrong direction.
+NAME_DIRECTION_OVERRIDES = {
+    "7th Ave - Indian School Rd to Camelback Rd": 180,       # west side  -> southbound
+    "Missouri Ave - 99th Ave to 101st Ave": 270,             # north side -> westbound
+    "Chandler Blvd- Desert Foothills": 270,                  # north side -> westbound
+    "Thunderbird Rd between 7th St and Cave Creek Rd": 270,  # north side -> westbound
+    "19th Ave between Peoria Ave and Cactus Rd": 0,          # east side  -> northbound
 }
 
 def get_direction(text):
@@ -45,15 +62,6 @@ def update_camera_data():
 
         # Description contains direction + corridor, e.g. "E/B, Thunderbird Rd: 35th Ave to I-17"
         desc = re.sub(r"<[^>]+>", "", desc_tag.get_text()).strip()
-        direction_deg = get_direction(desc)
-
-        if direction_deg is None:
-            # No direction designator on the source map. Previously these were
-            # dropped with `continue`, which silently lost ~1/3 of the corridor
-            # cameras (e.g. "7th Ave - Indian School Rd to Camelback Rd"). Keep
-            # them by marking omnidirectional; the app alerts in both directions.
-            print(f"  No direction found, marking omnidirectional: {desc}")
-            direction_deg = OMNIDIRECTIONAL
 
         coords = coords_tag.get_text().strip()
         parts = coords.split(",")
@@ -65,6 +73,15 @@ def update_camera_data():
         # Strip trailing "Portable tower location" noise and whitespace
         clean_name = re.split(r"(?i)\s*<br", desc)[0]
         clean_name = re.sub(r"(?i)\s*portable tower location.*", "", clean_name).strip()
+
+        # Direction priority: token in the description, then manual override,
+        # then omnidirectional fallback.
+        direction_deg = get_direction(desc)
+        if direction_deg is None:
+            direction_deg = NAME_DIRECTION_OVERRIDES.get(clean_name)
+        if direction_deg is None:
+            print(f"  No direction found, marking omnidirectional: {clean_name}")
+            direction_deg = OMNIDIRECTIONAL
 
         cameras.append({
             "name": clean_name,
