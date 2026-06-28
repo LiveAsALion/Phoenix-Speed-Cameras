@@ -6,6 +6,11 @@ import re
 KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw"
 OUTPUT_JSON = "camera_data.json"
 
+# Sentinel written when a Placemark has no recognizable direction designator.
+# The SpeedShield app treats direction_deg = -1 as "omnidirectional": it skips
+# the heading-alignment filter and alerts regardless of travel direction.
+OMNIDIRECTIONAL = -1
+
 DIRECTION_MAP = {
     "E/B": 90, "EB": 90, "EAST": 90,
     "W/B": 270, "WB": 270, "WEST": 270,
@@ -43,8 +48,12 @@ def update_camera_data():
         direction_deg = get_direction(desc)
 
         if direction_deg is None:
-            print(f"  Skipped (no direction found): {desc}")
-            continue
+            # No direction designator on the source map. Previously these were
+            # dropped with `continue`, which silently lost ~1/3 of the corridor
+            # cameras (e.g. "7th Ave - Indian School Rd to Camelback Rd"). Keep
+            # them by marking omnidirectional; the app alerts in both directions.
+            print(f"  No direction found, marking omnidirectional: {desc}")
+            direction_deg = OMNIDIRECTIONAL
 
         coords = coords_tag.get_text().strip()
         parts = coords.split(",")
