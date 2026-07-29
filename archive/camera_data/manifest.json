@@ -30,5 +30,13 @@
     "valid_to": "2026-06-30T02:14:11Z",
     "archived_at": "2026-06-29T02:30:32Z",
     "source_active_file": "camera_data.json"
+  },
+  {
+    "file": "archive/camera_data/camera_data__through_2026-07-29T01-29-39Z.json",
+    "sha256": "f2180077eadf644eba15bb0690b226bbeb87a15f06862d3061746a5a12942ed6",
+    "valid_from": "2026-06-30T02:14:11Z",
+    "valid_to": null,
+    "archived_at": "2026-07-29T01:29:39Z",
+    "source_active_file": "camera_data.json"
   }
 ]

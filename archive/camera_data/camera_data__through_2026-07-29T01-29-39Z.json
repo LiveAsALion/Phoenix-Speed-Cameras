@@ -1,0 +1,80 @@
+[
+    {
+        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
+        "latitude": 33.6107377912465,
+        "longitude": -112.129570020092,
+        "direction_deg": 90
+    },
+    {
+        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
+        "latitude": 33.6306925590751,
+        "longitude": -112.013295987503,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
+        "latitude": 33.6111001946346,
+        "longitude": -112.108167386106,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
+        "latitude": 33.4908277615037,
+        "longitude": -112.064939622434,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B,\u00a0 Indian School Rd: 83rd Ave to 75th Ave",
+        "latitude": 33.4946761609931,
+        "longitude": -112.225754995848,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 51st Ave: Van Buren St to I-10",
+        "latitude": 33.4555827502405,
+        "longitude": -112.169019611102,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Baseline Rd: 16th St to 24th St",
+        "latitude": 33.3779075016387,
+        "longitude": -112.039357278235,
+        "direction_deg": 270
+    },
+    {
+        "name": "W/B, Bell Rd: I-17 to 19th Ave",
+        "latitude": 33.6402100874448,
+        "longitude": -112.105172846625,
+        "direction_deg": 270
+    },
+    {
+        "name": "7th Ave - Indian School Rd to Camelback Rd",
+        "latitude": 33.504466,
+        "longitude": -112.082591,
+        "direction_deg": 180
+    },
+    {
+        "name": "Missouri Ave - 99th Ave to 101st Ave",
+        "latitude": 33.516002,
+        "longitude": -112.274966,
+        "direction_deg": 270
+    },
+    {
+        "name": "Chandler Blvd- Desert Foothills",
+        "latitude": 33.307198,
+        "longitude": -112.067824,
+        "direction_deg": 270
+    },
+    {
+        "name": "Thunderbird Rd between 7th St and Cave Creek Rd",
+        "latitude": 33.60325,
+        "longitude": -112.051805555556,
+        "direction_deg": 270
+    },
+    {
+        "name": "19th Ave between Peoria Ave and Cactus Rd",
+        "latitude": 33.5891111111111,
+        "longitude": -112.099555555556,
+        "direction_deg": 0
+    }
+]
