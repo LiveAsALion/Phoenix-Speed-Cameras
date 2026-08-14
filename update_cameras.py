@@ -35,6 +35,17 @@ NAME_DIRECTION_OVERRIDES = {
     "19th Ave between Peoria Ave and Cactus Rd": 0,          # east side  -> northbound
 }
 
+# Road AXIS overrides (a line: 0 == 180), distinct from enforcement direction —
+# it can be known when the enforcement direction is not. Feeds the app's v13
+# corridor gate: a driver more than ~75 m off the camera's road line is
+# suppressed. Added for the 27th Ave camera, whose 600 m ring reaches the
+# I-17 414 m away and produced four freeway false alerts in three days
+# (2026-08-11..14) before this field existed. Keyed by cleaned camera name;
+# a renamed camera stops matching and simply loses its corridor (safe).
+ROAD_AXIS_OVERRIDES = {
+    "27th Avenue: Colter Street to Missouri Avenue": 0,      # 27th Ave runs north-south
+}
+
 def get_direction(text):
     text_upper = text.upper()
     for key, deg in DIRECTION_MAP.items():
@@ -83,12 +94,16 @@ def update_camera_data():
             print(f"  No direction found, marking omnidirectional: {clean_name}")
             direction_deg = OMNIDIRECTIONAL
 
-        cameras.append({
+        camera = {
             "name": clean_name,
             "latitude": lat,
             "longitude": lon,
             "direction_deg": direction_deg
-        })
+        }
+        road_axis = ROAD_AXIS_OVERRIDES.get(clean_name)
+        if road_axis is not None:
+            camera["road_axis_deg"] = road_axis
+        cameras.append(camera)
 
     if not cameras:
         print("No valid camera locations found.")
