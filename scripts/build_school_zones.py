@@ -2,31 +2,48 @@
 """Build school_zone_cameras.json from a City of Phoenix Photo Safety schedule.
 
 The city publishes the rotating school-zone schedule as a PDF listing, per
-council district, seven schools and the week each is enforced. The PDF gives
-an intersection in parentheses -- NOT coordinates -- so the intersections must
-be geocoded before the app can use them.
+council district, seven schools and the week each is enforced. It gives an
+intersection in parentheses -- NOT coordinates -- so the intersections must be
+geocoded before the app can use them.
 
 Usage
 -----
     python3 scripts/build_school_zones.py --report
-        Print the parsed schedule and the exact geocoder queries. No network,
-        no writes. Use this to eyeball the transcription against the PDF.
+        Print the parsed schedule and what each row will be looked up by.
+        No network, no writes. Use it to eyeball the transcription.
 
     python3 scripts/build_school_zones.py --geocode
-        Geocode every entry, then (only if ALL succeed) archive the current
-        school_zone_cameras.json per archive/school_zone_cameras/README.md,
-        write the new active file, and update the archive manifest.
+        Look every row up, then -- only if all 56 pass every check -- archive
+        the current school_zone_cameras.json per
+        archive/school_zone_cameras/README.md, write the new active file, and
+        update the archive manifest.
 
-Run --geocode from a machine with normal internet access. The session
-container this was written in blocks the geocoder at the network policy.
+Run --geocode from a machine with normal internet access; the session
+container this was written in has the geocoder blocked at the network policy.
 
-Why it refuses partial output
------------------------------
-school_zone_cameras.json is fetched live by the shipped app. An entry with a
-wrong or missing coordinate is worse than no entry at all: it either alerts a
-driver in the wrong place or stays silent at a real camera. So a single
-geocode failure aborts the whole write and reports which rows need a manual
-coordinate.
+Why it refuses to write a partial file
+--------------------------------------
+school_zone_cameras.json is fetched live by the shipped app, so a wrong
+coordinate is worse than a missing one: it either alerts a driver somewhere no
+camera exists or stays silent where one does. Three checks must all pass
+before anything is written:
+
+  * every row resolved to a point inside the Phoenix metro box;
+  * no result was a city/administrative centroid (the failure mode where a
+    geocoder cannot find your street and hands back downtown Phoenix -- it
+    passes a bounding-box test, which is why the type is checked instead);
+  * no two schools share a point (the other silent-fallback signature).
+
+Rows that resolve by school name rather than by the published intersection are
+listed at the end for a manual look: the camera sits at the intersection, and
+a school campus can be a few hundred meters from it.
+
+Fixing a row
+------------
+Put the coordinate in MANUAL_COORDS, keyed by school name, and re-run. Manual
+entries take priority over every lookup. Two schools need this from the start:
+the city's PDF prints only one street for Valley Academy and Kyrene Akimel
+A-Al, which no geocoder can turn into a point.
 """
 
 import argparse
@@ -74,6 +91,16 @@ WEEKS = [
 ]
 
 SCHEDULE_SOURCE = "Photo Safety Program School Schedule 8/17/26 to 10/2/26"
+
+# Hand-supplied coordinates, keyed by school name. These take priority over
+# every lookup, so this is where a failed or wrong-looking row gets fixed:
+# find the camera location in a map, copy the coordinates, add a line here,
+# re-run. Two schools need this from the start -- the city's PDF prints only
+# one street for them, which no geocoder can turn into a point.
+MANUAL_COORDS = {
+    # "Valley Academy": (33.0, -112.0),
+    # "Kyrene Akimel A-Al Middle School": (33.0, -112.0),
+}
 
 # Transcribed from the source PDF, district by district, in listed order.
 # (school name, location text exactly as printed, geocoder query)
@@ -170,28 +197,76 @@ def build_rows():
                 "school_name": school,
                 "district": district,
                 "location_text": location_text,
-                "query": f"{query}, Phoenix, AZ" if query else None,
+                "cross_streets": tuple(query.split(" & ")) if query else None,
                 "active_from": active_from,
                 "active_until": active_until,
             })
     return rows
 
 
-def geocode(query):
-    """Return (lat, lon) for a query, or None if nothing usable came back."""
+def _nominatim(query):
+    """One raw lookup. Returns the list of results (may be empty)."""
     url = f"{GEOCODER}?" + urllib.parse.urlencode({
         "q": query,
         "format": "json",
         "limit": 5,
         "countrycodes": "us",
+        "addressdetails": 1,
     })
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=30) as response:
-        results = json.load(response)
-    for result in results:
-        lat, lon = float(result["lat"]), float(result["lon"])
-        if LAT_MIN <= lat <= LAT_MAX and LON_MIN <= lon <= LON_MAX:
-            return lat, lon
+        return json.load(response)
+
+
+# Result classes that mean "I could not find your street, here is the city."
+# A city-centroid fallback passes a bounding-box check silently, which would put
+# a phantom school zone in downtown Phoenix -- the exact failure a bbox test
+# cannot catch. Reject them by type instead.
+_CENTROID_TYPES = {
+    "city", "town", "village", "administrative", "municipality",
+    "county", "state", "postcode", "suburb", "neighbourhood",
+}
+
+
+def _acceptable(result):
+    lat, lon = float(result["lat"]), float(result["lon"])
+    if not (LAT_MIN <= lat <= LAT_MAX and LON_MIN <= lon <= LON_MAX):
+        return None
+    if result.get("type") in _CENTROID_TYPES or result.get("class") == "boundary":
+        return None
+    return lat, lon
+
+
+def geocode(row):
+    """Resolve one row to (lat, lon, how) or None.
+
+    Tries the published intersection first, then a couple of phrasings, then
+    the school itself. `how` records which strategy won so the report can show
+    where a coordinate came from -- an intersection hit and a
+    school-name hit deserve different amounts of trust.
+    """
+    manual = MANUAL_COORDS.get(row["school_name"])
+    if manual:
+        return manual[0], manual[1], "manual"
+
+    attempts = []
+    if row["cross_streets"]:
+        a, b = row["cross_streets"]
+        attempts.append((f"{a} & {b}, Phoenix, AZ", "intersection"))
+        attempts.append((f"{a} and {b}, Phoenix, AZ", "intersection-alt"))
+    attempts.append((f"{row['school_name']}, Phoenix, AZ", "school-name"))
+
+    for query, how in attempts:
+        try:
+            results = _nominatim(query)
+        except Exception as error:
+            print(f"      lookup error ({how}): {error}")
+            results = []
+        for result in results:
+            found = _acceptable(result)
+            if found:
+                return found[0], found[1], how
+        time.sleep(REQUEST_INTERVAL_SECONDS)
     return None
 
 
@@ -244,49 +319,90 @@ def main():
 
     if args.report:
         for row in rows:
-            marker = "  " if row["query"] else "!!"
+            resolvable = row["cross_streets"] or row["school_name"] in MANUAL_COORDS
+            marker = "  " if resolvable else "!!"
+            target = (" & ".join(row["cross_streets"]) if row["cross_streets"]
+                      else ("manual coordinates" if row["school_name"] in MANUAL_COORDS
+                            else "NO INTERSECTION IN PDF"))
             print(f"{marker} d{row['district']} {row['active_from']}..{row['active_until']}  "
-                  f"{row['school_name']}  <-  {row['query'] or 'NO INTERSECTION IN PDF'}")
-        missing = [r for r in rows if not r["query"]]
+                  f"{row['school_name']}  <-  {target}")
+        missing = [r for r in rows
+                   if not r["cross_streets"] and r["school_name"] not in MANUAL_COORDS]
         if missing:
             print(f"\n{len(missing)} row(s) need a hand-supplied intersection before --geocode:")
             for row in missing:
                 print(f"  - {row['school_name']} (district {row['district']}): "
-                      f"PDF gives only \"{row['location_text']}\"")
+                      f"PDF gives only \"{row['location_text']}\" — add a line to "
+                      f"MANUAL_COORDS or a cross street to SCHEDULE")
         return
 
-    unresolved = [r for r in rows if not r["query"]]
+    unresolved = [r for r in rows
+                  if not r["cross_streets"] and r["school_name"] not in MANUAL_COORDS]
     if unresolved:
-        print("Refusing to geocode: these rows have no intersection in the PDF.")
+        print("Refusing to geocode: these rows have no resolvable location.")
         for row in unresolved:
             print(f"  - {row['school_name']} (district {row['district']}): "
                   f"\"{row['location_text']}\"")
-        print("\nAdd the missing cross street to SCHEDULE in this file, then re-run.")
+        print("\nAdd coordinates to MANUAL_COORDS (or a cross street to SCHEDULE), then re-run.")
         sys.exit(1)
 
     failures = []
     for index, row in enumerate(rows, start=1):
         if index > 1:
             time.sleep(REQUEST_INTERVAL_SECONDS)
-        try:
-            found = geocode(row["query"])
-        except Exception as error:  # network/HTTP/JSON -- all mean "no coordinate"
-            found = None
-            print(f"[{index:2}/{len(rows)}] ERROR {row['school_name']}: {error}")
+        found = geocode(row)
         if found:
-            row["latitude"], row["longitude"] = found
-            print(f"[{index:2}/{len(rows)}] ok    {row['school_name']:38} {found[0]:.6f},{found[1]:.6f}")
+            row["latitude"], row["longitude"], row["how"] = found
+            flag = "" if found[2].startswith("intersection") or found[2] == "manual" \
+                else "   <- from SCHOOL NAME, verify"
+            print(f"[{index:2}/{len(rows)}] ok    {row['school_name']:38} "
+                  f"{found[0]:.6f},{found[1]:.6f}  [{found[2]}]{flag}")
         else:
             failures.append(row)
-            print(f"[{index:2}/{len(rows)}] FAIL  {row['school_name']:38} {row['query']}")
+            target = " & ".join(row["cross_streets"]) if row["cross_streets"] else "-"
+            print(f"[{index:2}/{len(rows)}] FAIL  {row['school_name']:38} {target}")
 
-    if failures:
-        print(f"\n{len(failures)} of {len(rows)} rows did not resolve to a Phoenix-area point.")
-        print("Nothing was written -- a partial file would ship wrong alert locations.")
-        print("Fix these by supplying coordinates by hand, then re-run:")
-        for row in failures:
-            print(f"  - {row['school_name']} (district {row['district']}): {row['query']}")
+    # Duplicate detection. Two schools sharing a point means a lookup silently
+    # fell back to something generic; the bbox and centroid checks both pass in
+    # that case, so this is the last line of defence before a wrong coordinate
+    # ships to every phone.
+    seen = {}
+    duplicates = []
+    for row in rows:
+        if "latitude" not in row:
+            continue
+        point = (round(row["latitude"], 5), round(row["longitude"], 5))
+        if point in seen:
+            duplicates.append((seen[point], row["school_name"], point))
+        else:
+            seen[point] = row["school_name"]
+
+    if failures or duplicates:
+        if failures:
+            print(f"\n{len(failures)} of {len(rows)} rows did not resolve.")
+            for row in failures:
+                target = " & ".join(row["cross_streets"]) if row["cross_streets"] else "-"
+                print(f"  - {row['school_name']} (district {row['district']}): {target}")
+        if duplicates:
+            print(f"\n{len(duplicates)} pair(s) resolved to the SAME point — at least "
+                  f"one of each pair is wrong:")
+            for first, second, point in duplicates:
+                print(f"  - {first}  ==  {second}  at {point}")
+        print("\nNothing was written — a partial or duplicated file would ship wrong "
+              "alert locations.")
+        print("Add the right coordinates to MANUAL_COORDS at the top of this file, "
+              "then re-run.")
         sys.exit(1)
+
+    by_name = sorted(r["how"] for r in rows)
+    print("\nresolved by: " + ", ".join(f"{by_name.count(k)}x {k}" for k in sorted(set(by_name))))
+    school_name_rows = [r for r in rows if r["how"] == "school-name"]
+    if school_name_rows:
+        print(f"NOTE: {len(school_name_rows)} row(s) resolved to the SCHOOL, not the "
+              f"published intersection. The camera sits at the intersection, so spot-check "
+              f"these on a map before pushing:")
+        for row in school_name_rows:
+            print(f"  - {row['school_name']}: published as \"{row['location_text']}\"")
 
     cameras = [{
         "name": f"School Zone — {row['school_name']}",
