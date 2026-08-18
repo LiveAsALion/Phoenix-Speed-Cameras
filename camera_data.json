@@ -81,7 +81,7 @@
         "name": "27th Avenue: Colter Street to Missouri Avenue",
         "latitude": 33.51575,
         "longitude": -112.116861,
-        "direction_deg": 180,
+        "direction_deg": 0,
         "road_axis_deg": 0
     }
 ]
