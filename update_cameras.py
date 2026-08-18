@@ -33,6 +33,10 @@ NAME_DIRECTION_OVERRIDES = {
     "Chandler Blvd- Desert Foothills": 270,                  # north side -> westbound
     "Thunderbird Rd between 7th St and Cave Creek Rd": 270,  # north side -> westbound
     "19th Ave between Peoria Ave and Cactus Rd": 0,          # east side  -> northbound
+    # Southbound enforcement, confirmed on the ground 2026-08-18: the camera
+    # sits adjacent to 5321 N 27th Ave. Until this entry existed the camera was
+    # omnidirectional and fired on I-17 traffic in BOTH directions.
+    "27th Avenue: Colter Street to Missouri Avenue": 180,    # west side  -> southbound
 }
 
 # Road AXIS overrides (a line: 0 == 180), distinct from enforcement direction —
