@@ -48,6 +48,36 @@
         "direction_deg": 270
     },
     {
+        "name": "7th Ave - Indian School Rd to Camelback Rd",
+        "latitude": 33.504466,
+        "longitude": -112.082591,
+        "direction_deg": 180
+    },
+    {
+        "name": "Missouri Ave - 99th Ave to 101st Ave",
+        "latitude": 33.516002,
+        "longitude": -112.274966,
+        "direction_deg": 270
+    },
+    {
+        "name": "Chandler Blvd- Desert Foothills",
+        "latitude": 33.307198,
+        "longitude": -112.067824,
+        "direction_deg": 270
+    },
+    {
+        "name": "Thunderbird Rd between 7th St and Cave Creek Rd",
+        "latitude": 33.60325,
+        "longitude": -112.051805555556,
+        "direction_deg": 270
+    },
+    {
+        "name": "19th Ave between Peoria Ave and Cactus Rd",
+        "latitude": 33.5891111111111,
+        "longitude": -112.099555555556,
+        "direction_deg": 0
+    },
+    {
         "name": "27th Avenue: Colter Street to Missouri Avenue",
         "latitude": 33.51575,
         "longitude": -112.116861,
