@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpeedShield — Spoken Speed Camera Alerts for Phoenix</title>
+<meta name="description" content="SpeedShield gives Phoenix drivers a spoken heads-up before every fixed photo-enforcement camera. Hands free, eyes up. 7-day free trial.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#2b4256; --txt:#e8f1f8;
+    --dim:#9db3c4; --blue:#1b9bf0; --glow:#39c4ff;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--txt);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  /* hero */
+  header{padding:64px 0 40px;text-align:center;
+    background:radial-gradient(ellipse 70% 55% at 50% 0%,#12395c 0%,transparent 70%)}
+  .shield{width:96px;height:96px;margin:0 auto 18px;display:block;
+    filter:drop-shadow(0 0 22px rgba(57,196,255,.45))}
+  h1{font-size:2.4rem;letter-spacing:-.02em;line-height:1.15}
+  h1 .accent{color:var(--glow)}
+  .tag{color:var(--dim);font-size:1.15rem;margin:14px auto 0;max-width:540px}
+  /* store buttons */
+  .stores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:34px 0 8px}
+  .store-btn{display:flex;align-items:center;gap:12px;text-decoration:none;
+    background:#000;border:1px solid var(--line);border-radius:14px;
+    padding:12px 22px;min-width:210px;transition:transform .12s,border-color .12s}
+  .store-btn:hover{transform:translateY(-2px);border-color:var(--glow)}
+  .store-btn svg{width:30px;height:30px;flex:none}
+  .store-btn .lines{text-align:left;color:var(--txt)}
+  .store-btn .small{display:block;font-size:.7rem;color:var(--dim);letter-spacing:.02em}
+  .store-btn .big{display:block;font-size:1.15rem;font-weight:600;line-height:1.2}
+  .trial{color:var(--dim);font-size:.85rem;text-align:center;margin-top:10px}
+  /* features */
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:14px;margin:52px 0}
+  .card{background:var(--panel);border:1px solid #1f2733;border-radius:14px;padding:22px}
+  .card .ico{font-size:1.6rem}
+  .card h3{margin:10px 0 6px;font-size:1.05rem}
+  .card p{color:var(--dim);font-size:.92rem}
+  /* how */
+  .how{background:var(--panel);border:1px solid #1f2733;border-radius:16px;
+    padding:28px;margin-bottom:52px}
+  .how h2{font-size:1.3rem;margin-bottom:14px}
+  .how ol{padding-left:22px;color:var(--dim)}
+  .how li{margin:8px 0}
+  .how b{color:var(--txt)}
+  footer{border-top:1px solid #1f2733;padding:26px 0 40px;text-align:center;
+    color:#5a6a80;font-size:.85rem}
+  footer a{color:#7fa8c9;text-decoration:none;margin:0 10px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <svg class="shield" viewBox="0 0 96 96" aria-hidden="true">
+      <path d="M48 6 84 18v30c0 22-15 36-36 42C27 84 12 70 12 48V18Z"
+            fill="#0f2c49" stroke="#39c4ff" stroke-width="3"/>
+      <rect x="34" y="30" width="28" height="18" rx="4" fill="#1b9bf0"/>
+      <circle cx="48" cy="39" r="6" fill="#0d1117"/>
+      <circle cx="48" cy="39" r="3" fill="#9fdcff"/>
+      <rect x="45" y="48" width="6" height="16" fill="#1b9bf0"/>
+      <path d="M30 72c8-8 28-8 36 0" stroke="#e8f1f8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <h1>Eyes on the road.<br><span class="accent">SpeedShield</span> does the watching.</h1>
+    <p class="tag">Spoken alerts before every fixed speed camera in the Phoenix metro —
+      automatic, hands-free, and working quietly behind your favorite navigation app.</p>
+
+    <div class="stores">
+      <a class="store-btn" id="ios-link" href="https://apps.apple.com/app/id6784553439">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.05 12.54c-.03-2.9 2.37-4.29 2.48-4.36-1.35-1.97-3.45-2.24-4.2-2.27-1.78-.18-3.48 1.05-4.39 1.05-.9 0-2.3-1.03-3.79-1-1.95.03-3.75 1.13-4.75 2.88-2.03 3.52-.52 8.72 1.46 11.58.96 1.4 2.11 2.96 3.62 2.9 1.45-.06 2-.94 3.76-.94 1.75 0 2.25.94 3.79.91 1.57-.03 2.56-1.42 3.51-2.83 1.11-1.62 1.56-3.19 1.59-3.27-.04-.02-3.05-1.17-3.08-4.65ZM14.16 4.06c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.73-.74.86-1.39 2.23-1.22 3.55 1.29.1 2.6-.65 3.41-1.62Z"/></svg>
+        <span class="lines"><span class="small">Download on the</span><span class="big">App Store</span></span>
+      </a>
+      <a class="store-btn" id="play-link" href="https://play.google.com/store/apps/details?id=com.speedshield.app">
+        <svg viewBox="0 0 24 24"><path fill="#00d7fe" d="M3.6 1.8 13.7 12 3.6 22.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1Z"/><path fill="#00f076" d="M17.4 8.3 5.3 1.4c-.3-.17-.63-.2-.93-.1L14.5 11.4l2.9-3.1Z"/><path fill="#ffc900" d="M17.4 15.7c.95-.54 2.6-1.48 2.6-1.48 1.33-.76 1.33-1.68 0-2.44 0 0-1.65-.94-2.6-1.48l-3 2.7 3 2.7Z"/><path fill="#f43249" d="m4.37 22.7c.3.1.63.07.93-.1l12.1-6.9-2.9-3.1L4.37 22.7Z"/></svg>
+        <span class="lines"><span class="small">GET IT ON</span><span class="big">Google Play</span></span>
+      </a>
+    </div>
+    <p class="trial">7-day free trial &bull; No account, no login &bull; Cancel anytime</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="features">
+    <div class="card"><div class="ico">&#128266;</div>
+      <h3>Spoken, not on-screen</h3>
+      <p>A clear voice alert through your car speakers as you approach a camera —
+      early warning first, final reminder close in. No screens to watch, nothing to tap.</p></div>
+    <div class="card"><div class="ico">&#128663;</div>
+      <h3>Starts with your car</h3>
+      <p>Connects to your vehicle's Bluetooth and arms itself. Drive off and it's
+      already monitoring — no need to open the app.</p></div>
+    <div class="card"><div class="ico">&#128506;</div>
+      <h3>Always current</h3>
+      <p>Phoenix rotates and removes cameras all the time. SpeedShield's map updates
+      automatically — no app update needed when the city makes changes.</p></div>
+    <div class="card"><div class="ico">&#128274;</div>
+      <h3>Private by design</h3>
+      <p>Your location never leaves your phone. No account, no tracking, no data
+      collection — verified in our App Store privacy label.</p></div>
+  </div>
+
+  <div class="how">
+    <h2>How it works</h2>
+    <ol>
+      <li><b>Install and drive.</b> Pick your activation mode — vehicle Bluetooth, auto-detect, or always-on.</li>
+      <li><b>Get a heads-up.</b> Approaching a fixed photo-enforcement camera, you'll hear it announced at your chosen distance.</li>
+      <li><b>Final reminder.</b> A second alert close to the camera confirms it — then SpeedShield goes quiet until the next one.</li>
+    </ol>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="https://sites.google.com/view/speedshield-app/privacy-policy">Privacy Policy</a>
+    <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a>
+    <a href="https://sites.google.com/view/speedshield-app">Support</a>
+    <p style="margin-top:12px">&copy; 2026 SpeedShield. Phoenix metro coverage.</p>
+  </div>
+</footer>
+
+<script>
+/* Keep ?src= attribution on store clicks from the landing page too */
+(function(){
+  var src = new URLSearchParams(location.search).get('src');
+  if (!src) return;
+  /* store taps are already logged server-side via /go; nothing else needed */
+})();
+</script>
+</body>
+</html>
