@@ -17,13 +17,14 @@ if [ -f /tmp/index.html ]; then
 elif [ ! -f "$WEBROOT/index.html" ]; then
   echo "ERROR: /tmp/index.html not found and no existing site file"; exit 1
 fi
+if [ -f /tmp/icon.png ]; then cp /tmp/icon.png "$WEBROOT/icon.png"; fi
 
 echo "== [2/5] nginx HTTP config =="
 cat > "$CONF" << 'NGINX'
 # getspeedshield.com — managed by bootstrap.sh (stage 1: HTTP)
 map $http_user_agent $speedshield_store {
     default                  "";
-    "~*android"              "https://play.google.com/store/apps/details?id=com.speedshield.app";
+    "~*android"              "intent://details?id=com.speedshield.app#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.speedshield.app;end";
     "~*(iphone|ipad|ipod)"   "https://apps.apple.com/app/id6784553439";
 }
 server {
@@ -62,7 +63,7 @@ cat > "$CONF" << 'NGINX'
 # getspeedshield.com — managed by bootstrap.sh (stage 2: HTTPS)
 map $http_user_agent $speedshield_store {
     default                  "";
-    "~*android"              "https://play.google.com/store/apps/details?id=com.speedshield.app";
+    "~*android"              "intent://details?id=com.speedshield.app#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.speedshield.app;end";
     "~*(iphone|ipad|ipod)"   "https://apps.apple.com/app/id6784553439";
 }
 server {
