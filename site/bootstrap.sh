@@ -33,6 +33,7 @@ server {
     listen [::]:80;
     server_name getspeedshield.com www.getspeedshield.com;
     location /.well-known/acme-challenge/ { root /var/www/certbot; }
+    add_header Cache-Control "no-cache" always;
     root /var/www/getspeedshield;
     index index.html;
     access_log /var/log/nginx/getspeedshield_access.log;
@@ -88,6 +89,7 @@ server {
     add_header X-Frame-Options            DENY always;
     add_header X-Content-Type-Options     nosniff always;
     add_header Referrer-Policy            strict-origin-when-cross-origin always;
+    add_header Cache-Control "no-cache" always;
 
     root /var/www/getspeedshield;
     index index.html;

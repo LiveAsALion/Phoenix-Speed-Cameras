@@ -53,7 +53,7 @@
   .qr-card{display:none}
   @media(min-width:760px){
     .qr-card{display:flex;align-items:center;gap:26px;background:var(--panel);
-      border:1px solid #1f2733;border-radius:16px;padding:26px 30px;margin-bottom:52px}
+      border:1px solid #1f2733;border-radius:16px;padding:26px 30px;margin-top:6px}
     .qr-card img{width:170px;height:170px;border-radius:10px;background:#fff;flex:none}
     .qr-card h2{font-size:1.25rem;margin-bottom:8px}
     .qr-card p{color:var(--dim);font-size:.95rem}
@@ -87,6 +87,14 @@
 </header>
 
 <main class="wrap">
+  <div class="qr-card">
+    <img src="/qr-site.png" alt="QR code — scan with your phone to get SpeedShield" width="170" height="170">
+    <div>
+      <h2>Reading this on a computer?</h2>
+      <p>Point your phone's camera at the code and you'll land straight in
+      your app store — App&nbsp;Store on iPhone, Google&nbsp;Play on Android.</p>
+    </div>
+  </div>
   <div class="features">
     <div class="card"><div class="ico">&#128266;</div>
       <h3>Spoken, not on-screen</h3>
@@ -115,14 +123,6 @@
     </ol>
   </div>
 
-  <div class="qr-card">
-    <img src="/qr-site.png" alt="QR code — scan with your phone to get SpeedShield" width="170" height="170">
-    <div>
-      <h2>Reading this on a computer?</h2>
-      <p>Point your phone's camera at the code and you'll land straight in
-      your app store — App&nbsp;Store on iPhone, Google&nbsp;Play on Android.</p>
-    </div>
-  </div>
 </main>
 
 <footer>
