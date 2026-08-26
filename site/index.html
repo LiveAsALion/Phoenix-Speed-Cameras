@@ -48,6 +48,16 @@
   .how ol{padding-left:22px;color:var(--dim)}
   .how li{margin:8px 0}
   .how b{color:var(--txt)}
+  /* qr card — pointless on a phone (can't scan your own screen), so
+     it only appears on wider viewports */
+  .qr-card{display:none}
+  @media(min-width:760px){
+    .qr-card{display:flex;align-items:center;gap:26px;background:var(--panel);
+      border:1px solid #1f2733;border-radius:16px;padding:26px 30px;margin-bottom:52px}
+    .qr-card img{width:170px;height:170px;border-radius:10px;background:#fff;flex:none}
+    .qr-card h2{font-size:1.25rem;margin-bottom:8px}
+    .qr-card p{color:var(--dim);font-size:.95rem}
+  }
   footer{border-top:1px solid #1f2733;padding:26px 0 40px;text-align:center;
     color:#5a6a80;font-size:.85rem}
   footer a{color:#7fa8c9;text-decoration:none;margin:0 10px}
@@ -103,6 +113,15 @@
       <li><b>Get a heads-up.</b> Approaching a fixed photo-enforcement camera, you'll hear it announced at your chosen distance.</li>
       <li><b>Final reminder.</b> A second alert close to the camera confirms it — then SpeedShield goes quiet until the next one.</li>
     </ol>
+  </div>
+
+  <div class="qr-card">
+    <img src="/qr-site.png" alt="QR code — scan with your phone to get SpeedShield" width="170" height="170">
+    <div>
+      <h2>Reading this on a computer?</h2>
+      <p>Point your phone's camera at the code and you'll land straight in
+      your app store — App&nbsp;Store on iPhone, Google&nbsp;Play on Android.</p>
+    </div>
   </div>
 </main>
 

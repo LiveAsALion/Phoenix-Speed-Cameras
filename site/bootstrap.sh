@@ -18,6 +18,7 @@ elif [ ! -f "$WEBROOT/index.html" ]; then
   echo "ERROR: /tmp/index.html not found and no existing site file"; exit 1
 fi
 if [ -f /tmp/icon.png ]; then cp /tmp/icon.png "$WEBROOT/icon.png"; fi
+if [ -f /tmp/qr-site.png ]; then cp /tmp/qr-site.png "$WEBROOT/qr-site.png"; fi
 
 echo "== [2/5] nginx HTTP config =="
 cat > "$CONF" << 'NGINX'
