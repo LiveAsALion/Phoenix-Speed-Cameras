@@ -44,6 +44,7 @@ server {
     }
     # Vanity paths for pasting in chats — clean text, tagged tracking.
     location = /nextdoor { return 302 /go?src=nextdoor; }
+    location = /royalpalm { return 302 /go?src=royalpalm; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -104,6 +105,7 @@ server {
     }
     # Vanity paths for pasting in chats — clean text, tagged tracking.
     location = /nextdoor { return 302 /go?src=nextdoor; }
+    location = /royalpalm { return 302 /go?src=royalpalm; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -118,4 +120,6 @@ curl -sS -o /dev/null -w "/go (iphone UA)  -> %{http_code} %{redirect_url}\n" \
      -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)" "https://$DOMAIN/go?src=test" || true
 curl -sS -o /dev/null -w "/nextdoor        -> %{http_code} %{redirect_url}\n" \
      "https://$DOMAIN/nextdoor" || true
+curl -sS -o /dev/null -w "/royalpalm       -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/royalpalm" || true
 echo "DONE. QR log: /var/log/nginx/getspeedshield_qr.log"
