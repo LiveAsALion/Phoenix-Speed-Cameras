@@ -42,6 +42,8 @@ server {
         if ($speedshield_store != "") { return 302 $speedshield_store; }
         return 302 /?$args;
     }
+    # Vanity paths for pasting in chats — clean text, tagged tracking.
+    location = /nextdoor { return 302 /go?src=nextdoor; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -100,6 +102,8 @@ server {
         if ($speedshield_store != "") { return 302 $speedshield_store; }
         return 302 /?$args;
     }
+    # Vanity paths for pasting in chats — clean text, tagged tracking.
+    location = /nextdoor { return 302 /go?src=nextdoor; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -112,4 +116,6 @@ curl -sS -o /dev/null -w "/go (android UA) -> %{http_code} %{redirect_url}\n" \
      -A "Mozilla/5.0 (Linux; Android 14)" "https://$DOMAIN/go?src=test" || true
 curl -sS -o /dev/null -w "/go (iphone UA)  -> %{http_code} %{redirect_url}\n" \
      -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)" "https://$DOMAIN/go?src=test" || true
+curl -sS -o /dev/null -w "/nextdoor        -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/nextdoor" || true
 echo "DONE. QR log: /var/log/nginx/getspeedshield_qr.log"
