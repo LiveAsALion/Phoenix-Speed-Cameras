@@ -48,6 +48,8 @@ server {
     location = /moonvalley { return 302 /go?src=moonvalley; }
     location = /phxnt { return 302 /go?src=phxnt; }
     location = /drivesafe { return 302 /go?src=drivesafe; }
+    location = /instagram { return 302 /go?src=instagram; }
+    location = /~drivesafe { return 302 /go?src=instagram; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -112,6 +114,8 @@ server {
     location = /moonvalley { return 302 /go?src=moonvalley; }
     location = /phxnt { return 302 /go?src=phxnt; }
     location = /drivesafe { return 302 /go?src=drivesafe; }
+    location = /instagram { return 302 /go?src=instagram; }
+    location = /~drivesafe { return 302 /go?src=instagram; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -134,4 +138,8 @@ curl -sS -o /dev/null -w "/phxnt           -> %{http_code} %{redirect_url}\n" \
      "https://$DOMAIN/phxnt" || true
 curl -sS -o /dev/null -w "/drivesafe       -> %{http_code} %{redirect_url}\n" \
      "https://$DOMAIN/drivesafe" || true
+curl -sS -o /dev/null -w "/instagram       -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/instagram" || true
+curl -sS -o /dev/null -w "/~drivesafe      -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/~drivesafe" || true
 echo "DONE. QR log: /var/log/nginx/getspeedshield_qr.log"
