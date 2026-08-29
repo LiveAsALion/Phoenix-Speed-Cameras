@@ -45,6 +45,8 @@ server {
     # Vanity paths for pasting in chats — clean text, tagged tracking.
     location = /nextdoor { return 302 /go?src=nextdoor; }
     location = /royalpalm { return 302 /go?src=royalpalm; }
+    location = /moonvalley { return 302 /go?src=moonvalley; }
+    location = /phxnt { return 302 /go?src=phxnt; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -106,6 +108,8 @@ server {
     # Vanity paths for pasting in chats — clean text, tagged tracking.
     location = /nextdoor { return 302 /go?src=nextdoor; }
     location = /royalpalm { return 302 /go?src=royalpalm; }
+    location = /moonvalley { return 302 /go?src=moonvalley; }
+    location = /phxnt { return 302 /go?src=phxnt; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -122,4 +126,8 @@ curl -sS -o /dev/null -w "/nextdoor        -> %{http_code} %{redirect_url}\n" \
      "https://$DOMAIN/nextdoor" || true
 curl -sS -o /dev/null -w "/royalpalm       -> %{http_code} %{redirect_url}\n" \
      "https://$DOMAIN/royalpalm" || true
+curl -sS -o /dev/null -w "/moonvalley      -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/moonvalley" || true
+curl -sS -o /dev/null -w "/phxnt           -> %{http_code} %{redirect_url}\n" \
+     "https://$DOMAIN/phxnt" || true
 echo "DONE. QR log: /var/log/nginx/getspeedshield_qr.log"
