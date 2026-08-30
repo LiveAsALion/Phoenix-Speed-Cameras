@@ -53,5 +53,103 @@
         "longitude": -112.116861,
         "direction_deg": 0,
         "road_axis_deg": 0
+    },
+    {
+        "name": "Baseline Rd and Rural Rd: Tempe",
+        "latitude": 33.378238,
+        "longitude": -111.928687,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Baseline Rd and Mill Ave: Tempe",
+        "latitude": 33.3789,
+        "longitude": -111.9392,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Mill Ave: Tempe",
+        "latitude": 33.3932,
+        "longitude": -111.9394,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Warner Rd and McClintock Dr: Tempe",
+        "latitude": 33.3346,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and McClintock Dr: Tempe",
+        "latitude": 33.3635,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and McClintock Dr: Tempe",
+        "latitude": 33.4221,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and McClintock Dr: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Rural Rd: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9267,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Rural Rd: Tempe",
+        "latitude": 33.349184,
+        "longitude": -111.928467,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Kyrene Rd: Tempe",
+        "latitude": 33.349186,
+        "longitude": -111.945717,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Priest Dr: Tempe",
+        "latitude": 33.421936,
+        "longitude": -111.960913,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Curry Rd and Scottsdale Rd: Tempe",
+        "latitude": 33.4407,
+        "longitude": -111.9262,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Rio Salado Pkwy and Rural Rd: Tempe",
+        "latitude": 33.4287,
+        "longitude": -111.9258,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "48th St and Broadway Rd: Tempe",
+        "latitude": 33.4068,
+        "longitude": -111.9785,
+        "direction_deg": -1,
+        "type": "red_light_speed"
     }
 ]

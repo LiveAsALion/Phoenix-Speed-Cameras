@@ -51,6 +51,118 @@ ROAD_AXIS_OVERRIDES = {
     "27th Avenue: Colter Street to Missouri Avenue": 0,      # 27th Ave runs north-south
 }
 
+# Hand-curated entries appended to every scrape output. The scrape rebuilds
+# camera_data.json from scratch, so anything not in the Phoenix KML and not
+# in this list is DELETED on every run. Tempe's program
+# (tempe.gov/PhotoEnforcement, verified 2026-08-30) publishes no scrapeable
+# map — 14 fixed red-light+speed intersections, hand-maintained here;
+# coordinates map-verified (tester pin drops + geocode,
+# SpeedShield docs/TEMPE_CAMERAS_DRAFT.md). direction_deg -1 =
+# omnidirectional (intersection cameras, multiple approaches); no
+# road_axis_deg on purpose - two roads cross, a single corridor line would
+# wrongly suppress the cross street. Tempe's four MOBILE units publish no
+# locations and are deliberately absent.
+MANUAL_CAMERAS = [
+    {
+        "name": "Baseline Rd and Rural Rd: Tempe",
+        "latitude": 33.378238,
+        "longitude": -111.928687,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Baseline Rd and Mill Ave: Tempe",
+        "latitude": 33.3789,
+        "longitude": -111.9392,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Mill Ave: Tempe",
+        "latitude": 33.3932,
+        "longitude": -111.9394,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Warner Rd and McClintock Dr: Tempe",
+        "latitude": 33.3346,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and McClintock Dr: Tempe",
+        "latitude": 33.3635,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and McClintock Dr: Tempe",
+        "latitude": 33.4221,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and McClintock Dr: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Rural Rd: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9267,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Rural Rd: Tempe",
+        "latitude": 33.349184,
+        "longitude": -111.928467,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Kyrene Rd: Tempe",
+        "latitude": 33.349186,
+        "longitude": -111.945717,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Priest Dr: Tempe",
+        "latitude": 33.421936,
+        "longitude": -111.960913,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Curry Rd and Scottsdale Rd: Tempe",
+        "latitude": 33.4407,
+        "longitude": -111.9262,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Rio Salado Pkwy and Rural Rd: Tempe",
+        "latitude": 33.4287,
+        "longitude": -111.9258,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "48th St and Broadway Rd: Tempe",
+        "latitude": 33.4068,
+        "longitude": -111.9785,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    }
+]
+
 def get_direction(text):
     text_upper = text.upper()
     for key, deg in DIRECTION_MAP.items():
@@ -113,6 +225,11 @@ def update_camera_data():
     if not cameras:
         print("No valid camera locations found.")
         return
+
+    # Manual cities ride along AFTER the empty-scrape guard: a failed or
+    # empty Phoenix scrape still never writes, and a good one always
+    # carries the hand-curated entries.
+    cameras.extend(MANUAL_CAMERAS)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(cameras, f, indent=4)
