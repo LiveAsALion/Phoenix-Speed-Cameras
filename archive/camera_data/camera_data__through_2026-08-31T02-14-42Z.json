@@ -1,0 +1,155 @@
+[
+    {
+        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
+        "latitude": 33.6107377912465,
+        "longitude": -112.129570020092,
+        "direction_deg": 90
+    },
+    {
+        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
+        "latitude": 33.6306925590751,
+        "longitude": -112.013295987503,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
+        "latitude": 33.6111001946346,
+        "longitude": -112.108167386106,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
+        "latitude": 33.4908277615037,
+        "longitude": -112.064939622434,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B,\u00a0 Indian School Rd: 83rd Ave to 75th Ave",
+        "latitude": 33.4946761609931,
+        "longitude": -112.225754995848,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 51st Ave: Van Buren St to I-10",
+        "latitude": 33.4555827502405,
+        "longitude": -112.169019611102,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Baseline Rd: 16th St to 24th St",
+        "latitude": 33.3779075016387,
+        "longitude": -112.039357278235,
+        "direction_deg": 270
+    },
+    {
+        "name": "W/B, Bell Rd: I-17 to 19th Ave",
+        "latitude": 33.6402100874448,
+        "longitude": -112.105172846625,
+        "direction_deg": 270
+    },
+    {
+        "name": "27th Avenue: Colter Street to Missouri Avenue",
+        "latitude": 33.51575,
+        "longitude": -112.116861,
+        "direction_deg": 0,
+        "road_axis_deg": 0
+    },
+    {
+        "name": "Baseline Rd and Rural Rd: Tempe",
+        "latitude": 33.378238,
+        "longitude": -111.928687,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Baseline Rd and Mill Ave: Tempe",
+        "latitude": 33.3789,
+        "longitude": -111.9392,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Mill Ave: Tempe",
+        "latitude": 33.3932,
+        "longitude": -111.9394,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Warner Rd and McClintock Dr: Tempe",
+        "latitude": 33.3346,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and McClintock Dr: Tempe",
+        "latitude": 33.3635,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and McClintock Dr: Tempe",
+        "latitude": 33.4221,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and McClintock Dr: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Rural Rd: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9267,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Rural Rd: Tempe",
+        "latitude": 33.349184,
+        "longitude": -111.928467,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Kyrene Rd: Tempe",
+        "latitude": 33.349186,
+        "longitude": -111.945717,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Priest Dr: Tempe",
+        "latitude": 33.421936,
+        "longitude": -111.960913,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Curry Rd and Scottsdale Rd: Tempe",
+        "latitude": 33.4407,
+        "longitude": -111.9262,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Rio Salado Pkwy and Rural Rd: Tempe",
+        "latitude": 33.4287,
+        "longitude": -111.9258,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "48th St and Broadway Rd: Tempe",
+        "latitude": 33.4068,
+        "longitude": -111.9785,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    }
+]
