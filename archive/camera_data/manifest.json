@@ -75,7 +75,7 @@
     "file": "archive/camera_data/camera_data__through_2026-08-31T02-14-42Z.json",
     "sha256": "e36157aef4e2d3c2ef7795413ef6b88abd3252efb8627e6c9b378877fd1e946c",
     "valid_from": "2026-08-21T00:39:12Z",
-    "valid_to": null,
+    "valid_to": "2026-09-01T02:33:16Z",
     "archived_at": "2026-08-31T02:14:42Z",
     "source_active_file": "camera_data.json"
   }
