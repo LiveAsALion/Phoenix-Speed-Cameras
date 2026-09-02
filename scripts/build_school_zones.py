@@ -36,14 +36,14 @@ before anything is written:
 
 Rows that resolve by school name rather than by the published intersection are
 listed at the end for a manual look: the camera sits at the intersection, and
-a school campus can be a few hundred meters from it.
+a school campus can be a few hundred meters from it. Two rows always take
+that path (Valley Academy, Kyrene Akimel A-Al -- the PDF prints one street
+for each), so expect at least those two in the spot-check list.
 
 Fixing a row
 ------------
 Put the coordinate in MANUAL_COORDS, keyed by school name, and re-run. Manual
-entries take priority over every lookup. Two schools need this from the start:
-the city's PDF prints only one street for Valley Academy and Kyrene Akimel
-A-Al, which no geocoder can turn into a point.
+entries take priority over every lookup.
 """
 
 import argparse
@@ -95,8 +95,9 @@ SCHEDULE_SOURCE = "Photo Safety Program School Schedule 8/17/26 to 10/2/26"
 # Hand-supplied coordinates, keyed by school name. These take priority over
 # every lookup, so this is where a failed or wrong-looking row gets fixed:
 # find the camera location in a map, copy the coordinates, add a line here,
-# re-run. Two schools need this from the start -- the city's PDF prints only
-# one street for them, which no geocoder can turn into a point.
+# re-run. Two schools (Valley Academy, Kyrene Akimel A-Al) have only one
+# street in the city's PDF; they resolve by school name and are flagged for
+# a map check -- put a verified point here to pin them exactly.
 MANUAL_COORDS = {
     # "Valley Academy": (33.0, -112.0),
     # "Kyrene Akimel A-Al Middle School": (33.0, -112.0),
@@ -336,15 +337,20 @@ def main():
                       f"MANUAL_COORDS or a cross street to SCHEDULE")
         return
 
+    # Rows whose PDF entry names only one street cannot be geocoded as an
+    # intersection; they resolve by SCHOOL NAME instead (the campus fronts
+    # that street, so the offset from the true camera spot is at most a few
+    # hundred metres inside a 600 m omnidirectional ring) and are flagged at
+    # the end for a map check. MANUAL_COORDS still wins when present.
     unresolved = [r for r in rows
                   if not r["cross_streets"] and r["school_name"] not in MANUAL_COORDS]
     if unresolved:
-        print("Refusing to geocode: these rows have no resolvable location.")
+        print(f"{len(unresolved)} row(s) have no published intersection — resolving by "
+              f"school name; spot-check these on a map before pushing:")
         for row in unresolved:
             print(f"  - {row['school_name']} (district {row['district']}): "
                   f"\"{row['location_text']}\"")
-        print("\nAdd coordinates to MANUAL_COORDS (or a cross street to SCHEDULE), then re-run.")
-        sys.exit(1)
+        print()
 
     failures = []
     for index, row in enumerate(rows, start=1):
