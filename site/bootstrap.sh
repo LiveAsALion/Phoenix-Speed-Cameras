@@ -61,6 +61,7 @@ server {
     location = /flyer { return 302 /go?src=flyer; }
     location = /decal { return 302 /go?src=decal; }
     location = /banner { return 302 /go?src=banner; }
+    location = /chuckwalla { return 302 /go?src=chuckwalla; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -138,6 +139,7 @@ server {
     location = /flyer { return 302 /go?src=flyer; }
     location = /decal { return 302 /go?src=decal; }
     location = /banner { return 302 /go?src=banner; }
+    location = /chuckwalla { return 302 /go?src=chuckwalla; }
     location / { try_files $uri $uri/ =404; }
 }
 NGINX
@@ -150,7 +152,7 @@ curl -sS -o /dev/null -w "/go (android UA) -> %{http_code} %{redirect_url}\n" \
      -A "Mozilla/5.0 (Linux; Android 14)" "https://$DOMAIN/go?src=test" || true
 curl -sS -o /dev/null -w "/go (iphone UA)  -> %{http_code} %{redirect_url}\n" \
      -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)" "https://$DOMAIN/go?src=test" || true
-for p in nextdoor royalpalm moonvalley phxnt drivesafe instagram rideshare plea iaff afscme liuna asptea azpolice card flyer decal banner; do
+for p in nextdoor royalpalm moonvalley phxnt drivesafe instagram rideshare plea iaff afscme liuna asptea azpolice card flyer decal banner chuckwalla; do
   curl -sS -o /dev/null -w "/$p -> %{http_code} %{redirect_url}\n" "https://$DOMAIN/$p" || true
 done
 curl -sS -o /dev/null -w "/~drivesafe -> %{http_code} %{redirect_url}\n" "https://$DOMAIN/~drivesafe" || true
