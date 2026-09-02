@@ -1,0 +1,302 @@
+{
+  "_readme": "Per-city candidate rosters for SpeedShield expansion. NOT fetched by the app. Pipeline: (1) adjudicate each roster against the city's official list (URLs in sources), (2) python3 scripts/build_city_drafts.py --geocode writes drafts/<city>.geocoded.json with sanity-gated coordinates, (3) tester pin-drops a sample / any flagged rows, (4) verified entries are pasted into MANUAL_CAMERAS in update_cameras.py, which is what goes live. Names follow the app convention 'X and Y: City' (speech stops at the colon). direction_deg -1 = omnidirectional; approaches are recorded for the record even though the alert is omnidirectional (Tempe precedent). Compiled 2026-09-02 from search results only -- every official page was network-blocked from the session; see confidence per entry.",
+  "chandler": {
+    "city_label": "Chandler",
+    "default_type": "red_light_speed",
+    "status": "ACTIVE - 12 cameras (approach-level) at 8 intersections; red light + speed-on-green",
+    "sources": [
+      "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement",
+      "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf (official map, dated 2024-08-15 -- ADJUDICATES this roster)",
+      "https://www.12news.com/article/news/local/valley/12-chandler-intersections-getting-traffic-cameras/75-79810778 (2016 launch list, the 12 approaches below)"
+    ],
+    "entries": [
+      {
+        "name": "Alma School Rd and Queen Creek Rd",
+        "query": "Alma School Rd & Queen Creek Rd, Chandler, AZ",
+        "approaches": [
+          "WB Queen Creek Rd",
+          "SB Alma School Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "Alma School Rd and Ray Rd",
+        "query": "Alma School Rd & Ray Rd, Chandler, AZ",
+        "approaches": [
+          "EB Ray Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "Cooper Rd and Riggs Rd",
+        "query": "Cooper Rd & Riggs Rd, Chandler, AZ",
+        "approaches": [
+          "EB Riggs Rd",
+          "WB Riggs Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "Alma School Rd and Warner Rd",
+        "query": "Alma School Rd & Warner Rd, Chandler, AZ",
+        "approaches": [
+          "WB Warner Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "Chandler Blvd and Kyrene Rd",
+        "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
+        "approaches": [
+          "WB Chandler Blvd"
+        ],
+        "confidence": "2016 launch list; also named on the current city page"
+      },
+      {
+        "name": "Dobson Rd and Ray Rd",
+        "query": "Dobson Rd & Ray Rd, Chandler, AZ",
+        "approaches": [
+          "SB Dobson Rd",
+          "WB Ray Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "McClintock Dr and Ray Rd",
+        "query": "McClintock Dr & Ray Rd, Chandler, AZ",
+        "approaches": [
+          "SB McClintock Dr",
+          "EB Ray Rd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      },
+      {
+        "name": "Chandler Blvd and Dobson Rd",
+        "query": "Chandler Blvd & Dobson Rd, Chandler, AZ",
+        "approaches": [
+          "WB Chandler Blvd"
+        ],
+        "confidence": "2016 launch list; confirm on 2024 map"
+      }
+    ]
+  },
+  "mesa": {
+    "city_label": "Mesa",
+    "default_type": "red_light_speed",
+    "status": "ACTIVE - 16 intersections in 2024, council approved growth to 20 (2025 Verra contract) plus 2 more school zones; 7 of the 16 identified so far; 5 fixed 24/7 school-zone speed cameras (35 mph when lights flash, 45 otherwise)",
+    "sources": [
+      "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official; ADJUDICATES -- has the full intersection list)",
+      "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts",
+      "https://www.themesatribune.com/news/mesa-amps-up-traffic-camera-network/article_9f50e16d-9211-4ebb-a0c3-f418979095f4.html (16 -> 20 expansion)",
+      "2passdd.com 'Mesa Photo Camera Locations (updated 2024) N of 16' series (the 7 named intersections below come from the article titles)"
+    ],
+    "entries": [
+      {
+        "name": "Country Club Dr and Southern Ave",
+        "query": "Country Club Dr & Southern Ave, Mesa, AZ",
+        "confidence": "2024 third-party list (4 of 16)"
+      },
+      {
+        "name": "Ellsworth Rd and Pecos Rd",
+        "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
+        "confidence": "2024 third-party list (6 of 16)"
+      },
+      {
+        "name": "Gilbert Rd and McKellips Rd",
+        "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
+        "confidence": "2024 third-party list (8 of 16)"
+      },
+      {
+        "name": "Lindsay Rd and University Dr",
+        "query": "Lindsay Rd & University Dr, Mesa, AZ",
+        "confidence": "2024 third-party list (9 of 16)"
+      },
+      {
+        "name": "Mesa Dr and University Dr",
+        "query": "Mesa Dr & University Dr, Mesa, AZ",
+        "confidence": "2024 third-party list (12 of 16)"
+      },
+      {
+        "name": "Power Rd and Main St",
+        "query": "Power Rd & Main St, Mesa, AZ",
+        "confidence": "2024 third-party list (15 of 16)"
+      },
+      {
+        "name": "Guadalupe Rd and Carriage Ln",
+        "query": "Guadalupe Rd & Carriage Ln, Mesa, AZ",
+        "confidence": "2024 third-party list (16 of 16); minor cross street -- check the geocode"
+      },
+      {
+        "name": "Rhodes Junior High school zone, Baseline Rd",
+        "query": "Rhodes Junior High School, Mesa, AZ",
+        "type": "school_zone",
+        "confidence": "fixed 24/7 school-zone speed camera on W Baseline Rd; geocoded by SCHOOL, camera sits on Baseline at the campus -- pin-drop the corridor midpoint"
+      },
+      {
+        "name": "Fremont Junior High school zone, Power Rd",
+        "query": "Fremont Junior High School, Mesa, AZ",
+        "type": "school_zone",
+        "confidence": "fixed 24/7 school-zone speed camera on N Power Rd; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+      },
+      {
+        "name": "Brimhall Junior High school zone, Southern Ave",
+        "query": "Brimhall Junior High School, Mesa, AZ",
+        "type": "school_zone",
+        "confidence": "fixed 24/7 school-zone speed camera on E Southern Ave; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+      },
+      {
+        "name": "Mesa High School school zone, Southern Ave",
+        "query": "Mesa High School, Mesa, AZ",
+        "type": "school_zone",
+        "confidence": "fixed 24/7 school-zone speed camera; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+      },
+      {
+        "name": "Skyline High School school zone, Crismon Rd",
+        "query": "Skyline High School, Mesa, AZ",
+        "type": "school_zone",
+        "confidence": "fixed 24/7 school-zone speed camera; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+      }
+    ],
+    "missing": "9 of the 16 intersections (and the 4 added in 2025-26) are not yet identified -- take them from the official Mesa page."
+  },
+  "scottsdale": {
+    "city_label": "Scottsdale",
+    "default_type": "red_light_speed",
+    "status": "ACTIVE since 1996 - 11 intersections (red light + speed >=11 over), a dual-direction fixed speed camera mid-block on Frank Lloyd Wright Blvd, and mobile vans; locations shift on speed/crash data (4 activated + 2 deactivated 2019-03-01)",
+    "sources": [
+      "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official list WITH directions -- ADJUDICATES)",
+      "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement",
+      "2passdd.com 'Scottsdale Photo Camera Locations (updated 2024) N of 11' series; 12news/abc15 2019-03-01 activation stories"
+    ],
+    "entries": [
+      {
+        "name": "Scottsdale Rd and McDowell Rd",
+        "query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ",
+        "approaches": [
+          "SB Scottsdale Rd (EB McDowell deactivated 2019)"
+        ],
+        "confidence": "official PDF title names this one"
+      },
+      {
+        "name": "Scottsdale Rd and Thomas Rd",
+        "query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ",
+        "confidence": "named in 2024 third-party list; verify still active"
+      },
+      {
+        "name": "Hayden Rd and Indian School Rd",
+        "query": "Hayden Rd & Indian School Rd, Scottsdale, AZ",
+        "confidence": "named in 2024 third-party list; verify"
+      },
+      {
+        "name": "Scottsdale Rd and Shea Blvd",
+        "query": "Scottsdale Rd & Shea Blvd, Scottsdale, AZ",
+        "confidence": "named in 2024 third-party list; verify"
+      },
+      {
+        "name": "Scottsdale Rd and Cactus Rd",
+        "query": "Scottsdale Rd & Cactus Rd, Scottsdale, AZ",
+        "confidence": "named in 2024 third-party list; verify"
+      },
+      {
+        "name": "Shea Blvd and 92nd St",
+        "query": "Shea Blvd & 92nd St, Scottsdale, AZ",
+        "confidence": "2024 third-party list (7 of 11)"
+      },
+      {
+        "name": "Frank Lloyd Wright Blvd and Cactus Rd",
+        "query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ",
+        "confidence": "2024 third-party list (7 of 11)"
+      },
+      {
+        "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
+        "query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
+        "confidence": "2024 third-party list (7 of 11)"
+      },
+      {
+        "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
+        "query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ",
+        "confidence": "2024 third-party list (7 of 11)"
+      },
+      {
+        "name": "Scottsdale Rd and Pinnacle Peak Rd",
+        "query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ",
+        "confidence": "2024 third-party list (7 of 11)"
+      },
+      {
+        "name": "Pima Rd and Hualapai Dr",
+        "query": "Pima Rd & Hualapai Dr, Scottsdale, AZ",
+        "confidence": "named in a 2026 search summary; verify"
+      },
+      {
+        "name": "Frank Lloyd Wright Blvd at 7700 E",
+        "query": "7700 E Frank Lloyd Wright Blvd, Scottsdale, AZ",
+        "type": "fixed",
+        "confidence": "dual-direction fixed SPEED camera mid-block, both directions; address from a news story -- verify on the official PDF"
+      },
+      {
+        "name": "Shea Blvd and 120th St",
+        "query": "Shea Blvd & 120th St, Scottsdale, AZ",
+        "confidence": "LOW - appeared once in a search summary; may be a confusion with 92nd St. Keep only if the official PDF lists it"
+      }
+    ]
+  },
+  "paradise_valley": {
+    "city_label": "Paradise Valley",
+    "default_type": "red_light_speed",
+    "status": "ACTIVE (first US photo-radar town) - fixed cameras at a handful of Tatum/Lincoln intersections, both directions each, plus an unpublished mobile van (24 h stints) and school-zone radar boxes (2022; confirm whether those cite or only display speed)",
+    "sources": [
+      "https://www.paradisevalleyaz.gov/153/Photo-Radar (official -- ADJUDICATES)",
+      "https://www.paradisevalleyaz.gov/DocumentCenter/View/8639/Photo-Enforcement-Brochure",
+      "https://www.paradisevalleyaz.gov/faq.aspx?TID=31"
+    ],
+    "entries": [
+      {
+        "name": "Lincoln Dr and Mockingbird Ln",
+        "query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
+        "approaches": [
+          "EB Lincoln Dr",
+          "WB Lincoln Dr"
+        ],
+        "confidence": "named in two independent summaries"
+      },
+      {
+        "name": "Tatum Blvd and McDonald Dr",
+        "query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
+        "approaches": [
+          "NB Tatum Blvd",
+          "SB Tatum Blvd"
+        ],
+        "confidence": "named in two independent summaries"
+      },
+      {
+        "name": "Tatum Blvd and Desert Jewel Dr",
+        "query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
+        "approaches": [
+          "NB Tatum Blvd",
+          "SB Tatum Blvd"
+        ],
+        "confidence": "named in one summary (2026)"
+      },
+      {
+        "name": "Tatum Blvd and Lincoln Dr",
+        "query": "Tatum Blvd & Lincoln Dr, Paradise Valley, AZ",
+        "confidence": "named in one summary; verify"
+      },
+      {
+        "name": "Lincoln Dr and Palo Cristi Rd",
+        "query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
+        "confidence": "named in one summary; verify"
+      }
+    ]
+  },
+  "not_in_scope": {
+    "el_mirage": "ENDED 2019-06-30 (council vote; all equipment removed July 2019)",
+    "avondale": "ENDING - portable speed-camera program launched 2024; council voted 5-2 in Nov 2025 to end it (cost, staff load, vandalism). Confirm removal before treating as zero",
+    "glendale": "NONE - council declined to adopt red-light cameras",
+    "peoria": "NONE found",
+    "surprise": "NONE for traffic enforcement (2026 news is about Flock license-plate readers, unrelated to speed/red-light)",
+    "goodyear_gilbert_buckeye_queen_creek_fountain_hills_cave_creek_tolleson": "NONE found in 2026 coverage; the recurring 'Valley cities with cameras' list is Phoenix, Tempe, Mesa, Chandler, Scottsdale, Paradise Valley",
+    "star_valley": "ACTIVE but Gila County (Payson area), outside the metro",
+    "adot_freeways": "NONE since the state program ended in 2010"
+  }
+}
