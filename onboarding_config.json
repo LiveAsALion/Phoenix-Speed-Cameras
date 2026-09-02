@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "_readme": "LIVE onboarding config for SpeedShield b50/v21+. Editing this file changes the fresh-install onboarding cards (count, order, template, copy, colors, images) and the trial reminder (day_offset, title, body) on users' next launch — no app release. The app validates before rendering and falls back to its bundled default on any parse error, so a bad edit degrades gracefully; still, keep edits to valid JSON. Templates available: hero_moment, features, timeline. Icons: bluetooth, map, update, volume, unlock, bell, star, shield, car, camera, navigation, check. Prices are never configured here — they render from store product data. If you change reminder.day_offset, update the 'Day N' timeline text to match.",
+  "theme": {
+    "bg": "#0D1420",
+    "panel": "#141F2E",
+    "panel_border": "#223044",
+    "accent": "#4A9FE8",
+    "button": "#2F7CC4",
+    "text": "#EEF3F9",
+    "dim": "#9DB0C4",
+    "good": "#7FD598",
+    "good_bg": "#173A24",
+    "good_border": "#2E6B43"
+  },
+  "cards": [
+    {
+      "template": "hero_moment",
+      "headline": "Know before\nthe camera does.",
+      "sub": "SpeedShield speaks up as you approach any photo-enforcement camera in the Valley — eyes on the road, phone in your pocket.",
+      "quote": "“Photo-enforced intersection ahead, 600 meters.”",
+      "cta": "Continue",
+      "image_url": null
+    },
+    {
+      "template": "features",
+      "headline": "Set it once.\nIt rides along.",
+      "sub": "No opening the app every drive — SpeedShield starts itself.",
+      "cta": "Continue",
+      "image_url": null,
+      "bullets": [
+        {
+          "icon": "bluetooth",
+          "title": "Starts when your car connects",
+          "body": "Bluetooth, CarPlay, or Android Auto wakes it automatically."
+        },
+        {
+          "icon": "map",
+          "title": "Runs alongside your navigation",
+          "body": "Works with Apple Maps, Google Maps, and Waze — no switching apps."
+        },
+        {
+          "icon": "update",
+          "title": "23 cameras, always current",
+          "body": "Phoenix and Tempe coverage that updates itself when the cities change their cameras."
+        }
+      ]
+    },
+    {
+      "template": "timeline",
+      "headline": "Try everything free\nfor 7 days.",
+      "sub": "Here's exactly how the trial works — no surprises.",
+      "cta": "Continue",
+      "footnote": "No charge today.",
+      "image_url": null,
+      "bullets": [
+        {
+          "icon": "unlock",
+          "title": "Today — full access",
+          "body": "Every alert, every camera, every activation mode. Nothing held back."
+        },
+        {
+          "icon": "bell",
+          "title": "Day 5 — we remind you",
+          "body": "A heads-up from us before your trial ends. The app store sends its own reminder too."
+        },
+        {
+          "icon": "star",
+          "title": "Day 7 — membership begins",
+          "body": "Cancel anytime before this and you won't be charged a cent."
+        }
+      ]
+    }
+  ],
+  "paywall": {
+    "headline": "Start your free week",
+    "checks": [
+      "No charge today",
+      "Reminder before billing",
+      "Cancel anytime"
+    ],
+    "proof": "Built in Phoenix, by a Valley driver.",
+    "cta_trial": "Try 7 Days Free",
+    "cta_no_trial": "Subscribe",
+    "plan_trial_suffix": "7 days free",
+    "annual_label": "Annual",
+    "monthly_label": "Monthly",
+    "annual_badge": "SAVE 44%"
+  },
+  "reminder": {
+    "_note": "day_offset drives the ACTUAL notification (fires day_offset days after trial start, same time of day the trial began; clamped 1-6). If you change it, also update the 'Day N' timeline card text above so the promise matches the delivery.",
+    "day_offset": 5,
+    "title": "Your free week ends soon",
+    "body": "SpeedShield keeps watching for cameras — you don't need to do anything. Cancel anytime in your app store settings."
+  }
+}
