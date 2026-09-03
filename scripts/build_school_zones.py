@@ -101,8 +101,10 @@ SCHEDULE_SOURCE = "Photo Safety Program School Schedule 8/17/26 to 10/2/26"
 # street in the city's PDF; they resolve by school name and are flagged for
 # a map check -- put a verified point here to pin them exactly.
 MANUAL_COORDS = {
-    # "Valley Academy": (33.0, -112.0),
-    # "Kyrene Akimel A-Al Middle School": (33.0, -112.0),
+    # Campbell Ave meets Meadowbrook Ave twice; the school is at 4407 N 55th
+    # Ave, so the eastern crossing (near 53rd Ave) is the one -- the other is
+    # 3 km west at 71st Ave. Coordinate is that OSM intersection node.
+    "John F Long Elementary": (33.502190, -112.175074),
 }
 
 # Transcribed from the source PDF, district by district, in listed order.
