@@ -1,0 +1,34 @@
+name: Geocode school zones
+
+# Manual trigger only. Runs the school-zone builder (Overpass/Nominatim lookups
+# need internet the session container does not have), and commits the result
+# ONLY if the builder wrote a file -- it exits non-zero and writes nothing when
+# any row fails its sanity checks, which fails this job cleanly.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Geocode the transcribed schedule
+        run: python scripts/build_school_zones.py --geocode
+
+      - name: Commit and push the new active file
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add school_zone_cameras.json archive
+          git commit -m "School zones: geocoded rotation (workflow_dispatch)" || { echo "nothing to commit"; exit 0; }
+          git push
