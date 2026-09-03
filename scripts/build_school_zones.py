@@ -256,20 +256,26 @@ def _nominatim_first(query):
 
 
 # ---------------------------------------------------------------------------
-# Overpass (OpenStreetMap) intersection lookup.
+# Overpass (OpenStreetMap) lookups.
 #
 # Nominatim cannot resolve "A & B" intersections -- the first --geocode run
 # hit 1 of 56 that way. Overpass can: it returns the node(s) shared by the two
-# named ways, i.e. the actual intersection. Street names in OSM are spelled
-# out with a directional prefix ("North 40th Lane"), so the city's short forms
-# are expanded and matched with an anchored, case-insensitive regex.
+# named ways, i.e. the actual intersection. OSM spells street names out with
+# a directional prefix ("North 40th Lane"), so the city's short forms are
+# expanded and matched EXACTLY against the five prefix variants (exact tag
+# matches are indexed and fast; the earlier regex scan of every road in the
+# metro was what produced the 504s). A case-insensitive regex is the fallback.
+# OSM also maps most schools as named polygons, which gives a far better
+# school location than Nominatim for tie-breaks and single-street rows.
 # ---------------------------------------------------------------------------
 OVERPASS_ENDPOINTS = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
 ]
 OVERPASS_BBOX = f"{LAT_MIN},{LON_MIN},{LAT_MAX},{LON_MAX}"  # south,west,north,east
 OVERPASS_INTERVAL_SECONDS = 1.5
+OVERPASS_ATTEMPTS = 2  # full passes over the endpoint list
 CLUSTER_METERS = 300  # nodes closer than this are one intersection (divided roads)
 
 _STREET_TYPES = {
@@ -278,6 +284,22 @@ _STREET_TYPES = {
     "ct": "Court", "trl": "Trail", "hwy": "Highway", "ter": "Terrace",
 }
 _DIRECTIONS = {"n": "North", "s": "South", "e": "East", "w": "West"}
+_PREFIXES = ("North ", "South ", "East ", "West ", "")
+
+# Alternate intersection spellings tried when the published one finds
+# nothing in OSM. Keyed by school name.
+ALT_QUERIES = {
+    "Imagine Bell Canyon": ["27th Ave & Villa Maria Dr"],
+}
+
+# Words that carry no identity when matching a school's OSM polygon by name.
+_GENERIC_SCHOOL_WORDS = {
+    "elementary", "school", "middle", "academy", "junior", "high",
+    "intermediate", "neighborhood", "international", "traditional", "stem",
+    "performing", "arts", "dual", "language", "accelerated", "community",
+    "entrepreneurial", "global", "primary", "charter", "campus", "prep",
+    "preparatory", "of", "the", "and",
+}
 
 
 def osm_street_name(short):
@@ -295,22 +317,31 @@ def osm_street_name(short):
     return " ".join(out)
 
 
-def _name_regex(name):
+def _check_name(name):
     if not re.fullmatch(r"[A-Za-z0-9 '\-]+", name):
         raise ValueError(f"street name has characters the query cannot carry: {name!r}")
-    return f"^(North |South |East |West )?{name}$"
+    return name
 
 
 def _overpass(query):
+    """POST a query; rotate endpoints and retry. A 200 whose body carries a
+    'remark' (Overpass reports its own timeouts that way, with an EMPTY
+    element list) counts as a failure, not as 'nothing there'."""
     data = urllib.parse.urlencode({"data": query}).encode()
     last_error = None
-    for url in OVERPASS_ENDPOINTS:
-        try:
-            request = urllib.request.Request(url, data=data, headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(request, timeout=120) as response:
-                return json.load(response).get("elements", [])
-        except Exception as error:
-            last_error = error
+    for attempt in range(OVERPASS_ATTEMPTS):
+        for url in OVERPASS_ENDPOINTS:
+            try:
+                request = urllib.request.Request(url, data=data, headers={"User-Agent": USER_AGENT})
+                with urllib.request.urlopen(request, timeout=90) as response:
+                    body = json.load(response)
+                remark = body.get("remark", "")
+                if remark and ("timed out" in remark or "error" in remark.lower()):
+                    raise RuntimeError(f"overpass remark: {remark[:120]}")
+                return body.get("elements", [])
+            except Exception as error:
+                last_error = error
+                time.sleep(2 + 3 * attempt)
     raise last_error
 
 
@@ -337,41 +368,92 @@ def _cluster(points):
     return [c["centroid"] for c in clusters]
 
 
+def _way_set_exact(name, bbox, label):
+    union = "".join(f'way["highway"]["name"="{prefix}{name}"]({bbox});' for prefix in _PREFIXES)
+    return f"({union})->.{label};"
+
+
+def _way_set_regex(name, bbox, label):
+    return f'way["highway"]["name"~"^(North |South |East |West )?{name}$",i]({bbox})->.{label};'
+
+
 def overpass_intersection(street_a, street_b, bbox=OVERPASS_BBOX):
-    """Centroids of every distinct place where the two named streets meet."""
-    query = (
-        '[out:json][timeout:90];'
-        f'way["highway"]["name"~"{_name_regex(street_a)}",i]({bbox})->.a;'
-        f'way["highway"]["name"~"{_name_regex(street_b)}",i]({bbox})->.b;'
-        'node(w.a)(w.b);out;'
-    )
-    elements = _overpass(query)
-    time.sleep(OVERPASS_INTERVAL_SECONDS)
-    return _cluster([(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"])
+    """Centroids of every distinct place where the two named streets meet.
+    Exact (indexed) name match first; case-insensitive regex if that is empty."""
+    _check_name(street_a)
+    _check_name(street_b)
+    for builder in (_way_set_exact, _way_set_regex):
+        query = ('[out:json][timeout:60];' + builder(street_a, bbox, "a")
+                 + builder(street_b, bbox, "b") + 'node(w.a)(w.b);out;')
+        elements = _overpass(query)
+        time.sleep(OVERPASS_INTERVAL_SECONDS)
+        points = [(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"]
+        if points:
+            return _cluster(points)
+    return []
 
 
 def overpass_nearest_street_node(street, point, max_m, bbox=OVERPASS_BBOX):
     """The node of the named street closest to `point`, if within max_m."""
-    query = (
-        '[out:json][timeout:90];'
-        f'way["highway"]["name"~"{_name_regex(street)}",i]({bbox});node(w);out;'
-    )
+    _check_name(street)
+    for builder in (_way_set_exact, _way_set_regex):
+        query = '[out:json][timeout:60];' + builder(street, bbox, "s") + 'node(w.s);out;'
+        elements = _overpass(query)
+        time.sleep(OVERPASS_INTERVAL_SECONDS)
+        nodes = [(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"]
+        if nodes:
+            best = min(nodes, key=lambda n: _haversine_m(n, point))
+            return best if _haversine_m(best, point) <= max_m else None
+    return None
+
+
+def _school_regex(school_name):
+    tokens = [t for t in re.split(r"[\s,]+", school_name.replace(".", ""))
+              if len(t) >= 3 and t.lower() not in _GENERIC_SCHOOL_WORDS]
+    if not tokens:
+        tokens = school_name.split()[:1]
+    return ".*".join(re.escape(t) for t in tokens)
+
+
+def overpass_school_center(school_name, bbox=OVERPASS_BBOX):
+    """Centre of the OSM school polygon/node whose name matches, or None."""
+    query = ('[out:json][timeout:60];'
+             f'nwr["amenity"="school"]["name"~"{_school_regex(school_name)}",i]({bbox});'
+             'out center;')
     elements = _overpass(query)
     time.sleep(OVERPASS_INTERVAL_SECONDS)
-    nodes = [(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"]
-    if not nodes:
+    centers = []
+    for e in elements:
+        if e.get("type") == "node":
+            centers.append((e["lat"], e["lon"]))
+        elif "center" in e:
+            centers.append((e["center"]["lat"], e["center"]["lon"]))
+    if not centers:
         return None
-    best = min(nodes, key=lambda n: _haversine_m(n, point))
-    return best if _haversine_m(best, point) <= max_m else None
+    if len(centers) > 1:
+        # Several matches (branch campuses, a same-named high school): if they
+        # are far apart we cannot pick, so decline rather than guess.
+        if max(_haversine_m(centers[0], c) for c in centers) > 1500:
+            print(f"      {len(centers)} OSM schools match {school_name!r}; not using as anchor")
+            return None
+    return centers[0]
+
+
+def _strip_direction_suffix(expanded):
+    """'Ranch Circle East' -> 'Ranch Circle' (OSM sometimes omits the suffix)."""
+    tokens = expanded.split()
+    if len(tokens) > 1 and tokens[-1] in _DIRECTIONS.values():
+        return " ".join(tokens[:-1])
+    return None
 
 
 def geocode(row):
     """Resolve one row to (lat, lon, how) or None.
 
-    Order of trust: manual -> OSM intersection node (Overpass) -> Nominatim
-    intersection phrasing -> a point on the named street nearest the school
-    (single-street rows) -> the school itself. `how` records which won so the
-    report can say how much to trust each coordinate.
+    Order of trust: manual -> OSM intersection node -> Nominatim intersection
+    phrasing -> (single-street rows) the street node nearest the school ->
+    the OSM school polygon -> Nominatim school lookup. `how` records which
+    won so the report can say how much to trust each coordinate.
     """
     manual = MANUAL_COORDS.get(row["school_name"])
     if manual:
@@ -380,31 +462,55 @@ def geocode(row):
     cache = {}
 
     def school_point():
+        """Best available location of the school itself: OSM polygon, else
+        Nominatim. Cached per row; False means both came back empty."""
         if "pt" not in cache:
-            cache["pt"] = _nominatim_first(f"{row['school_name']}, Phoenix, AZ")
-        return cache["pt"]
+            point = None
+            try:
+                point = overpass_school_center(row["school_name"])
+                if point:
+                    cache["src"] = "osm-school"
+            except Exception as error:
+                print(f"      overpass error (school): {error}")
+            if not point:
+                point = _nominatim_first(f"{row['school_name']}, Phoenix, AZ")
+                if point:
+                    cache["src"] = "school-name"
+            cache["pt"] = point or False
+        return cache["pt"] or None
+
+    def intersection_clusters(a, b):
+        try:
+            return overpass_intersection(osm_street_name(a), osm_street_name(b))
+        except Exception as error:
+            print(f"      overpass error: {error}")
+            return []
 
     if row["cross_streets"]:
         a, b = row["cross_streets"]
-        try:
-            clusters = overpass_intersection(osm_street_name(a), osm_street_name(b))
-        except Exception as error:
-            print(f"      overpass error: {error}")
-            clusters = []
-        if len(clusters) == 1:
-            return clusters[0][0], clusters[0][1], "osm-intersection"
-        if len(clusters) > 1:
-            # The two streets meet more than once (a curving residential
-            # drive crossing a numbered street twice). Pick the meeting point
-            # nearest the school; otherwise refuse rather than guess.
-            point = school_point()
-            if point:
-                best = min(clusters, key=lambda c: _haversine_m(c, point))
-                if _haversine_m(best, point) <= 1500:
-                    return best[0], best[1], "osm-intersection-nearest-school"
-            print(f"      ambiguous: {len(clusters)} separate intersections: "
-                  + "; ".join(f"{c[0]:.5f},{c[1]:.5f}" for c in clusters))
-            return None
+        pairs = [(a, b)]
+        stripped = [_strip_direction_suffix(osm_street_name(x)) for x in (a, b)]
+        if any(stripped):
+            pairs.append((stripped[0] or osm_street_name(a), stripped[1] or osm_street_name(b)))
+        for alt in ALT_QUERIES.get(row["school_name"], []):
+            pairs.append(tuple(alt.split(" & ")))
+
+        for pa, pb in pairs:
+            clusters = intersection_clusters(pa, pb)
+            if len(clusters) == 1:
+                return clusters[0][0], clusters[0][1], "osm-intersection"
+            if len(clusters) > 1:
+                # The two streets meet more than once. Pick the meeting point
+                # nearest the school; otherwise refuse rather than guess.
+                point = school_point()
+                if point:
+                    best = min(clusters, key=lambda c: _haversine_m(c, point))
+                    if _haversine_m(best, point) <= 1500:
+                        return best[0], best[1], "osm-intersection-nearest-school"
+                print(f"      ambiguous: {len(clusters)} separate intersections -- "
+                      + "; ".join(f"https://www.google.com/maps?q={c[0]:.6f},{c[1]:.6f}"
+                                  for c in clusters))
+                return None
         for query, how in ((f"{a} & {b}, Phoenix, AZ", "intersection"),
                            (f"{a} and {b}, Phoenix, AZ", "intersection-alt")):
             found = _nominatim_first(query)
@@ -426,7 +532,7 @@ def geocode(row):
 
     point = school_point()
     if point:
-        return point[0], point[1], "school-name"
+        return point[0], point[1], cache.get("src", "school-name")
     return None
 
 
@@ -489,11 +595,11 @@ def main():
         missing = [r for r in rows
                    if not r["cross_streets"] and r["school_name"] not in MANUAL_COORDS]
         if missing:
-            print(f"\n{len(missing)} row(s) need a hand-supplied intersection before --geocode:")
+            print(f"\n{len(missing)} row(s) have no published intersection; --geocode places "
+                  f"them on the named street beside the school (verify on a map):")
             for row in missing:
                 print(f"  - {row['school_name']} (district {row['district']}): "
-                      f"PDF gives only \"{row['location_text']}\" — add a line to "
-                      f"MANUAL_COORDS or a cross street to SCHEDULE")
+                      f"\"{row['location_text']}\"")
         return
 
     # Rows whose PDF entry names only one street cannot be geocoded as an
