@@ -56,6 +56,7 @@ import re
 import shutil
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -325,25 +326,41 @@ def _check_name(name):
     return name
 
 
+_endpoint_cursor = [0]          # rotate the starting server between calls
+_endpoint_penalty = {}          # url -> epoch seconds until it is retried
+
+
 def _overpass(query):
     """POST a query; rotate endpoints and retry. A 200 whose body carries a
     'remark' (Overpass reports its own timeouts that way, with an EMPTY
-    element list) counts as a failure, not as 'nothing there'."""
+    element list) counts as a failure, not as 'nothing there'. A server that
+    answers 429/504 is benched for two minutes so a throttled address (GitHub
+    runners share theirs) does not burn every attempt on the same host."""
     data = urllib.parse.urlencode({"data": query}).encode()
     last_error = None
+    count = len(OVERPASS_ENDPOINTS)
     for attempt in range(OVERPASS_ATTEMPTS):
-        for url in OVERPASS_ENDPOINTS:
+        for offset in range(count):
+            index = (_endpoint_cursor[0] + offset) % count
+            url = OVERPASS_ENDPOINTS[index]
+            if _endpoint_penalty.get(url, 0) > time.time():
+                continue
             try:
                 request = urllib.request.Request(url, data=data, headers={"User-Agent": USER_AGENT})
-                with urllib.request.urlopen(request, timeout=90) as response:
+                with urllib.request.urlopen(request, timeout=45) as response:
                     body = json.load(response)
                 remark = body.get("remark", "")
                 if remark and ("timed out" in remark or "error" in remark.lower()):
                     raise RuntimeError(f"overpass remark: {remark[:120]}")
+                _endpoint_cursor[0] = (index + 1) % count
                 return body.get("elements", [])
+            except urllib.error.HTTPError as error:
+                last_error = error
+                if error.code in (429, 504):
+                    _endpoint_penalty[url] = time.time() + 120
             except Exception as error:
                 last_error = error
-                time.sleep(2 + 3 * attempt)
+            time.sleep(2 + 3 * attempt)
     raise last_error
 
 
