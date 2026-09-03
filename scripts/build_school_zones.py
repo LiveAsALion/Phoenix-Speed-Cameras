@@ -50,7 +50,9 @@ import argparse
 import datetime
 import hashlib
 import json
+import math
 import os
+import re
 import shutil
 import sys
 import time
@@ -238,36 +240,193 @@ def _acceptable(result):
     return lat, lon
 
 
+def _nominatim_first(query):
+    """First acceptable Nominatim hit for a query, as (lat, lon), or None."""
+    try:
+        results = _nominatim(query)
+    except Exception as error:
+        print(f"      nominatim error: {error}")
+        results = []
+    time.sleep(REQUEST_INTERVAL_SECONDS)
+    for result in results:
+        found = _acceptable(result)
+        if found:
+            return found
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Overpass (OpenStreetMap) intersection lookup.
+#
+# Nominatim cannot resolve "A & B" intersections -- the first --geocode run
+# hit 1 of 56 that way. Overpass can: it returns the node(s) shared by the two
+# named ways, i.e. the actual intersection. Street names in OSM are spelled
+# out with a directional prefix ("North 40th Lane"), so the city's short forms
+# are expanded and matched with an anchored, case-insensitive regex.
+# ---------------------------------------------------------------------------
+OVERPASS_ENDPOINTS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+]
+OVERPASS_BBOX = f"{LAT_MIN},{LON_MIN},{LAT_MAX},{LON_MAX}"  # south,west,north,east
+OVERPASS_INTERVAL_SECONDS = 1.5
+CLUSTER_METERS = 300  # nodes closer than this are one intersection (divided roads)
+
+_STREET_TYPES = {
+    "rd": "Road", "ln": "Lane", "ave": "Avenue", "dr": "Drive", "st": "Street",
+    "pl": "Place", "blvd": "Boulevard", "pkwy": "Parkway", "cir": "Circle",
+    "ct": "Court", "trl": "Trail", "hwy": "Highway", "ter": "Terrace",
+}
+_DIRECTIONS = {"n": "North", "s": "South", "e": "East", "w": "West"}
+
+
+def osm_street_name(short):
+    """'Lakewood Pkwy W' -> 'Lakewood Parkway West'; '40th Ln' -> '40th Lane'."""
+    tokens = short.replace(".", "").split()
+    out = []
+    for index, token in enumerate(tokens):
+        low = token.lower()
+        if low in _STREET_TYPES:
+            out.append(_STREET_TYPES[low])
+        elif low in _DIRECTIONS and index == len(tokens) - 1 and len(tokens) > 1:
+            out.append(_DIRECTIONS[low])
+        else:
+            out.append(token)
+    return " ".join(out)
+
+
+def _name_regex(name):
+    if not re.fullmatch(r"[A-Za-z0-9 '\-]+", name):
+        raise ValueError(f"street name has characters the query cannot carry: {name!r}")
+    return f"^(North |South |East |West )?{name}$"
+
+
+def _overpass(query):
+    data = urllib.parse.urlencode({"data": query}).encode()
+    last_error = None
+    for url in OVERPASS_ENDPOINTS:
+        try:
+            request = urllib.request.Request(url, data=data, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(request, timeout=120) as response:
+                return json.load(response).get("elements", [])
+        except Exception as error:
+            last_error = error
+    raise last_error
+
+
+def _haversine_m(p, q):
+    lat1, lon1, lat2, lon2 = map(math.radians, (p[0], p[1], q[0], q[1]))
+    h = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+    return 2 * 6371000 * math.asin(math.sqrt(h))
+
+
+def _cluster(points):
+    """Greedy grouping: points within CLUSTER_METERS of a cluster centroid join
+    it. Returns one centroid per distinct intersection."""
+    clusters = []
+    for point in points:
+        for cluster in clusters:
+            if _haversine_m(point, cluster["centroid"]) <= CLUSTER_METERS:
+                cluster["points"].append(point)
+                n = len(cluster["points"])
+                cluster["centroid"] = (sum(p[0] for p in cluster["points"]) / n,
+                                       sum(p[1] for p in cluster["points"]) / n)
+                break
+        else:
+            clusters.append({"points": [point], "centroid": point})
+    return [c["centroid"] for c in clusters]
+
+
+def overpass_intersection(street_a, street_b, bbox=OVERPASS_BBOX):
+    """Centroids of every distinct place where the two named streets meet."""
+    query = (
+        '[out:json][timeout:90];'
+        f'way["highway"]["name"~"{_name_regex(street_a)}",i]({bbox})->.a;'
+        f'way["highway"]["name"~"{_name_regex(street_b)}",i]({bbox})->.b;'
+        'node(w.a)(w.b);out;'
+    )
+    elements = _overpass(query)
+    time.sleep(OVERPASS_INTERVAL_SECONDS)
+    return _cluster([(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"])
+
+
+def overpass_nearest_street_node(street, point, max_m, bbox=OVERPASS_BBOX):
+    """The node of the named street closest to `point`, if within max_m."""
+    query = (
+        '[out:json][timeout:90];'
+        f'way["highway"]["name"~"{_name_regex(street)}",i]({bbox});node(w);out;'
+    )
+    elements = _overpass(query)
+    time.sleep(OVERPASS_INTERVAL_SECONDS)
+    nodes = [(e["lat"], e["lon"]) for e in elements if e.get("type") == "node"]
+    if not nodes:
+        return None
+    best = min(nodes, key=lambda n: _haversine_m(n, point))
+    return best if _haversine_m(best, point) <= max_m else None
+
+
 def geocode(row):
     """Resolve one row to (lat, lon, how) or None.
 
-    Tries the published intersection first, then a couple of phrasings, then
-    the school itself. `how` records which strategy won so the report can show
-    where a coordinate came from -- an intersection hit and a
-    school-name hit deserve different amounts of trust.
+    Order of trust: manual -> OSM intersection node (Overpass) -> Nominatim
+    intersection phrasing -> a point on the named street nearest the school
+    (single-street rows) -> the school itself. `how` records which won so the
+    report can say how much to trust each coordinate.
     """
     manual = MANUAL_COORDS.get(row["school_name"])
     if manual:
         return manual[0], manual[1], "manual"
 
-    attempts = []
+    cache = {}
+
+    def school_point():
+        if "pt" not in cache:
+            cache["pt"] = _nominatim_first(f"{row['school_name']}, Phoenix, AZ")
+        return cache["pt"]
+
     if row["cross_streets"]:
         a, b = row["cross_streets"]
-        attempts.append((f"{a} & {b}, Phoenix, AZ", "intersection"))
-        attempts.append((f"{a} and {b}, Phoenix, AZ", "intersection-alt"))
-    attempts.append((f"{row['school_name']}, Phoenix, AZ", "school-name"))
-
-    for query, how in attempts:
         try:
-            results = _nominatim(query)
+            clusters = overpass_intersection(osm_street_name(a), osm_street_name(b))
         except Exception as error:
-            print(f"      lookup error ({how}): {error}")
-            results = []
-        for result in results:
-            found = _acceptable(result)
+            print(f"      overpass error: {error}")
+            clusters = []
+        if len(clusters) == 1:
+            return clusters[0][0], clusters[0][1], "osm-intersection"
+        if len(clusters) > 1:
+            # The two streets meet more than once (a curving residential
+            # drive crossing a numbered street twice). Pick the meeting point
+            # nearest the school; otherwise refuse rather than guess.
+            point = school_point()
+            if point:
+                best = min(clusters, key=lambda c: _haversine_m(c, point))
+                if _haversine_m(best, point) <= 1500:
+                    return best[0], best[1], "osm-intersection-nearest-school"
+            print(f"      ambiguous: {len(clusters)} separate intersections: "
+                  + "; ".join(f"{c[0]:.5f},{c[1]:.5f}" for c in clusters))
+            return None
+        for query, how in ((f"{a} & {b}, Phoenix, AZ", "intersection"),
+                           (f"{a} and {b}, Phoenix, AZ", "intersection-alt")):
+            found = _nominatim_first(query)
             if found:
                 return found[0], found[1], how
-        time.sleep(REQUEST_INTERVAL_SECONDS)
+    else:
+        # Only a street was published: the camera is on that street at the
+        # school, so take the street node nearest the school campus.
+        point = school_point()
+        if point:
+            try:
+                node = overpass_nearest_street_node(
+                    osm_street_name(row["location_text"].strip()), point, max_m=800)
+            except Exception as error:
+                print(f"      overpass error: {error}")
+                node = None
+            if node:
+                return node[0], node[1], "osm-street-near-school"
+
+    point = school_point()
+    if point:
+        return point[0], point[1], "school-name"
     return None
 
 
@@ -359,8 +518,9 @@ def main():
         found = geocode(row)
         if found:
             row["latitude"], row["longitude"], row["how"] = found
-            flag = "" if found[2].startswith("intersection") or found[2] == "manual" \
-                else "   <- from SCHOOL NAME, verify"
+            trusted = found[2] in ("manual", "osm-intersection", "intersection",
+                                   "intersection-alt")
+            flag = "" if trusted else f"   <- {found[2]}, verify on a map"
             print(f"[{index:2}/{len(rows)}] ok    {row['school_name']:38} "
                   f"{found[0]:.6f},{found[1]:.6f}  [{found[2]}]{flag}")
         else:

@@ -31,7 +31,9 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from build_school_zones import _nominatim, REQUEST_INTERVAL_SECONDS  # noqa: E402
+from build_school_zones import (  # noqa: E402
+    _nominatim, REQUEST_INTERVAL_SECONDS, overpass_intersection, osm_street_name,
+)
 
 REPO_ROOT = os.path.dirname(HERE)
 ROSTERS = os.path.join(REPO_ROOT, "drafts", "city_rosters.json")
@@ -41,6 +43,8 @@ OUT_DIR = os.path.join(REPO_ROOT, "drafts")
 # Crismon, Signal Butte) sit past -111.80.
 LAT_MIN, LAT_MAX = 33.15, 33.95
 LON_MIN, LON_MAX = -112.55, -111.55
+
+CITY_BBOX = f"{LAT_MIN},{LON_MIN},{LAT_MAX},{LON_MAX}"
 
 _CENTROID_TYPES = {
     "city", "town", "village", "administrative", "municipality",
@@ -65,8 +69,28 @@ def load_rosters():
 
 
 def geocode(query):
-    """Try the query as written, then with '&' spelled 'and'. Returns
-    (lat, lon, how) or None."""
+    """Resolve an 'A & B, City, AZ' query to (lat, lon, how) or None.
+
+    Overpass first (the actual OSM node where the two streets meet), then
+    Nominatim phrasings. If the streets meet in more than one place the
+    candidates are printed and the row is left unresolved: put the right
+    one into the roster as "lat"/"lon" and re-run.
+    """
+    if " & " in query:
+        a, b = query.split(",")[0].split(" & ", 1)
+        try:
+            clusters = overpass_intersection(osm_street_name(a.strip()),
+                                             osm_street_name(b.strip()), bbox=CITY_BBOX)
+        except Exception as error:
+            print(f"      overpass error: {error}")
+            clusters = []
+        if len(clusters) == 1:
+            return clusters[0][0], clusters[0][1], "osm-intersection"
+        if len(clusters) > 1:
+            print(f"      ambiguous: {len(clusters)} separate intersections: "
+                  + "; ".join(f"{c[0]:.5f},{c[1]:.5f}" for c in clusters)
+                  + "  -> add lat/lon to the roster row")
+            return None
     attempts = [(query, "as-written")]
     if " & " in query:
         attempts.append((query.replace(" & ", " and "), "and-phrasing"))
@@ -116,7 +140,10 @@ def main():
         for index, row in enumerate(city["entries"], start=1):
             if index > 1:
                 time.sleep(REQUEST_INTERVAL_SECONDS)
-            found = geocode(row["query"])
+            if "lat" in row and "lon" in row:
+                found = (float(row["lat"]), float(row["lon"]), "manual")
+            else:
+                found = geocode(row["query"])
             if not found:
                 failures.append(row["name"])
                 print(f"  [{index:2}] FAIL  {row['name']}")
@@ -127,7 +154,8 @@ def main():
                 dupes.append((seen[point], row["name"], point))
             else:
                 seen[point] = row["name"]
-            by_intersection = " & " in row["query"]
+            by_intersection = how in ("osm-intersection", "manual") or (
+                " & " in row["query"] and how in ("as-written", "and-phrasing"))
             flag = "" if by_intersection else "   <- resolved by NAME/ADDRESS, pin-drop it"
             print(f"  [{index:2}] ok    {row['name']:48} {lat:.6f},{lon:.6f} [{how}]{flag}")
             out.append({
