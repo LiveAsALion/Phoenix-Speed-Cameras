@@ -1,24 +1,29 @@
 {
-  "schema_version": 1,
-  "_readme": "LIVE onboarding config for SpeedShield b50/v21+. Editing this file changes the fresh-install onboarding cards (count, order, template, copy, colors, images) and the trial reminder (day_offset, title, body) on users' next launch — no app release. The app validates before rendering and falls back to its bundled default on any parse error, so a bad edit degrades gracefully; still, keep edits to valid JSON. Templates available: hero_moment, features, timeline. Icons: bluetooth, map, update, volume, unlock, bell, star, shield, car, camera, navigation, check. Prices are never configured here — they render from store product data. If you change reminder.day_offset, update the 'Day N' timeline text to match. Per-card 'header' (new in b51): 'app_icon' shows the app icon in a rounded tile at the head of the card, an https image URL shows that image in the tile (falls back to the app icon if it fails to load), omit the field for no head graphic. Builds before 51 ignore it. Template 'full_image' (b51+): the card body renders the card's image_url graphic whole, with NO native headline/sub — design any layout as an image (hosted in this repo works: raw.githubusercontent.com URL), and pair it with per-card 'bg' (6-digit hex, works on every template) so the page matches the graphic's background. Native progress dots and the Continue button (cta text) remain. NEVER put prices in a graphic — prices must render live from store product data (App Store rule 3.1.2).",
+  "schema_version": 2,
+  "_readme": "LIVE onboarding config for SpeedShield v23/b52+ (schema 2; builds 50-51 accept only schema 1 and fall back to their bundled default, which is the same content they shipped with). Editing this file changes the fresh-install onboarding cards (count, order, template, copy, colors, images), the paywall copy, the locked-map banner, the dismiss button, and the trial reminder on users' next launch — no app release. The app validates before rendering and falls back to its bundled default on any parse error. TEMPLATES: hero_moment (app-icon tile, headline, sub, road illustration with the 'quote' bubble), features (3 wired panels from 'bullets'; optional 'note' + 'note_icon' line above the button), timeline (nodes + panels from 'bullets'; 'footnote' under the button; requires_trial=true hides the card when the store offers this user no free trial), full_image (image_url rendered whole; dormant escape hatch). ICONS: bluetooth, map, update, volume, unlock, lock, bell, star, shield, car, camera, navigation, city, calendar, clock, check_circle, check. TOKENS in any copy: {trial_days} {price} {period} {annual_price} {monthly_price} {store} {cancel_path} — filled from STORE data on the device (never from this file; App Store rule 3.1.2 and the Play Subscriptions policy both require the shown price to be the store's). Unknown tokens render literally. PAYWALL: 'hero' = app_icon | https URL | none; 'headline_accent' = the substring of 'headline' drawn in the accent color; 'terms_trial'/'terms_no_trial' = the policy line under the CTA (must keep stating trial length, price after, and how to cancel); 'dismiss_platforms' = where the launch-gate 'Not now' shows (['android'] by default — Google Play requires a dismiss that leaves the purchase flow; iOS has no such rule); 'reshow_days' = days after a dismiss before the funnel shows itself again (0 = never; the locked-map banner and Settings remain the way back). THEME: bg/bg_top/bg_bottom (page gradient), panel, panel_selected, panel_border, accent, button, text, dim, good/good_bg/good_border, dot_inactive, danger (the camera pin). Per-card 'header' = app_icon | https URL | absent; per-card 'bg' = 6-digit hex over the theme. If you change reminder.day_offset, update the 'Day 5' timeline text to match. NEVER put prices in a graphic.",
   "theme": {
-    "bg": "#0D1420",
-    "panel": "#141F2E",
-    "panel_border": "#223044",
-    "accent": "#4A9FE8",
-    "button": "#2F7CC4",
-    "text": "#EEF3F9",
-    "dim": "#9DB0C4",
-    "good": "#7FD598",
-    "good_bg": "#173A24",
-    "good_border": "#2E6B43"
+    "bg": "#0A1322",
+    "bg_top": "#0F1D33",
+    "bg_bottom": "#060C17",
+    "panel": "#101D31",
+    "panel_selected": "#12274A",
+    "panel_border": "#1F3352",
+    "accent": "#3D8BFF",
+    "button": "#2D7DF0",
+    "text": "#F2F6FB",
+    "dim": "#9AAAC2",
+    "good": "#47D17C",
+    "good_bg": "#10301F",
+    "good_border": "#1F5A37",
+    "dot_inactive": "#2B3D5C",
+    "danger": "#E5484D"
   },
   "cards": [
     {
       "template": "hero_moment",
       "header": "app_icon",
       "headline": "Know before\nthe camera does.",
-      "sub": "SpeedShield speaks up as you approach any photo-enforcement camera in the Valley — eyes on the road, phone in your pocket.",
+      "sub": "Get spoken alerts before photo-enforcement cameras—without taking your eyes off the road.",
       "quote": "“Photo-enforced intersection ahead, 600 meters.”",
       "cta": "Continue",
       "image_url": null
@@ -26,67 +31,86 @@
     {
       "template": "features",
       "headline": "Set it once.\nIt rides along.",
-      "sub": "No opening the app every drive — SpeedShield starts itself.",
+      "sub": "SpeedShield starts automatically and stays out of your way.",
       "cta": "Continue",
+      "note": "No daily setup. No app juggling.",
+      "note_icon": "check_circle",
       "image_url": null,
       "bullets": [
         {
           "icon": "bluetooth",
-          "title": "Starts when your car connects",
-          "body": "Bluetooth, CarPlay, or Android Auto wakes it automatically."
+          "title": "Starts with your car",
+          "body": "Bluetooth, CarPlay, or Android Auto can wake it automatically."
         },
         {
-          "icon": "map",
-          "title": "Runs alongside your navigation",
-          "body": "Works with Apple Maps, Google Maps, and Waze — no switching apps."
+          "icon": "navigation",
+          "title": "Works alongside navigation",
+          "body": "Keep using the navigation app you already prefer."
         },
         {
-          "icon": "update",
-          "title": "23 cameras, always current",
-          "body": "Phoenix and Tempe coverage that updates itself when the cities change their cameras."
+          "icon": "camera",
+          "title": "Camera coverage stays current",
+          "body": "23 Phoenix-area cameras, updated as locations change."
         }
       ]
     },
     {
       "template": "timeline",
-      "headline": "Try everything free\nfor 7 days.",
-      "sub": "Here's exactly how the trial works — no surprises.",
+      "requires_trial": true,
+      "headline": "Everything unlocked.\nFree for {trial_days} days.",
+      "sub": "Try every alert, every camera, and every activation mode—no surprises.",
       "cta": "Continue",
       "footnote": "No charge today.",
       "image_url": null,
       "bullets": [
         {
           "icon": "unlock",
-          "title": "Today — full access",
-          "body": "Every alert, every camera, every activation mode. Nothing held back."
+          "title": "Today — Full access",
+          "body": "Every alert, camera, and activation mode."
         },
         {
           "icon": "bell",
-          "title": "Day 5 — we remind you",
-          "body": "A heads-up from us before your trial ends. The app store sends its own reminder too."
+          "title": "Day 5 — We remind you",
+          "body": "A heads-up before your trial ends. The app store sends its own reminder too."
         },
         {
           "icon": "star",
-          "title": "Day 7 — membership begins",
-          "body": "Cancel anytime before this and you won't be charged a cent."
+          "title": "Day {trial_days} — Membership begins",
+          "body": "Then {annual_price}/year or {monthly_price}/month. Cancel before then in {store} and you won't be charged."
         }
       ]
     }
   ],
   "paywall": {
-    "headline": "Start your free week",
+    "hero": "app_icon",
+    "hero_size": 150,
+    "headline": "Start driving\nsmarter—free for {trial_days} days",
+    "headline_accent": "free for {trial_days} days",
+    "headline_no_trial": "Keep SpeedShield riding along",
     "checks": [
       "No charge today",
       "Reminder before billing",
       "Cancel anytime"
     ],
     "proof": "Built in Phoenix, by a Valley driver.",
-    "cta_trial": "Try 7 Days Free",
+    "proof_icon": "city",
+    "cta_trial": "Try {trial_days} Days Free",
     "cta_no_trial": "Subscribe",
-    "plan_trial_suffix": "7 days free",
+    "plan_trial_suffix": "{trial_days} days free",
     "annual_label": "Annual",
     "monthly_label": "Monthly",
-    "annual_badge": "SAVE 44%"
+    "annual_badge": "SAVE 44%",
+    "terms_trial": "Free for {trial_days} days, then {price}/{period}. Cancel anytime before the trial ends in {cancel_path} and you won't be charged.",
+    "terms_no_trial": "{price}/{period}, renews automatically. Cancel anytime in {cancel_path}.",
+    "trial_days_default": 7,
+    "dismiss_label": "Not now",
+    "dismiss_platforms": [
+      "android"
+    ],
+    "reshow_days": 0,
+    "locked_title": "Alerts are off",
+    "locked_action_trial": "Start your free week",
+    "locked_action_no_trial": "Subscribe to turn alerts on"
   },
   "reminder": {
     "_note": "day_offset drives the ACTUAL notification (fires day_offset days after trial start, same time of day the trial began; clamped 1-6). If you change it, also update the 'Day N' timeline card text above so the promise matches the delivery.",
