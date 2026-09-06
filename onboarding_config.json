@@ -20,15 +20,6 @@
   },
   "cards": [
     {
-      "template": "hero_moment",
-      "header": "app_icon",
-      "headline": "Know before\nthe camera does.",
-      "sub": "Get spoken alerts before photo-enforcement cameras—without taking your eyes off the road.",
-      "quote": "“Photo-enforced intersection ahead, 600 meters.”",
-      "cta": "Continue",
-      "image_url": null
-    },
-    {
       "template": "features",
       "headline": "Set it once.\nIt rides along.",
       "sub": "SpeedShield starts automatically and stays out of your way.",
@@ -117,5 +108,6 @@
     "day_offset": 5,
     "title": "Your free week ends soon",
     "body": "SpeedShield keeps watching for cameras — you don't need to do anything. Cancel anytime in your app store settings."
-  }
+  },
+  "_incident_2026-09-06": "hero_moment card REMOVED from the live config as a mitigation: builds 52 (iOS, live) and 23 (Android, rejected) hang the UI thread forever the moment the hero card paints (unbounded dash loop in its road illustration) — Google's 'crashes after opening'. Every fresh install that fetches this file skips the card and onboards normally; an OFFLINE first launch still uses the bundled default, which has the card, until b53/v24 (loop bounded) is live. Restore the card (template hero_moment, header app_icon, headline 'Know before\\nthe camera does.', sub, quote, cta) once b53/v24 are the minimum versions in the field."
 }
