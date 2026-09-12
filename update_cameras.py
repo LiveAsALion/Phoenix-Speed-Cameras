@@ -51,6 +51,23 @@ ROAD_AXIS_OVERRIDES = {
     "27th Avenue: Colter Street to Missouri Avenue": 0,      # 27th Ave runs north-south
 }
 
+# Coordinate overrides for scraped pins that do not sit on the roadway they
+# enforce. The app's v13 corridor gate suppresses a driver more than ~75 m
+# off the camera's road line, and the 200 m secondary ring never admits a
+# pass whose closest approach is farther than that — so an off-road pin is a
+# camera that shows on the map and never speaks. Keyed by the exact cleaned
+# name: a renamed or re-pinned source entry stops matching and the scraped
+# pin is used unchanged (safe, and visible in the next automated diff).
+COORDINATE_OVERRIDES = {
+    # The city's pin (first scraped 2026-09-12) sat at 33.555284, ~285 m
+    # NORTH of Northern Ave: a field GPS fix on Northern at 7th Ave reads
+    # 33.5527 (diagnostics 2026-08-04), and Camelback 33.5093 + three section
+    # lines = 33.5528. Placed on the westbound lanes at 17th St; longitude
+    # kept from the pin. Ground-verify; if the city's pin was right after
+    # all, delete this entry and the scrape restores it on the next run.
+    "W/B Northern Avenue: 16th Street to 18th Street": (33.5530, -112.046447),
+}
+
 # Hand-curated entries appended to every scrape output. The scrape rebuilds
 # camera_data.json from scratch, so anything not in the Phoenix KML and not
 # in this list is DELETED on every run. Tempe's program
@@ -217,6 +234,10 @@ def update_camera_data():
             "longitude": lon,
             "direction_deg": direction_deg
         }
+        fix = COORDINATE_OVERRIDES.get(clean_name)
+        if fix is not None:
+            print(f"  Coordinate override: {clean_name} {lat},{lon} -> {fix[0]},{fix[1]}")
+            camera["latitude"], camera["longitude"] = fix
         road_axis = ROAD_AXIS_OVERRIDES.get(clean_name)
         if road_axis is not None:
             camera["road_axis_deg"] = road_axis
