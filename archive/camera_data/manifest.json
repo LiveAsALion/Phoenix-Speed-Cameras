@@ -83,7 +83,7 @@
     "file": "archive/camera_data/camera_data__through_2026-09-11T01-59-25Z.json",
     "sha256": "3dcfe1d462570708f1fa9686350ede1c24babc98039690b5bdee04179e1d02e1",
     "valid_from": "2026-09-01T02:33:16Z",
-    "valid_to": null,
+    "valid_to": "2026-09-12T02:04:08Z",
     "archived_at": "2026-09-11T01:59:25Z",
     "source_active_file": "camera_data.json"
   }
