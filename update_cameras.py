@@ -52,21 +52,19 @@ ROAD_AXIS_OVERRIDES = {
 }
 
 # Coordinate overrides for scraped pins that do not sit on the roadway they
-# enforce. The app's v13 corridor gate suppresses a driver more than ~75 m
-# off the camera's road line, and the 200 m secondary ring never admits a
-# pass whose closest approach is farther than that — so an off-road pin is a
-# camera that shows on the map and never speaks. Keyed by the exact cleaned
-# name: a renamed or re-pinned source entry stops matching and the scraped
-# pin is used unchanged (safe, and visible in the next automated diff).
-COORDINATE_OVERRIDES = {
-    # The city's pin (first scraped 2026-09-12) sat at 33.555284, ~285 m
-    # NORTH of Northern Ave: a field GPS fix on Northern at 7th Ave reads
-    # 33.5527 (diagnostics 2026-08-04), and Camelback 33.5093 + three section
-    # lines = 33.5528. Placed on the westbound lanes at 17th St; longitude
-    # kept from the pin. Ground-verify; if the city's pin was right after
-    # all, delete this entry and the scrape restores it on the next run.
-    "W/B Northern Avenue: 16th Street to 18th Street": (33.5530, -112.046447),
-}
+# enforce (the app's corridor gate suppresses a driver more than ~75 m off
+# the camera's road line, and the 200 m secondary ring never admits a pass
+# whose closest approach is farther than that). Keyed by the exact cleaned
+# name; a renamed or re-pinned source entry stops matching (safe).
+#
+# EMPTY ON PURPOSE, and a lesson: on 2026-09-12 the Northern Ave W/B pin
+# (33.555284) was overridden 285 m south because a grid extrapolation said
+# Northern "must" be at 33.5528 there. It is not — Northern Ave jogs
+# north-east at 16th St and the city's pin sits on the road just west of
+# 17th St (tester screenshot of the city map, same day). Reverted within
+# the hour. Never add an entry here from arithmetic; only from the city's
+# map or a ground check.
+COORDINATE_OVERRIDES = {}
 
 # Hand-curated entries appended to every scrape output. The scrape rebuilds
 # camera_data.json from scratch, so anything not in the Phoenix KML and not
