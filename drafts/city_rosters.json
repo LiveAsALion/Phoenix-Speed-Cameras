@@ -162,130 +162,178 @@
   "scottsdale": {
     "city_label": "Scottsdale",
     "default_type": "red_light_speed",
-    "status": "ACTIVE since 1996 - 11 intersections (red light + speed >=11 over), a dual-direction fixed speed camera mid-block on Frank Lloyd Wright Blvd, and mobile vans; locations shift on speed/crash data (4 activated + 2 deactivated 2019-03-01)",
+    "status": "ACTIVE since 1996 - 11 fixed camera systems at 10 intersections (red light + speed >=11 over), plus mobile vans. ADJUDICATED 2026-09-17 against the city's own fixed-camera-locations PDF as surfaced verbatim in the search index (row-by-row, domain-restricted to scottsdaleaz.gov) and cross-checked against the independent 2023/2024 2passdd '11 of 11' series, which lists the same 11 rows in the same order. Woz's verbatim fetch of the PDF (and its date) is still owed before go-live.",
     "sources": [
-      "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official list WITH directions -- ADJUDICATES)",
+      "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official table: Camera Location | Direction -- ADJUDICATES)",
       "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement",
-      "2passdd.com 'Scottsdale Photo Camera Locations (updated 2024) N of 11' series; 12news/abc15 2019-03-01 activation stories"
+      "2passdd.com 'Scottsdale Photo Camera Locations (updated 2024) N of 11' series (independent, matches the PDF row for row)",
+      "abc15 / 12news 2019-03-01: activated SB Scottsdale@Pinnacle Peak, WB Shea@92nd, WB FLW@Greenway-Hayden Loop, WB Indian School@Hayden; deactivated EB Thomas@Hayden, EB McDowell@Scottsdale"
     ],
     "entries": [
       {
         "name": "Scottsdale Rd and McDowell Rd",
         "query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ",
         "approaches": [
-          "SB Scottsdale Rd (EB McDowell deactivated 2019)"
+          "S/B Scottsdale Rd"
         ],
-        "confidence": "official PDF title names this one"
+        "confidence": "official PDF row 1"
       },
       {
         "name": "Scottsdale Rd and Thomas Rd",
         "query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ",
-        "confidence": "named in 2024 third-party list; verify still active"
+        "approaches": [
+          "N/B Scottsdale Rd"
+        ],
+        "confidence": "official PDF"
       },
       {
-        "name": "Hayden Rd and Indian School Rd",
-        "query": "Hayden Rd & Indian School Rd, Scottsdale, AZ",
-        "confidence": "named in 2024 third-party list; verify"
+        "name": "Indian School Rd and Hayden Rd",
+        "query": "Indian School Rd & Hayden Rd, Scottsdale, AZ",
+        "approaches": [
+          "W/B Indian School Rd"
+        ],
+        "confidence": "official PDF; activated 2019-03-01"
       },
       {
-        "name": "Scottsdale Rd and Shea Blvd",
-        "query": "Scottsdale Rd & Shea Blvd, Scottsdale, AZ",
-        "confidence": "named in 2024 third-party list; verify"
-      },
-      {
-        "name": "Scottsdale Rd and Cactus Rd",
-        "query": "Scottsdale Rd & Cactus Rd, Scottsdale, AZ",
-        "confidence": "named in 2024 third-party list; verify"
+        "name": "Shea Blvd and 90th St",
+        "query": "Shea Blvd & 90th St, Scottsdale, AZ",
+        "approaches": [
+          "E/B Shea Blvd"
+        ],
+        "confidence": "official PDF -- was MISSING from the 09-02 draft"
       },
       {
         "name": "Shea Blvd and 92nd St",
         "query": "Shea Blvd & 92nd St, Scottsdale, AZ",
-        "confidence": "2024 third-party list (7 of 11)"
+        "approaches": [
+          "W/B Shea Blvd"
+        ],
+        "confidence": "official PDF; activated 2019-03-01"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Cactus Rd",
         "query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ",
-        "confidence": "2024 third-party list (7 of 11)"
+        "approaches": [
+          "S/B Frank Lloyd Wright Blvd"
+        ],
+        "confidence": "official PDF"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
         "query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
-        "confidence": "2024 third-party list (7 of 11)"
+        "approaches": [
+          "E/B Frank Lloyd Wright Blvd",
+          "W/B Frank Lloyd Wright Blvd"
+        ],
+        "confidence": "official PDF, two rows (E/B and W/B) = two systems at one intersection = ONE entry; W/B activated 2019-03-01"
       },
       {
         "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
         "query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ",
-        "confidence": "2024 third-party list (7 of 11)"
+        "approaches": [
+          "N/B Scottsdale Rd"
+        ],
+        "confidence": "official PDF"
       },
       {
         "name": "Scottsdale Rd and Pinnacle Peak Rd",
         "query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ",
-        "confidence": "2024 third-party list (7 of 11)"
+        "approaches": [
+          "S/B Scottsdale Rd"
+        ],
+        "confidence": "official PDF; activated 2019-03-01"
+      },
+      {
+        "name": "Thomas Rd and Hayden Rd",
+        "query": "Thomas Rd & Hayden Rd, Scottsdale, AZ",
+        "approaches": [
+          "E/B Thomas Rd"
+        ],
+        "confidence": "official PDF (last row) and the 2023/2024 third-party series, DESPITE the 2019-03-01 news reports saying EB Thomas@Hayden was deactivated -- the PDF post-dates those activations, so read as re-activated; confirm on the verbatim fetch"
+      }
+    ],
+    "dropped_2026-09-17": [
+      {
+        "name": "Scottsdale Rd and Shea Blvd",
+        "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
+      },
+      {
+        "name": "Scottsdale Rd and Cactus Rd",
+        "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
       },
       {
         "name": "Pima Rd and Hualapai Dr",
-        "query": "Pima Rd & Hualapai Dr, Scottsdale, AZ",
-        "confidence": "named in a 2026 search summary; verify"
+        "reason": "appears only on a 2020-era third-party page; not in the official fixed list -- former or mobile site"
       },
       {
-        "name": "Frank Lloyd Wright Blvd at 7700 E",
-        "query": "7700 E Frank Lloyd Wright Blvd, Scottsdale, AZ",
-        "type": "fixed",
-        "confidence": "dual-direction fixed SPEED camera mid-block, both directions; address from a news story -- verify on the official PDF"
+        "name": "Frank Lloyd Wright Blvd at 7700 E (fixed speed, both directions)",
+        "reason": "news-story address; a fixed camera would be on the official fixed list and is not"
       },
       {
         "name": "Shea Blvd and 120th St",
-        "query": "Shea Blvd & 120th St, Scottsdale, AZ",
-        "confidence": "LOW - appeared once in a search summary; may be a confusion with 92nd St. Keep only if the official PDF lists it"
+        "reason": "single low-confidence mention; not in the official list"
       }
     ]
   },
   "paradise_valley": {
     "city_label": "Paradise Valley",
     "default_type": "red_light_speed",
-    "status": "ACTIVE (first US photo-radar town) - fixed cameras at a handful of Tatum/Lincoln intersections, both directions each, plus an unpublished mobile van (24 h stints) and school-zone radar boxes (2022; confirm whether those cite or only display speed)",
+    "status": "ACTIVE (first US photo-radar town, 1987) - 5 fixed intersections, red light + speed (roadway sensors measure speed on red, amber and green). ADJUDICATED 2026-09-17: the town's Photo Enforcement Program page wording (as surfaced verbatim in the search index) names exactly these five with approaches; the town's 2015-04-29 press release (official PDF) confirms four of them and the 2006 contract-amendment memo (official) confirms Tatum & McDonald. Woz's verbatim fetch of the live page is still owed before go-live. Also on record: an unpublished mobile van and, since 2022-09-01, TWO portable citing units rotating through five school zones -- both publish no locations, so both stay out of scope (Tempe mobile-unit precedent).",
     "sources": [
       "https://www.paradisevalleyaz.gov/153/Photo-Radar (official -- ADJUDICATES)",
+      "https://www.paradisevalleyaz.gov/844/Photo-Enforcement",
+      "https://paradisevalleyaz.gov/DocumentCenter/View/3940/Press-Release-Photo-Enforcement (official, 2015-04-29: Lincoln&Tatum NB/SB + Halo EB/WB, Lincoln&Palo Cristi EB/WB, Lincoln&Mockingbird EB, Tatum&Desert Jewel NB/SB)",
+      "https://paradisevalleyaz.gov/DocumentCenter/View/1875/2d (official memo: 2006 amendment added dual systems at Tatum & McDonald, relocated a camera to Lincoln & Mockingbird)",
       "https://www.paradisevalleyaz.gov/DocumentCenter/View/8639/Photo-Enforcement-Brochure",
       "https://www.paradisevalleyaz.gov/faq.aspx?TID=31"
     ],
     "entries": [
       {
+        "name": "Lincoln Dr and Tatum Blvd",
+        "query": "Lincoln Dr & Tatum Blvd, Paradise Valley, AZ",
+        "approaches": [
+          "N/B Tatum Blvd",
+          "S/B Tatum Blvd",
+          "E/B Lincoln Dr",
+          "W/B Lincoln Dr"
+        ],
+        "confidence": "official page: 'all four directions'; 2015 release confirms"
+      },
+      {
+        "name": "Lincoln Dr and Palo Cristi Rd",
+        "query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
+        "approaches": [
+          "E/B Lincoln Dr",
+          "W/B Lincoln Dr"
+        ],
+        "confidence": "official page + 2015 release"
+      },
+      {
         "name": "Lincoln Dr and Mockingbird Ln",
         "query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
         "approaches": [
-          "EB Lincoln Dr",
-          "WB Lincoln Dr"
+          "E/B Lincoln Dr",
+          "W/B Lincoln Dr"
         ],
-        "confidence": "named in two independent summaries"
-      },
-      {
-        "name": "Tatum Blvd and McDonald Dr",
-        "query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
-        "approaches": [
-          "NB Tatum Blvd",
-          "SB Tatum Blvd"
-        ],
-        "confidence": "named in two independent summaries"
+        "confidence": "official page (both directions); 2015 release listed E/B only"
       },
       {
         "name": "Tatum Blvd and Desert Jewel Dr",
         "query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
         "approaches": [
-          "NB Tatum Blvd",
-          "SB Tatum Blvd"
+          "N/B Tatum Blvd",
+          "S/B Tatum Blvd"
         ],
-        "confidence": "named in one summary (2026)"
+        "confidence": "official page + 2015 release"
       },
       {
-        "name": "Tatum Blvd and Lincoln Dr",
-        "query": "Tatum Blvd & Lincoln Dr, Paradise Valley, AZ",
-        "confidence": "named in one summary; verify"
-      },
-      {
-        "name": "Lincoln Dr and Palo Cristi Rd",
-        "query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
-        "confidence": "named in one summary; verify"
+        "name": "Tatum Blvd and McDonald Dr",
+        "query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
+        "approaches": [
+          "N/B Tatum Blvd",
+          "S/B Tatum Blvd"
+        ],
+        "confidence": "official page + 2006 amendment memo"
       }
     ]
   },
