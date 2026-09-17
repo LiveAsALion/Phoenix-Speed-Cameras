@@ -3,84 +3,120 @@
     "name": "Lincoln Dr and Tatum Blvd: Paradise Valley",
     "latitude": 33.531055,
     "longitude": -111.97563,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Lincoln Dr & Tatum Blvd, Paradise Valley, AZ",
+    "direction_deg": -1,
     "_approaches": [
       "N/B Tatum Blvd",
       "S/B Tatum Blvd",
       "E/B Lincoln Dr",
       "W/B Lincoln Dr"
-    ],
-    "_confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Lincoln Dr & Tatum Blvd, Paradise Valley, AZ"
+    ]
   },
   {
-    "name": "Lincoln Dr and Palo Cristi Rd: Paradise Valley",
+    "name": "E/B, Lincoln Dr and Palo Cristi Rd: E/B Lincoln Dr",
     "latitude": 33.531828,
     "longitude": -112.004014,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "E/B Lincoln Dr",
-      "W/B Lincoln Dr"
-    ],
     "_confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ"
+    "_query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
+    "direction_deg": 90,
+    "_approaches": [
+      "E/B Lincoln Dr"
+    ]
   },
   {
-    "name": "Lincoln Dr and Mockingbird Ln: Paradise Valley",
+    "name": "W/B, Lincoln Dr and Palo Cristi Rd: W/B Lincoln Dr",
+    "latitude": 33.531828,
+    "longitude": -112.004014,
+    "type": "red_light_speed",
+    "_confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
+    "direction_deg": 270,
+    "_approaches": [
+      "W/B Lincoln Dr"
+    ]
+  },
+  {
+    "name": "E/B, Lincoln Dr and Mockingbird Ln: E/B Lincoln Dr",
     "latitude": 33.531278,
     "longitude": -111.934486,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "E/B Lincoln Dr",
-      "W/B Lincoln Dr"
-    ],
     "_confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ"
+    "_query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
+    "direction_deg": 90,
+    "_approaches": [
+      "E/B Lincoln Dr"
+    ]
   },
   {
-    "name": "Tatum Blvd and Desert Jewel Dr: Paradise Valley",
+    "name": "W/B, Lincoln Dr and Mockingbird Ln: W/B Lincoln Dr",
+    "latitude": 33.531278,
+    "longitude": -111.934486,
+    "type": "red_light_speed",
+    "_confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
+    "direction_deg": 270,
+    "_approaches": [
+      "W/B Lincoln Dr"
+    ]
+  },
+  {
+    "name": "N/B, Tatum Blvd and Desert Jewel Dr: N/B Tatum Blvd",
     "latitude": 33.553581,
     "longitude": -111.975667,
-    "direction_deg": 0,
     "type": "red_light_speed",
-    "_approaches": [
-      "N/B Tatum Blvd"
-    ],
     "_confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (0 = N/B): this and the Foothill Dr system are 55 m apart on Tatum (staggered T-intersections); two omnidirectional entries would speak twice back-to-back; Tatum's bearing at both nodes is 0/180 from the run's own points, so the corridor gate is safe",
     "_resolved_by": "intersection",
-    "_query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ"
+    "_query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
+    "direction_deg": 0,
+    "_approaches": [
+      "N/B Tatum Blvd"
+    ]
   },
   {
-    "name": "Tatum Blvd and Foothill Dr: Paradise Valley",
+    "name": "S/B, Tatum Blvd and Foothill Dr: S/B Tatum Blvd",
     "latitude": 33.5530848,
     "longitude": -111.9756704,
-    "direction_deg": 180,
     "type": "red_light_speed",
-    "_approaches": [
-      "S/B Tatum Blvd"
-    ],
     "_confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (180 = S/B), see Desert Jewel note",
     "_resolved_by": "intersection",
-    "_query": "Tatum Blvd & Foothill Dr, Paradise Valley, AZ"
+    "_query": "Tatum Blvd & Foothill Dr, Paradise Valley, AZ",
+    "direction_deg": 180,
+    "_approaches": [
+      "S/B Tatum Blvd"
+    ]
   },
   {
-    "name": "Tatum Blvd and McDonald Dr: Paradise Valley",
+    "name": "N/B, Tatum Blvd and McDonald Dr: N/B Tatum Blvd",
     "latitude": 33.5243756,
     "longitude": -111.9763155,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "N/B Tatum Blvd",
-      "S/B Tatum Blvd"
-    ],
     "_confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ"
+    "_query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
+    "direction_deg": 0,
+    "_approaches": [
+      "N/B Tatum Blvd"
+    ]
+  },
+  {
+    "name": "S/B, Tatum Blvd and McDonald Dr: S/B Tatum Blvd",
+    "latitude": 33.5243756,
+    "longitude": -111.9763155,
+    "type": "red_light_speed",
+    "_confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
+    "direction_deg": 180,
+    "_approaches": [
+      "S/B Tatum Blvd"
+    ]
   }
 ]

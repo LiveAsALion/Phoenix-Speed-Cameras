@@ -163,17 +163,33 @@ def main():
                 " & " in row["query"] and how in ("as-written", "and-phrasing"))
             flag = "" if by_intersection else "   <- resolved by NAME/ADDRESS, pin-drop it"
             print(f"  [{index:2}] ok    {row['name']:48} {lat:.6f},{lon:.6f} [{how}]{flag}")
-            out.append({
-                "name": f"{row['name']}: {label}",
+            base = {
                 "latitude": round(lat, 7),
                 "longitude": round(lon, 7),
-                "direction_deg": int(row.get("direction_deg", -1)),
                 "type": row.get("type", default_type),
-                "_approaches": row.get("approaches", []),
                 "_confidence": row.get("confidence", ""),
                 "_resolved_by": "intersection" if by_intersection else "name-or-address",
                 "_query": row["query"],
-            })
+            }
+            directional = row.get("directional")
+            if directional:
+                # One entry per enforced approach. The name carries the
+                # Phoenix-style prefix ("S/B, ...") so it is unique and the
+                # app strips it for speech; direction_deg is the MEASURED
+                # approach heading (null = not measured yet -> city not written).
+                for label, deg in directional.items():
+                    token = label.split(" ", 1)[0]
+                    if deg is None:
+                        failures.append(f"{row['name']} [{label}] direction_deg not measured")
+                        print(f"        {label}: direction not measured -- run measure_road_bearings.py")
+                        continue
+                    out.append({"name": f"{token}, {row['name']}: {label}",
+                                **base, "direction_deg": int(deg),
+                                "_approaches": [label]})
+            else:
+                out.append({"name": f"{row['name']}: {label}", **base,
+                            "direction_deg": int(row.get("direction_deg", -1)),
+                            "_approaches": row.get("approaches", [])})
 
         if failures or dupes:
             print(f"  NOT written: {len(failures)} failure(s), {len(dupes)} duplicate point(s)")
