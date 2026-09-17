@@ -151,5 +151,229 @@
         "longitude": -111.9785,
         "direction_deg": -1,
         "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Scottsdale Rd and McDowell Rd: Scottsdale",
+        "latitude": 33.466266,
+        "longitude": -111.92603,
+        "direction_deg": 180,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Scottsdale Rd and Thomas Rd: Scottsdale",
+        "latitude": 33.480353,
+        "longitude": -111.926169,
+        "direction_deg": 0,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Indian School Rd and Hayden Rd: Scottsdale",
+        "latitude": 33.494875,
+        "longitude": -111.908877,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Shea Blvd and 90th St: Scottsdale",
+        "latitude": 33.582536,
+        "longitude": -111.886125,
+        "direction_deg": 86,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Shea Blvd and 92nd St: Scottsdale",
+        "latitude": 33.582537,
+        "longitude": -111.882697,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Frank Lloyd Wright Blvd and Cactus Rd: Scottsdale",
+        "latitude": 33.59731,
+        "longitude": -111.843267,
+        "direction_deg": 125,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+        "latitude": 33.6344477,
+        "longitude": -111.9077888,
+        "direction_deg": 105,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+        "latitude": 33.6344477,
+        "longitude": -111.9077888,
+        "direction_deg": 285,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Scottsdale Rd and Frank Lloyd Wright Blvd: Scottsdale",
+        "latitude": 33.638115,
+        "longitude": -111.925301,
+        "direction_deg": 1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Scottsdale Rd and Pinnacle Peak Rd: Scottsdale",
+        "latitude": 33.698697,
+        "longitude": -111.925321,
+        "direction_deg": 180,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Thomas Rd and Hayden Rd: Scottsdale",
+        "latitude": 33.480391,
+        "longitude": -111.908964,
+        "direction_deg": 90,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Lincoln Dr and Tatum Blvd: Paradise Valley",
+        "latitude": 33.531055,
+        "longitude": -111.97563,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
+        "latitude": 33.531828,
+        "longitude": -112.004014,
+        "direction_deg": 90,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
+        "latitude": 33.531828,
+        "longitude": -112.004014,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
+        "latitude": 33.531278,
+        "longitude": -111.934486,
+        "direction_deg": 89,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
+        "latitude": 33.531278,
+        "longitude": -111.934486,
+        "direction_deg": 268,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Tatum Blvd and Desert Jewel Dr: Paradise Valley",
+        "latitude": 33.553581,
+        "longitude": -111.975667,
+        "direction_deg": 0,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Tatum Blvd and Foothill Dr: Paradise Valley",
+        "latitude": 33.5530848,
+        "longitude": -111.9756704,
+        "direction_deg": 186,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Tatum Blvd and McDonald Dr: Paradise Valley",
+        "latitude": 33.5243756,
+        "longitude": -111.9763155,
+        "direction_deg": 3,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Tatum Blvd and McDonald Dr: Paradise Valley",
+        "latitude": 33.5243756,
+        "longitude": -111.9763155,
+        "direction_deg": 183,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Queen Creek Rd: Chandler",
+        "latitude": 33.261916,
+        "longitude": -111.858578,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Ray Rd: Chandler",
+        "latitude": 33.3206,
+        "longitude": -111.859137,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Warner Rd: Chandler",
+        "latitude": 33.33509,
+        "longitude": -111.85911,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Ray Rd: Chandler",
+        "latitude": 33.3206297,
+        "longitude": -111.841615,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Warner Rd: Chandler",
+        "latitude": 33.335134,
+        "longitude": -111.841752,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Ocotillo Rd: Chandler",
+        "latitude": 33.247607,
+        "longitude": -111.8412465,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Chandler Blvd and Dobson Rd: Chandler",
+        "latitude": 33.305965,
+        "longitude": -111.876336,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Chandler Blvd and Kyrene Rd: Chandler",
+        "latitude": 33.3053484,
+        "longitude": -111.9457214,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "McQueen Rd and Queen Creek Rd: Chandler",
+        "latitude": 33.262392,
+        "longitude": -111.824132,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and Dobson Rd: Chandler",
+        "latitude": 33.3205739,
+        "longitude": -111.876403,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and McClintock Dr: Chandler",
+        "latitude": 33.320029,
+        "longitude": -111.911172,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and Rural Rd: Chandler",
+        "latitude": 33.319799,
+        "longitude": -111.927364,
+        "direction_deg": -1,
+        "type": "red_light_speed"
     }
 ]
