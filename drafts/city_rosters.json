@@ -3,166 +3,286 @@
   "chandler": {
     "city_label": "Chandler",
     "default_type": "red_light_speed",
-    "status": "ACTIVE - 12 cameras (approach-level) at 8 intersections; red light + speed-on-green",
+    "status": "ACTIVE - 'Currently, there are 12 intersections in Chandler equipped with photo enforcement cameras. These cameras monitor both red light and speed violations.' CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome) from the city page; the linked camera map PDF (dated 2024-08-15, legend 'Camera (12)') has 12 unlabeled pins and NO directions, so approaches are unknown for every row -> omnidirectional is the only option. Page shows no date and no vans.",
     "sources": [
-      "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement",
-      "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf (official map, dated 2024-08-15 -- ADJUDICATES this roster)",
-      "https://www.12news.com/article/news/local/valley/12-chandler-intersections-getting-traffic-cameras/75-79810778 (2016 launch list, the 12 approaches below)"
+      "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement (official list of 12 -- ADJUDICATES)",
+      "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf (2024-08-15, 12 unlabeled pins)"
     ],
     "entries": [
       {
         "name": "Alma School Rd and Queen Creek Rd",
         "query": "Alma School Rd & Queen Creek Rd, Chandler, AZ",
-        "approaches": [
-          "WB Queen Creek Rd",
-          "SB Alma School Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
         "name": "Alma School Rd and Ray Rd",
         "query": "Alma School Rd & Ray Rd, Chandler, AZ",
-        "approaches": [
-          "EB Ray Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
-      },
-      {
-        "name": "Cooper Rd and Riggs Rd",
-        "query": "Cooper Rd & Riggs Rd, Chandler, AZ",
-        "approaches": [
-          "EB Riggs Rd",
-          "WB Riggs Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
         "name": "Alma School Rd and Warner Rd",
         "query": "Alma School Rd & Warner Rd, Chandler, AZ",
-        "approaches": [
-          "WB Warner Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
-        "name": "Chandler Blvd and Kyrene Rd",
-        "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
-        "approaches": [
-          "WB Chandler Blvd"
-        ],
-        "confidence": "2016 launch list; also named on the current city page"
+        "name": "Arizona Ave and Ray Rd",
+        "query": "Arizona Ave & Ray Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
-        "name": "Dobson Rd and Ray Rd",
-        "query": "Dobson Rd & Ray Rd, Chandler, AZ",
-        "approaches": [
-          "SB Dobson Rd",
-          "WB Ray Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "name": "Arizona Ave and Warner Rd",
+        "query": "Arizona Ave & Warner Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
-        "name": "McClintock Dr and Ray Rd",
-        "query": "McClintock Dr & Ray Rd, Chandler, AZ",
-        "approaches": [
-          "SB McClintock Dr",
-          "EB Ray Rd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "name": "Arizona Ave and Ocotillo Rd",
+        "query": "Arizona Ave & Ocotillo Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
         "name": "Chandler Blvd and Dobson Rd",
         "query": "Chandler Blvd & Dobson Rd, Chandler, AZ",
-        "approaches": [
-          "WB Chandler Blvd"
-        ],
-        "confidence": "2016 launch list; confirm on 2024 map"
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Chandler Blvd and Kyrene Rd",
+        "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "McQueen Rd and Queen Creek Rd",
+        "query": "McQueen Rd & Queen Creek Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Ray Rd and Dobson Rd",
+        "query": "Ray Rd & Dobson Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Ray Rd and McClintock Dr",
+        "query": "Ray Rd & McClintock Dr, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Ray Rd and Rural Rd",
+        "query": "Ray Rd & Rural Rd, Chandler, AZ",
+        "approaches": [],
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      }
+    ],
+    "dropped_2026-09-17": [
+      {
+        "name": "Cooper Rd and Riggs Rd",
+        "reason": "was on the 2016 launch list; not on the city's current list of 12"
+      },
+      {
+        "name": "Dobson Rd and Ray Rd",
+        "reason": "was on the 2016 launch list; not on the city's current list of 12"
+      },
+      {
+        "name": "McClintock Dr and Ray Rd",
+        "reason": "was on the 2016 launch list; not on the city's current list of 12"
       }
     ]
   },
   "mesa": {
     "city_label": "Mesa",
     "default_type": "red_light_speed",
-    "status": "ACTIVE - 16 intersections in 2024, council approved growth to 20 (2025 Verra contract) plus 2 more school zones; 7 of the 16 identified so far; 5 fixed 24/7 school-zone speed cameras (35 mph when lights flash, 45 otherwise)",
+    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page).",
     "sources": [
-      "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official; ADJUDICATES -- has the full intersection list)",
-      "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts",
-      "https://www.themesatribune.com/news/mesa-amps-up-traffic-camera-network/article_9f50e16d-9211-4ebb-a0c3-f418979095f4.html (16 -> 20 expansion)",
-      "2passdd.com 'Mesa Photo Camera Locations (updated 2024) N of 16' series (the 7 named intersections below come from the article titles)"
+      "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official list -- ADJUDICATES; also carries the school-zone corridor list and the Fall 2026 / Spring 2027 flasher-schedule PDFs)",
+      "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts (DEAD 2026-09-17)"
     ],
     "entries": [
       {
+        "name": "Alma School Rd and Guadalupe Rd",
+        "query": "Alma School Rd & Guadalupe Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Broadway Rd and Stapley Dr",
+        "query": "Broadway Rd & Stapley Dr, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Broadway Rd and Extension Rd",
+        "query": "Broadway Rd & Extension Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
         "name": "Country Club Dr and Southern Ave",
         "query": "Country Club Dr & Southern Ave, Mesa, AZ",
-        "confidence": "2024 third-party list (4 of 16)"
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Country Club Dr and University Dr",
+        "query": "Country Club Dr & University Dr, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
         "name": "Ellsworth Rd and Pecos Rd",
         "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
-        "confidence": "2024 third-party list (6 of 16)"
-      },
-      {
-        "name": "Gilbert Rd and McKellips Rd",
-        "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
-        "confidence": "2024 third-party list (8 of 16)"
-      },
-      {
-        "name": "Lindsay Rd and University Dr",
-        "query": "Lindsay Rd & University Dr, Mesa, AZ",
-        "confidence": "2024 third-party list (9 of 16)"
-      },
-      {
-        "name": "Mesa Dr and University Dr",
-        "query": "Mesa Dr & University Dr, Mesa, AZ",
-        "confidence": "2024 third-party list (12 of 16)"
-      },
-      {
-        "name": "Power Rd and Main St",
-        "query": "Power Rd & Main St, Mesa, AZ",
-        "confidence": "2024 third-party list (15 of 16)"
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
         "name": "Guadalupe Rd and Carriage Ln",
         "query": "Guadalupe Rd & Carriage Ln, Mesa, AZ",
-        "confidence": "2024 third-party list (16 of 16); minor cross street -- check the geocode"
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
       },
       {
-        "name": "Rhodes Junior High school zone, Baseline Rd",
+        "name": "Gilbert Rd and Baseline Rd",
+        "query": "Gilbert Rd & Baseline Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Gilbert Rd and McKellips Rd",
+        "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Greenfield Rd and Main St",
+        "query": "Greenfield Rd & Main St, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Power Rd and Broadway Rd",
+        "query": "Power Rd & Broadway Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Power Rd and Hampton Ave",
+        "query": "Power Rd & Hampton Ave, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Power Rd and McKellips Rd",
+        "query": "Power Rd & McKellips Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Power Rd and Southern Ave",
+        "query": "Power Rd & Southern Ave, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Power Rd and Main St",
+        "query": "Power Rd & Main St, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Southern Ave and Higley Rd",
+        "query": "Southern Ave & Higley Rd, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Southern Ave and Stapley Dr",
+        "query": "Southern Ave & Stapley Dr, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "University Dr and Mesa Dr",
+        "query": "University Dr & Mesa Dr, Mesa, AZ",
+        "approaches": [],
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+      },
+      {
+        "name": "Rhodes Jr High on Baseline Rd",
         "query": "Rhodes Junior High School, Mesa, AZ",
         "type": "school_zone",
-        "confidence": "fixed 24/7 school-zone speed camera on W Baseline Rd; geocoded by SCHOOL, camera sits on Baseline at the campus -- pin-drop the corridor midpoint"
+        "approaches": [],
+        "confidence": "page: 'Rhodes Jr. High School corridor on West Baseline Road, between Longmore and Pennington' -- the first mid-block speed camera in Mesa; pin the Baseline midpoint between Longmore and Pennington; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
       },
       {
-        "name": "Fremont Junior High school zone, Power Rd",
-        "query": "Fremont Junior High School, Mesa, AZ",
-        "type": "school_zone",
-        "confidence": "fixed 24/7 school-zone speed camera on N Power Rd; geocoded by SCHOOL -- pin-drop the corridor midpoint"
-      },
-      {
-        "name": "Brimhall Junior High school zone, Southern Ave",
+        "name": "Brimhall Jr High on Southern Ave",
         "query": "Brimhall Junior High School, Mesa, AZ",
         "type": "school_zone",
-        "confidence": "fixed 24/7 school-zone speed camera on E Southern Ave; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+        "approaches": [],
+        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
       },
       {
-        "name": "Mesa High School school zone, Southern Ave",
+        "name": "Fremont Jr High on Power Rd",
+        "query": "Fremont Junior High School, Mesa, AZ",
+        "type": "school_zone",
+        "approaches": [],
+        "confidence": "page: 'Fremont Jr. High School corridor on Power Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+      },
+      {
+        "name": "Mesa High on Southern Ave",
         "query": "Mesa High School, Mesa, AZ",
         "type": "school_zone",
-        "confidence": "fixed 24/7 school-zone speed camera; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+        "approaches": [],
+        "confidence": "page: 'Mesa High School corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
       },
       {
-        "name": "Skyline High School school zone, Crismon Rd",
+        "name": "Skyline High on Crismon Rd",
         "query": "Skyline High School, Mesa, AZ",
         "type": "school_zone",
-        "confidence": "fixed 24/7 school-zone speed camera; geocoded by SCHOOL -- pin-drop the corridor midpoint"
+        "approaches": [],
+        "confidence": "page: 'Skyline High School corridor on Crismon Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+      },
+      {
+        "name": "Red Mountain High on Brown Rd",
+        "query": "Red Mountain High School, Mesa, AZ",
+        "type": "school_zone",
+        "approaches": [],
+        "confidence": "page: 'Red Mountain High School on Brown Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+      },
+      {
+        "name": "Porter Elementary on Lindsay Rd",
+        "query": "Porter Elementary School, Mesa, AZ",
+        "type": "school_zone",
+        "approaches": [],
+        "confidence": "page: 'Porter Elementary School corridor on Lindsay Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+      },
+      {
+        "name": "Eastmark High school zone",
+        "query": "Eastmark High School, Mesa, AZ",
+        "type": "school_zone",
+        "approaches": [],
+        "confidence": "page names the school only ('Eastmark High School'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+      },
+      {
+        "name": "Highland Jr High school zone",
+        "query": "Highland Junior High School, Mesa, AZ",
+        "type": "school_zone",
+        "approaches": [],
+        "confidence": "page names the school only ('Highland Junior High'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
       }
-    ],
-    "missing": "9 of the 16 intersections (and the 4 added in 2025-26) are not yet identified -- take them from the official Mesa page."
+    ]
   },
   "scottsdale": {
     "city_label": "Scottsdale",
     "default_type": "red_light_speed",
-    "status": "ACTIVE since 1996 - 11 fixed camera systems at 10 intersections (red light + speed >=11 over), plus mobile vans. ADJUDICATED 2026-09-17 against the city's own fixed-camera-locations PDF as surfaced verbatim in the search index (row-by-row, domain-restricted to scottsdaleaz.gov) and cross-checked against the independent 2023/2024 2passdd '11 of 11' series, which lists the same 11 rows in the same order. Woz's verbatim fetch of the PDF (and its date) is still owed before go-live.",
+    "status": "ACTIVE since 1996 - 11 fixed camera systems at 10 intersections (red light + speed >=11 over). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome): the official PDF (header 'Fixed Camera Locations (updated 3/1/2019)') and the police page (footer 'Last Updated: Apr 9, 2026') carry the identical 11-row table. The page mentions no mobile vans and links no other list. Thomas Rd @ Hayden Rd E/B is on the 2026 page -> the 2019 'deactivated' news is superseded; watch item CLOSED.",
     "sources": [
       "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official table: Camera Location | Direction -- ADJUDICATES)",
       "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement",
@@ -176,7 +296,7 @@
         "approaches": [
           "S/B Scottsdale Rd"
         ],
-        "confidence": "official PDF row 1"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Scottsdale Rd and Thomas Rd",
@@ -184,7 +304,7 @@
         "approaches": [
           "N/B Scottsdale Rd"
         ],
-        "confidence": "official PDF"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Indian School Rd and Hayden Rd",
@@ -192,7 +312,7 @@
         "approaches": [
           "W/B Indian School Rd"
         ],
-        "confidence": "official PDF; activated 2019-03-01"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Shea Blvd and 90th St",
@@ -200,7 +320,7 @@
         "approaches": [
           "E/B Shea Blvd"
         ],
-        "confidence": "official PDF -- was MISSING from the 09-02 draft"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Shea Blvd and 92nd St",
@@ -208,7 +328,7 @@
         "approaches": [
           "W/B Shea Blvd"
         ],
-        "confidence": "official PDF; activated 2019-03-01"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Cactus Rd",
@@ -216,7 +336,7 @@
         "approaches": [
           "S/B Frank Lloyd Wright Blvd"
         ],
-        "confidence": "official PDF"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
@@ -225,7 +345,7 @@
           "E/B Frank Lloyd Wright Blvd",
           "W/B Frank Lloyd Wright Blvd"
         ],
-        "confidence": "official PDF, two rows (E/B and W/B) = two systems at one intersection = ONE entry; W/B activated 2019-03-01"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry"
       },
       {
         "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
@@ -233,7 +353,7 @@
         "approaches": [
           "N/B Scottsdale Rd"
         ],
-        "confidence": "official PDF"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Scottsdale Rd and Pinnacle Peak Rd",
@@ -241,7 +361,7 @@
         "approaches": [
           "S/B Scottsdale Rd"
         ],
-        "confidence": "official PDF; activated 2019-03-01"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Thomas Rd and Hayden Rd",
@@ -249,7 +369,7 @@
         "approaches": [
           "E/B Thomas Rd"
         ],
-        "confidence": "official PDF (last row) and the 2023/2024 third-party series, DESPITE the 2019-03-01 news reports saying EB Thomas@Hayden was deactivated -- the PDF post-dates those activations, so read as re-activated; confirm on the verbatim fetch"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
       }
     ],
     "dropped_2026-09-17": [
@@ -278,7 +398,7 @@
   "paradise_valley": {
     "city_label": "Paradise Valley",
     "default_type": "red_light_speed",
-    "status": "ACTIVE (first US photo-radar town, 1987) - 5 fixed intersections, red light + speed (roadway sensors measure speed on red, amber and green). ADJUDICATED 2026-09-17: the town's Photo Enforcement Program page wording (as surfaced verbatim in the search index) names exactly these five with approaches; the town's 2015-04-29 press release (official PDF) confirms four of them and the 2006 contract-amendment memo (official) confirms Tatum & McDonald. Woz's verbatim fetch of the live page is still owed before go-live. Also on record: an unpublished mobile van and, since 2022-09-01, TWO portable citing units rotating through five school zones -- both publish no locations, so both stay out of scope (Tempe mobile-unit precedent).",
+    "status": "ACTIVE (first US photo-radar town) - SIX fixed photo-enforcement locations on the town's program page (map image alt text 'PV PE Map 2025'), red light + speed. CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). The 2020 brochure still said 'five intersections and 2 mobile units'; the 2025 map adds Tatum & Foothill (S/B) and shows Desert Jewel as N/B only, so the two Tatum sites north of Lincoln are a directional pair. Mobile program: a semi-marked police vehicle with a radar device, 24-hour stints, locations unpublished -> out of scope (Tempe precedent). School-zone units: not mentioned on the 2025 page.",
     "sources": [
       "https://www.paradisevalleyaz.gov/153/Photo-Radar (official -- ADJUDICATES)",
       "https://www.paradisevalleyaz.gov/844/Photo-Enforcement",
@@ -297,7 +417,7 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page: 'all four directions'; 2015 release confirms"
+        "confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Lincoln Dr and Palo Cristi Rd",
@@ -306,7 +426,7 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page + 2015 release"
+        "confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Lincoln Dr and Mockingbird Ln",
@@ -315,16 +435,23 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page (both directions); 2015 release listed E/B only"
+        "confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Tatum Blvd and Desert Jewel Dr",
         "query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
         "approaches": [
-          "N/B Tatum Blvd",
+          "N/B Tatum Blvd"
+        ],
+        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17"
+      },
+      {
+        "name": "Tatum Blvd and Foothill Dr",
+        "query": "Tatum Blvd & Foothill Dr, Paradise Valley, AZ",
+        "approaches": [
           "S/B Tatum Blvd"
         ],
-        "confidence": "official page + 2015 release"
+        "confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17"
       },
       {
         "name": "Tatum Blvd and McDonald Dr",
@@ -333,7 +460,7 @@
           "N/B Tatum Blvd",
           "S/B Tatum Blvd"
         ],
-        "confidence": "official page + 2006 amendment memo"
+        "confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17"
       }
     ]
   },
