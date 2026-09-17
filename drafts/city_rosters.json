@@ -13,19 +13,31 @@
         "name": "Alma School Rd and Queen Creek Rd",
         "query": "Alma School Rd & Queen Creek Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.261916,
+        "lon": -111.858578,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Alma School Rd and Ray Rd",
         "query": "Alma School Rd & Ray Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.3206,
+        "lon": -111.859137,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Alma School Rd and Warner Rd",
         "query": "Alma School Rd & Warner Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.33509,
+        "lon": -111.85911,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Arizona Ave and Ray Rd",
@@ -37,7 +49,11 @@
         "name": "Arizona Ave and Warner Rd",
         "query": "Arizona Ave & Warner Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.335134,
+        "lon": -111.841752,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Arizona Ave and Ocotillo Rd",
@@ -49,7 +65,11 @@
         "name": "Chandler Blvd and Dobson Rd",
         "query": "Chandler Blvd & Dobson Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.305965,
+        "lon": -111.876336,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Chandler Blvd and Kyrene Rd",
@@ -61,7 +81,11 @@
         "name": "McQueen Rd and Queen Creek Rd",
         "query": "McQueen Rd & Queen Creek Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.262392,
+        "lon": -111.824132,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Ray Rd and Dobson Rd",
@@ -73,13 +97,21 @@
         "name": "Ray Rd and McClintock Dr",
         "query": "Ray Rd & McClintock Dr, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.320029,
+        "lon": -111.911172,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Ray Rd and Rural Rd",
         "query": "Ray Rd & Rural Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.319799,
+        "lon": -111.927364,
+        "resolved_how": "as-written",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       }
     ],
     "dropped_2026-09-17": [
@@ -110,31 +142,51 @@
         "name": "Alma School Rd and Guadalupe Rd",
         "query": "Alma School Rd & Guadalupe Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.364235,
+        "lon": -111.859097,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Broadway Rd and Stapley Dr",
         "query": "Broadway Rd & Stapley Dr, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.407913,
+        "lon": -111.805334,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Broadway Rd and Extension Rd",
         "query": "Broadway Rd & Extension Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.407748,
+        "lon": -111.84838,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Country Club Dr and Southern Ave",
         "query": "Country Club Dr & Southern Ave, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.393317,
+        "lon": -111.840075,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Country Club Dr and University Dr",
         "query": "Country Club Dr & University Dr, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.422372,
+        "lon": -111.83995,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Ellsworth Rd and Pecos Rd",
@@ -152,13 +204,21 @@
         "name": "Gilbert Rd and Baseline Rd",
         "query": "Gilbert Rd & Baseline Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.379598,
+        "lon": -111.788141,
+        "resolved_how": "as-written",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Gilbert Rd and McKellips Rd",
         "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.451758,
+        "lon": -111.787657,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Greenfield Rd and Main St",
@@ -170,112 +230,176 @@
         "name": "Power Rd and Broadway Rd",
         "query": "Power Rd & Broadway Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.408144,
+        "lon": -111.684752,
+        "resolved_how": "as-written",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Power Rd and Hampton Ave",
         "query": "Power Rd & Hampton Ave, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.390398,
+        "lon": -111.684787,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Power Rd and McKellips Rd",
         "query": "Power Rd & McKellips Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.451652,
+        "lon": -111.684139,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Power Rd and Southern Ave",
         "query": "Power Rd & Southern Ave, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.393984,
+        "lon": -111.684748,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Power Rd and Main St",
         "query": "Power Rd & Main St, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.415668,
+        "lon": -111.684528,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Southern Ave and Higley Rd",
         "query": "Southern Ave & Higley Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.393831,
+        "lon": -111.719342,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Southern Ave and Stapley Dr",
         "query": "Southern Ave & Stapley Dr, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.393359,
+        "lon": -111.805425,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "University Dr and Mesa Dr",
         "query": "University Dr & Mesa Dr, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.422352,
+        "lon": -111.822881,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Rhodes Jr High on Baseline Rd",
         "query": "Rhodes Junior High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Rhodes Jr. High School corridor on West Baseline Road, between Longmore and Pennington' -- the first mid-block speed camera in Mesa; pin the Baseline midpoint between Longmore and Pennington; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Rhodes Jr. High School corridor on West Baseline Road, between Longmore and Pennington' -- the first mid-block speed camera in Mesa; pin the Baseline midpoint between Longmore and Pennington; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.380256,
+        "lon": -111.870542,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Brimhall Jr High on Southern Ave",
-        "query": "Brimhall Junior High School, Mesa, AZ",
+        "query": "4949 E Southern Ave, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required | 2026-09-17: name lookup FAILED in the Woz run; query switched to the campus street address (Brimhall Jr High, 4949 E Southern Ave) — still a pin-drop row"
       },
       {
         "name": "Fremont Jr High on Power Rd",
         "query": "Fremont Junior High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Fremont Jr. High School corridor on Power Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Fremont Jr. High School corridor on Power Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.434686,
+        "lon": -111.682622,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Mesa High on Southern Ave",
         "query": "Mesa High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Mesa High School corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Mesa High School corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.397127,
+        "lon": -111.794705,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Skyline High on Crismon Rd",
         "query": "Skyline High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Skyline High School corridor on Crismon Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Skyline High School corridor on Crismon Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.398839,
+        "lon": -111.612325,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Red Mountain High on Brown Rd",
         "query": "Red Mountain High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Red Mountain High School on Brown Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Red Mountain High School on Brown Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.433375,
+        "lon": -111.675189,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Porter Elementary on Lindsay Rd",
         "query": "Porter Elementary School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Porter Elementary School corridor on Lindsay Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page: 'Porter Elementary School corridor on Lindsay Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.390794,
+        "lon": -111.772514,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Eastmark High school zone",
         "query": "Eastmark High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page names the school only ('Eastmark High School'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page names the school only ('Eastmark High School'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.323902,
+        "lon": -111.626727,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Highland Jr High school zone",
         "query": "Highland Junior High School, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page names the school only ('Highland Junior High'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required"
+        "confidence": "page names the school only ('Highland Junior High'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
+        "lat": 33.362272,
+        "lon": -111.684094,
+        "resolved_how": "school-name",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       }
     ]
   },
@@ -296,7 +420,11 @@
         "approaches": [
           "S/B Scottsdale Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.466266,
+        "lon": -111.92603,
+        "resolved_how": "as-written",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Scottsdale Rd and Thomas Rd",
@@ -304,7 +432,11 @@
         "approaches": [
           "N/B Scottsdale Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.480353,
+        "lon": -111.926169,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Indian School Rd and Hayden Rd",
@@ -312,7 +444,11 @@
         "approaches": [
           "W/B Indian School Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.494875,
+        "lon": -111.908877,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Shea Blvd and 90th St",
@@ -320,7 +456,11 @@
         "approaches": [
           "E/B Shea Blvd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.582536,
+        "lon": -111.886125,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Shea Blvd and 92nd St",
@@ -328,7 +468,11 @@
         "approaches": [
           "W/B Shea Blvd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.582537,
+        "lon": -111.882697,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Cactus Rd",
@@ -336,7 +480,11 @@
         "approaches": [
           "S/B Frank Lloyd Wright Blvd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.59731,
+        "lon": -111.843267,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
@@ -353,7 +501,11 @@
         "approaches": [
           "N/B Scottsdale Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.638115,
+        "lon": -111.925301,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Scottsdale Rd and Pinnacle Peak Rd",
@@ -361,7 +513,11 @@
         "approaches": [
           "S/B Scottsdale Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.698697,
+        "lon": -111.925321,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Thomas Rd and Hayden Rd",
@@ -369,7 +525,11 @@
         "approaches": [
           "E/B Thomas Rd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.480391,
+        "lon": -111.908964,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       }
     ],
     "dropped_2026-09-17": [
@@ -417,7 +577,11 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.531055,
+        "lon": -111.97563,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Lincoln Dr and Palo Cristi Rd",
@@ -426,7 +590,11 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.531828,
+        "lon": -112.004014,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Lincoln Dr and Mockingbird Ln",
@@ -435,7 +603,11 @@
           "E/B Lincoln Dr",
           "W/B Lincoln Dr"
         ],
-        "confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.531278,
+        "lon": -111.934486,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Tatum Blvd and Desert Jewel Dr",
@@ -443,7 +615,11 @@
         "approaches": [
           "N/B Tatum Blvd"
         ],
-        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.553581,
+        "lon": -111.975667,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
       },
       {
         "name": "Tatum Blvd and Foothill Dr",

@@ -141,7 +141,12 @@ def main():
             if index > 1:
                 time.sleep(REQUEST_INTERVAL_SECONDS)
             if "lat" in row and "lon" in row:
-                found = (float(row["lat"]), float(row["lon"]), "manual")
+                # A row pinned from an earlier run keeps that run's provenance
+                # (osm-intersection / as-written / school-name) so the output
+                # still says how the point was found and school-name rows
+                # stay flagged for a pin-drop.
+                found = (float(row["lat"]), float(row["lon"]),
+                         row.get("resolved_how", "manual"))
             else:
                 found = geocode(row["query"])
             if not found:
