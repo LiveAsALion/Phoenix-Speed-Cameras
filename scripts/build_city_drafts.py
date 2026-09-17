@@ -177,15 +177,15 @@ def main():
                 # Phoenix-style prefix ("S/B, ...") so it is unique and the
                 # app strips it for speech; direction_deg is the MEASURED
                 # approach heading (null = not measured yet -> city not written).
-                for label, deg in directional.items():
-                    token = label.split(" ", 1)[0]
+                for approach, deg in directional.items():
+                    token = approach.split(" ", 1)[0]
                     if deg is None:
-                        failures.append(f"{row['name']} [{label}] direction_deg not measured")
-                        print(f"        {label}: direction not measured -- run measure_road_bearings.py")
+                        failures.append(f"{row['name']} [{approach}] direction_deg not measured")
+                        print(f"        {approach}: direction not measured -- run measure_road_bearings.py")
                         continue
                     out.append({"name": f"{token}, {row['name']}: {label}",
                                 **base, "direction_deg": int(deg),
-                                "_approaches": [label]})
+                                "_approaches": [approach]})
             else:
                 out.append({"name": f"{row['name']}: {label}", **base,
                             "direction_deg": int(row.get("direction_deg", -1)),
