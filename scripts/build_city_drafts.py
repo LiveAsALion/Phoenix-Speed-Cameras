@@ -159,7 +159,7 @@ def main():
                 dupes.append((seen[point], row["name"], point))
             else:
                 seen[point] = row["name"]
-            by_intersection = how in ("osm-intersection", "manual") or (
+            by_intersection = how in ("osm-intersection", "manual", "tester-pin") or (
                 " & " in row["query"] and how in ("as-written", "and-phrasing"))
             flag = "" if by_intersection else "   <- resolved by NAME/ADDRESS, pin-drop it"
             print(f"  [{index:2}] ok    {row['name']:48} {lat:.6f},{lon:.6f} [{how}]{flag}")

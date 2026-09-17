@@ -525,7 +525,11 @@
           "E/B Frank Lloyd Wright Blvd",
           "W/B Frank Lloyd Wright Blvd"
         ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry"
+        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry",
+        "lat": 33.6344477,
+        "lon": -111.9077888,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin-drop 2026-09-17 (no OSM match on two Woz runs; the pin outranks any geocode or grid estimate)"
       },
       {
         "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
