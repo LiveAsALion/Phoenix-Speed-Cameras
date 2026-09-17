@@ -1,133 +1,145 @@
 [
   {
-    "name": "Scottsdale Rd and McDowell Rd: Scottsdale",
+    "name": "S/B, Scottsdale Rd and McDowell Rd: Scottsdale",
     "latitude": 33.466266,
     "longitude": -111.92603,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "S/B Scottsdale Rd"
-    ],
     "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ"
+    "_query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ",
+    "direction_deg": 180,
+    "_approaches": [
+      "S/B Scottsdale Rd"
+    ]
   },
   {
-    "name": "Scottsdale Rd and Thomas Rd: Scottsdale",
+    "name": "N/B, Scottsdale Rd and Thomas Rd: Scottsdale",
     "latitude": 33.480353,
     "longitude": -111.926169,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "N/B Scottsdale Rd"
-    ],
     "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ"
+    "_query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ",
+    "direction_deg": 0,
+    "_approaches": [
+      "N/B Scottsdale Rd"
+    ]
   },
   {
-    "name": "Indian School Rd and Hayden Rd: Scottsdale",
+    "name": "W/B, Indian School Rd and Hayden Rd: Scottsdale",
     "latitude": 33.494875,
     "longitude": -111.908877,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Indian School Rd & Hayden Rd, Scottsdale, AZ",
+    "direction_deg": 270,
     "_approaches": [
       "W/B Indian School Rd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Indian School Rd & Hayden Rd, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Shea Blvd and 90th St: Scottsdale",
+    "name": "E/B, Shea Blvd and 90th St: Scottsdale",
     "latitude": 33.582536,
     "longitude": -111.886125,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Shea Blvd & 90th St, Scottsdale, AZ",
+    "direction_deg": 86,
     "_approaches": [
       "E/B Shea Blvd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Shea Blvd & 90th St, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Shea Blvd and 92nd St: Scottsdale",
+    "name": "W/B, Shea Blvd and 92nd St: Scottsdale",
     "latitude": 33.582537,
     "longitude": -111.882697,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Shea Blvd & 92nd St, Scottsdale, AZ",
+    "direction_deg": 270,
     "_approaches": [
       "W/B Shea Blvd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Shea Blvd & 92nd St, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Frank Lloyd Wright Blvd and Cactus Rd: Scottsdale",
+    "name": "S/B, Frank Lloyd Wright Blvd and Cactus Rd: Scottsdale",
     "latitude": 33.59731,
     "longitude": -111.843267,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ",
+    "direction_deg": 125,
     "_approaches": [
       "S/B Frank Lloyd Wright Blvd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+    "name": "E/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
     "latitude": 33.6344477,
     "longitude": -111.9077888,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "E/B Frank Lloyd Wright Blvd",
-      "W/B Frank Lloyd Wright Blvd"
-    ],
     "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry",
     "_resolved_by": "intersection",
-    "_query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ"
+    "_query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
+    "direction_deg": 105,
+    "_approaches": [
+      "E/B Frank Lloyd Wright Blvd"
+    ]
   },
   {
-    "name": "Scottsdale Rd and Frank Lloyd Wright Blvd: Scottsdale",
+    "name": "W/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+    "latitude": 33.6344477,
+    "longitude": -111.9077888,
+    "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry",
+    "_resolved_by": "intersection",
+    "_query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
+    "direction_deg": 285,
+    "_approaches": [
+      "W/B Frank Lloyd Wright Blvd"
+    ]
+  },
+  {
+    "name": "N/B, Scottsdale Rd and Frank Lloyd Wright Blvd: Scottsdale",
     "latitude": 33.638115,
     "longitude": -111.925301,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ",
+    "direction_deg": 1,
     "_approaches": [
       "N/B Scottsdale Rd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Scottsdale Rd and Pinnacle Peak Rd: Scottsdale",
+    "name": "S/B, Scottsdale Rd and Pinnacle Peak Rd: Scottsdale",
     "latitude": 33.698697,
     "longitude": -111.925321,
-    "direction_deg": -1,
     "type": "red_light_speed",
+    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "_resolved_by": "intersection",
+    "_query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ",
+    "direction_deg": 180,
     "_approaches": [
       "S/B Scottsdale Rd"
-    ],
-    "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ"
+    ]
   },
   {
-    "name": "Thomas Rd and Hayden Rd: Scottsdale",
+    "name": "E/B, Thomas Rd and Hayden Rd: Scottsdale",
     "latitude": 33.480391,
     "longitude": -111.908964,
-    "direction_deg": -1,
     "type": "red_light_speed",
-    "_approaches": [
-      "E/B Thomas Rd"
-    ],
     "_confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
-    "_query": "Thomas Rd & Hayden Rd, Scottsdale, AZ"
+    "_query": "Thomas Rd & Hayden Rd, Scottsdale, AZ",
+    "direction_deg": 90,
+    "_approaches": [
+      "E/B Thomas Rd"
+    ]
   }
 ]

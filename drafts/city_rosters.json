@@ -459,7 +459,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "S/B Scottsdale Rd": 180
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Scottsdale Rd and Thomas Rd",
@@ -474,7 +475,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "N/B Scottsdale Rd": 0
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Indian School Rd and Hayden Rd",
@@ -489,7 +491,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "W/B Indian School Rd": 270
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Shea Blvd and 90th St",
@@ -503,8 +506,10 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
-          "E/B Shea Blvd": 90
-        }
+          "E/B Shea Blvd": 86
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+        "bearing_note": "E/B measured 85.5 (near 90.9 / far 84.0, dev 18 m): Shea bends slightly west of 90th"
       },
       {
         "name": "Shea Blvd and 92nd St",
@@ -519,7 +524,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "W/B Shea Blvd": 270
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Cactus Rd",
@@ -533,8 +539,10 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
-          "S/B Frank Lloyd Wright Blvd": null
-        }
+          "S/B Frank Lloyd Wright Blvd": 125
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+        "bearing_note": "S/B measured 124.8 (near 135.1 / far 125.7, dev 36 m): the road curves through the approach; 125 keeps every approach point inside the 75 m corridor"
       },
       {
         "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
@@ -549,9 +557,11 @@
         "resolved_how": "tester-pin",
         "resolved_source": "tester map pin-drop 2026-09-17 (no OSM match on two Woz runs; the pin outranks any geocode or grid estimate)",
         "directional": {
-          "E/B Frank Lloyd Wright Blvd": null,
-          "W/B Frank Lloyd Wright Blvd": null
-        }
+          "E/B Frank Lloyd Wright Blvd": 105,
+          "W/B Frank Lloyd Wright Blvd": 285
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+        "bearing_note": "E/B 104.9 / W/B 284.8 (dev 13-14 m), a consistent opposite pair"
       },
       {
         "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
@@ -565,8 +575,9 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
-          "N/B Scottsdale Rd": 0
-        }
+          "N/B Scottsdale Rd": 1
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Scottsdale Rd and Pinnacle Peak Rd",
@@ -581,7 +592,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "S/B Scottsdale Rd": 180
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Thomas Rd and Hayden Rd",
@@ -596,7 +608,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "E/B Thomas Rd": 90
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       }
     ],
     "dropped_2026-09-17": [
@@ -665,7 +678,8 @@
         "directional": {
           "E/B Lincoln Dr": 90,
           "W/B Lincoln Dr": 270
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Lincoln Dr and Mockingbird Ln",
@@ -680,9 +694,10 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
-          "E/B Lincoln Dr": 90,
-          "W/B Lincoln Dr": 270
-        }
+          "E/B Lincoln Dr": 89,
+          "W/B Lincoln Dr": 268
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Tatum Blvd and Desert Jewel Dr",
@@ -697,7 +712,8 @@
         "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
         "directional": {
           "N/B Tatum Blvd": 0
-        }
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
       },
       {
         "name": "Tatum Blvd and Foothill Dr",
@@ -711,8 +727,10 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
         "directional": {
-          "S/B Tatum Blvd": 180
-        }
+          "S/B Tatum Blvd": 186
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+        "bearing_note": "S/B measured 186.0 (near 181.4 / far 187.0, dev 16 m)"
       },
       {
         "name": "Tatum Blvd and McDonald Dr",
@@ -727,9 +745,11 @@
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
         "directional": {
-          "N/B Tatum Blvd": 0,
-          "S/B Tatum Blvd": 180
-        }
+          "N/B Tatum Blvd": 3,
+          "S/B Tatum Blvd": 183
+        },
+        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+        "bearing_note": "S/B measured 183.0 (near 191.0 / far 184.2, dev 45 m — Tatum jogs north of McDonald, still inside the 75 m corridor). N/B is PROVISIONAL = 3, the mirror of the S/B axis: OSM has only one node on Tatum within 600 m south of McDonald (a straight way with sparse nodes), so the approach from the south could not be fitted; re-measure with a wider search before treating it as final"
       }
     ]
   },
