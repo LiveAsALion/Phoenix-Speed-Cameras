@@ -167,7 +167,7 @@ def main():
                 "name": f"{row['name']}: {label}",
                 "latitude": round(lat, 7),
                 "longitude": round(lon, 7),
-                "direction_deg": -1,
+                "direction_deg": int(row.get("direction_deg", -1)),
                 "type": row.get("type", default_type),
                 "_approaches": row.get("approaches", []),
                 "_confidence": row.get("confidence", ""),

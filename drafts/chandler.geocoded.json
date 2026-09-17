@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Alma School Rd and Queen Creek Rd: Chandler",
+    "latitude": 33.261916,
+    "longitude": -111.858578,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Alma School Rd & Queen Creek Rd, Chandler, AZ"
+  },
+  {
+    "name": "Alma School Rd and Ray Rd: Chandler",
+    "latitude": 33.3206,
+    "longitude": -111.859137,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Alma School Rd & Ray Rd, Chandler, AZ"
+  },
+  {
+    "name": "Alma School Rd and Warner Rd: Chandler",
+    "latitude": 33.33509,
+    "longitude": -111.85911,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Alma School Rd & Warner Rd, Chandler, AZ"
+  },
+  {
+    "name": "Arizona Ave and Ray Rd: Chandler",
+    "latitude": 33.3206297,
+    "longitude": -111.841615,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Arizona Ave & Ray Rd, Chandler, AZ"
+  },
+  {
+    "name": "Arizona Ave and Warner Rd: Chandler",
+    "latitude": 33.335134,
+    "longitude": -111.841752,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Arizona Ave & Warner Rd, Chandler, AZ"
+  },
+  {
+    "name": "Arizona Ave and Ocotillo Rd: Chandler",
+    "latitude": 33.247607,
+    "longitude": -111.8412465,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Arizona Ave & Ocotillo Rd, Chandler, AZ"
+  },
+  {
+    "name": "Chandler Blvd and Dobson Rd: Chandler",
+    "latitude": 33.305965,
+    "longitude": -111.876336,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Chandler Blvd & Dobson Rd, Chandler, AZ"
+  },
+  {
+    "name": "Chandler Blvd and Kyrene Rd: Chandler",
+    "latitude": 33.3053484,
+    "longitude": -111.9457214,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Chandler Blvd & Kyrene Rd, Chandler, AZ"
+  },
+  {
+    "name": "McQueen Rd and Queen Creek Rd: Chandler",
+    "latitude": 33.262392,
+    "longitude": -111.824132,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "McQueen Rd & Queen Creek Rd, Chandler, AZ"
+  },
+  {
+    "name": "Ray Rd and Dobson Rd: Chandler",
+    "latitude": 33.3205739,
+    "longitude": -111.876403,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Ray Rd & Dobson Rd, Chandler, AZ"
+  },
+  {
+    "name": "Ray Rd and McClintock Dr: Chandler",
+    "latitude": 33.320029,
+    "longitude": -111.911172,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Ray Rd & McClintock Dr, Chandler, AZ"
+  },
+  {
+    "name": "Ray Rd and Rural Rd: Chandler",
+    "latitude": 33.319799,
+    "longitude": -111.927364,
+    "direction_deg": -1,
+    "type": "red_light_speed",
+    "_approaches": [],
+    "_confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "_resolved_by": "intersection",
+    "_query": "Ray Rd & Rural Rd, Chandler, AZ"
+  }
+]

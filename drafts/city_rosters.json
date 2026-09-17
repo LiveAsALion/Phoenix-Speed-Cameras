@@ -43,7 +43,11 @@
         "name": "Arizona Ave and Ray Rd",
         "query": "Arizona Ave & Ray Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.3206297,
+        "lon": -111.841615,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Arizona Ave and Warner Rd",
@@ -59,7 +63,11 @@
         "name": "Arizona Ave and Ocotillo Rd",
         "query": "Arizona Ave & Ocotillo Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.247607,
+        "lon": -111.8412465,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Chandler Blvd and Dobson Rd",
@@ -75,7 +83,11 @@
         "name": "Chandler Blvd and Kyrene Rd",
         "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.3053484,
+        "lon": -111.9457214,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "McQueen Rd and Queen Creek Rd",
@@ -91,7 +103,11 @@
         "name": "Ray Rd and Dobson Rd",
         "query": "Ray Rd & Dobson Rd, Chandler, AZ",
         "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.3205739,
+        "lon": -111.876403,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Ray Rd and McClintock Dr",
@@ -192,13 +208,21 @@
         "name": "Ellsworth Rd and Pecos Rd",
         "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check",
+        "lat": 33.29225,
+        "lon": -111.63497,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928) — AMBIGUOUS (33.29225,-111.63497 vs 33.28498,-111.63493); the northern node sits on the Pecos Rd section-line alignment implied by the run's own Chandler nodes (Queen Creek 33.2619 + 2 mi ≈ 33.291), the southern one is 660 m south of it; tester spot-check requested"
       },
       {
         "name": "Guadalupe Rd and Carriage Ln",
         "query": "Guadalupe Rd & Carriage Ln, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.363865,
+        "lon": -111.892298,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Gilbert Rd and Baseline Rd",
@@ -224,7 +248,11 @@
         "name": "Greenfield Rd and Main St",
         "query": "Greenfield Rd & Main St, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published"
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+        "lat": 33.415491,
+        "lon": -111.736421,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Power Rd and Broadway Rd",
@@ -322,7 +350,11 @@
         "query": "4949 E Southern Ave, Mesa, AZ",
         "type": "school_zone",
         "approaches": [],
-        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required | 2026-09-17: name lookup FAILED in the Woz run; query switched to the campus street address (Brimhall Jr High, 4949 E Southern Ave) — still a pin-drop row"
+        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required | 2026-09-17: name lookup FAILED in the Woz run; query switched to the campus street address (Brimhall Jr High, 4949 E Southern Ave) — still a pin-drop row",
+        "lat": 33.39128,
+        "lon": -111.723406,
+        "resolved_how": "as-written",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       },
       {
         "name": "Fremont Jr High on Power Rd",
@@ -615,11 +647,12 @@
         "approaches": [
           "N/B Tatum Blvd"
         ],
-        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17",
+        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (0 = N/B): this and the Foothill Dr system are 55 m apart on Tatum (staggered T-intersections); two omnidirectional entries would speak twice back-to-back; Tatum's bearing at both nodes is 0/180 from the run's own points, so the corridor gate is safe",
         "lat": 33.553581,
         "lon": -111.975667,
         "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+        "direction_deg": 0
       },
       {
         "name": "Tatum Blvd and Foothill Dr",
@@ -627,7 +660,12 @@
         "approaches": [
           "S/B Tatum Blvd"
         ],
-        "confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (180 = S/B), see Desert Jewel note",
+        "lat": 33.5530848,
+        "lon": -111.9756704,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
+        "direction_deg": 180
       },
       {
         "name": "Tatum Blvd and McDonald Dr",
@@ -636,7 +674,11 @@
           "N/B Tatum Blvd",
           "S/B Tatum Blvd"
         ],
-        "confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17"
+        "confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
+        "lat": 33.5243756,
+        "lon": -111.9763155,
+        "resolved_how": "osm-intersection",
+        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
       }
     ]
   },
