@@ -63,9 +63,9 @@ server {
     location = /banner { return 302 /go?src=banner; }
     location = /chuckwalla { return 302 /go?src=chuckwalla; }
     location = /tryfor7days { return 302 /go?src=tryfor7days; }
-    location = /~tryfor7days { return 302 /go?src=tryfor7days; }
+    location = /~tryfor7days { return 302 /go?src=tryfor7days-tilde; }
     location = /1weekfree { return 302 /go?src=1weekfree; }
-    location = /~1weekfree { return 302 /go?src=1weekfree; }
+    location = /~1weekfree { return 302 /go?src=1weekfree-tilde; }
     location = /gcu { return 302 /go?src=gcu; }
     location / { try_files $uri $uri/ =404; }
 }
@@ -146,9 +146,9 @@ server {
     location = /banner { return 302 /go?src=banner; }
     location = /chuckwalla { return 302 /go?src=chuckwalla; }
     location = /tryfor7days { return 302 /go?src=tryfor7days; }
-    location = /~tryfor7days { return 302 /go?src=tryfor7days; }
+    location = /~tryfor7days { return 302 /go?src=tryfor7days-tilde; }
     location = /1weekfree { return 302 /go?src=1weekfree; }
-    location = /~1weekfree { return 302 /go?src=1weekfree; }
+    location = /~1weekfree { return 302 /go?src=1weekfree-tilde; }
     location = /gcu { return 302 /go?src=gcu; }
     location / { try_files $uri $uri/ =404; }
 }
