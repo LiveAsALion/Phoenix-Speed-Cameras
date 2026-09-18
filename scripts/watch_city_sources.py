@@ -144,11 +144,15 @@ def pdf_to_text(raw):
 
 
 def normalize_lines(text):
+    """One entry per line; long semicolon lists (Mesa's school corridors are
+    one sentence: "...corridor on Power Road; Mesa High School corridor on
+    Southern Avenue; ...") are split so each item can match on its own."""
     lines = []
     for raw in text.splitlines():
-        line = re.sub(r"\s+", " ", raw.replace("\xa0", " ")).strip(" \t|-•·")
-        if len(line) >= 4:
-            lines.append(line)
+        for piece in raw.replace("\xa0", " ").split(";"):
+            line = re.sub(r"\s+", " ", piece).strip(" \t|-•·.")
+            if len(line) >= 4:
+                lines.append(line)
     return lines
 
 
