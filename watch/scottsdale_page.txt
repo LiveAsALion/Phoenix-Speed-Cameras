@@ -1,5 +1,5 @@
 # https://www.scottsdaleaz.gov/police/police-units/photo-enforcement
-# fetched 2026-09-18T08:10:24+00:00  content_sha 0b7f0734af1f45b0
+# fetched 2026-09-18T08:17:53+00:00  content_sha 0b7f0734af1f45b0
 # links: ["# [Neighborhood Map Home]", "/docs/default-source/scottsdaleaz/orgchart.pdf?sfvrsn=e36a7e9f_3 [City Organization Chart & Directory]", "/maps [Map Center]", "/solid-waste/holiday-collection-schedule [Holiday Collection Schedule]", "/solid-waste/my-services [Find My Pickup Schedule]", "https://eservices.scottsdaleaz.gov/maps/my-neighborhood [What's happening in your neighborhood?]", "https://www.scottsdaleaz.gov/docs/default-source/scottsdaleaz/city-court/civil-traffic-cases/bond-card.pdf?sfvrsn=9b0a421a_6 [Scottsdale City Court Bond Card]"]
 # map_images: ["/images/default-source/default-album/police/red-light-intersection-zone.webp?sfvrsn=b4ac905c_3 [overhead view of an intersection with an overlay showing the]"]
 Scottsdale Road at McDowell Road | S/B

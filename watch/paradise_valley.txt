@@ -1,3 +1,9 @@
 # https://www.paradisevalleyaz.gov/153/Photo-Radar
-# fetched 2026-09-18T08:10:25+00:00  content_sha 47fd0ab178892c5a
+# fetched 2026-09-18T08:17:54+00:00  content_sha a7b63fbec55eaf7d
 # map_images: ["/ImageRepository/Document?documentID=11573 [PV PE Map 2025]"]
+E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B
+E. Lincoln Dr. and Tatum Blvd-All four directions
+E. Lincoln Dr. and Mockingbird Ln.-both E/B and W/B
+N. Tatum Blvd. and Desert Jewel Dr.-N/B
+N. Tatum Blvd. and E. Foothill Dr. -S/B
+S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B
