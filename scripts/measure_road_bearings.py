@@ -73,12 +73,12 @@ def fit_heading(points, toward=(0.0, 0.0)):
     return heading, max_dev
 
 
-def road_points(road, lat, lon):
-    """All geometry points of highway ways named `road` within SEARCH_M."""
+def road_points(road, lat, lon, radius=SEARCH_M):
+    """All geometry points of highway ways named `road` within `radius`."""
     name = osm_street_name(road)
     regex = f'^(North |South |East |West |N |S |E |W )?{name}$'
     query = ('[out:json][timeout:25];'
-             f'way["highway"]["name"~"{regex}",i](around:{SEARCH_M},{lat},{lon});'
+             f'way["highway"]["name"~"{regex}",i](around:{radius},{lat},{lon});'
              'out geom;')
     last = None
     for attempt in range(3):
@@ -103,6 +103,7 @@ def on_approach_side(token, x, y):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--city", action="append", required=True)
+    parser.add_argument("--only", help="only rows whose name contains this text")
     args = parser.parse_args()
     with open(ROSTERS) as handle:
         rosters = json.load(handle)
@@ -115,30 +116,43 @@ def main():
             directional = row.get("directional")
             if not directional:
                 continue
+            if args.only and args.only.lower() not in row["name"].lower():
+                continue
             lat, lon = float(row["lat"]), float(row["lon"])
             for label, current in directional.items():
                 token, road = label.split(" ", 1)
-                pts, error = road_points(road, lat, lon)
-                if error or not pts:
+                # A straight OSM way can have no node for a kilometre, so a
+                # sparse approach side widens the search until it has enough
+                # points (the line fit still runs through the camera point).
+                side, xy, radius, error = [], [], SEARCH_M, None
+                for radius in (SEARCH_M, 1200, 2000, 3000):
+                    pts, error = road_points(road, lat, lon, radius)
+                    if error or not pts:
+                        break
+                    xy = [local_xy(lat, lon, plat, plon) for plat, plon in pts]
+                    side = [p for p in xy if on_approach_side(token, *p)
+                            and math.hypot(*p) <= radius]
+                    if len(side) >= 2:
+                        break
+                    time.sleep(1.5)
+                if error or not xy:
                     print(f"  {row['name']} [{label}]: NO GEOMETRY ({error or 'no ways matched'})")
                     time.sleep(1.5)
                     continue
-                xy = [local_xy(lat, lon, plat, plon) for plat, plon in pts]
-                side = [p for p in xy if on_approach_side(token, *p)
-                        and math.hypot(*p) <= SEARCH_M]
                 near = [p for p in side if math.hypot(*p) <= NEAR_M]
                 far = [p for p in side if math.hypot(*p) > NEAR_M]
                 if len(side) < 2:
                     print(f"  {row['name']} [{label}]: only {len(side)} approach-side points "
-                          f"of {len(xy)} -- widen the search or pin by hand")
+                          f"of {len(xy)} even at {radius} m -- pin by hand")
                     time.sleep(1.5)
                     continue
+                widened = f" (search widened to {radius} m)" if radius != SEARCH_M else ""
                 h_all, dev = fit_heading(side)
                 h_near = fit_heading(near)[0] if len(near) >= 2 else float('nan')
                 h_far = fit_heading(far)[0] if len(far) >= 2 else float('nan')
                 delta = "" if current is None else f"{((h_all - current + 180) % 360) - 180:+.1f}"
                 print(f"  {row['name']} [{label}] | {len(side)} | {h_all:6.1f} | "
-                      f"{h_near:6.1f} | {h_far:6.1f} | {dev:5.1f} | {current} | {delta}")
+                      f"{h_near:6.1f} | {h_far:6.1f} | {dev:5.1f} | {current} | {delta}{widened}")
                 time.sleep(1.5)
 
 
