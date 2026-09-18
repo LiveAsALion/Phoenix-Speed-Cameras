@@ -100,9 +100,45 @@ def on_approach_side(token, x, y):
     return {"north": y > 15, "south": y < -15, "west": x < -15, "east": x > 15}[side]
 
 
+CORRIDOR_M = 75.0        # the app's corridor gate: max cross-track from the axis line
+
+
+def corridor_fit(points, limit=SEARCH_M):
+    """The axis line through the camera that keeps the approach closest to the
+    corridor: for every whole-degree axis, the largest cross-track distance of
+    any approach point within `limit` metres; returns (best_axis, max_cross_m,
+    n_points). The gate treats the axis as a LINE (0 == 180), so 0..179 covers
+    every case. A result above CORRIDOR_M means no straight line contains the
+    approach -- the road bends more than the gate allows -- and the fix is not
+    a value in road_axis_deg."""
+    pts = [(x, y) for x, y in points if math.hypot(x, y) <= limit]
+    if not pts:
+        return None, None, 0
+    best_axis, best_max = None, None
+    for axis in range(180):
+        a = math.radians(axis)
+        worst = max(abs(x * math.cos(a) - y * math.sin(a)) for x, y in pts)
+        if best_max is None or worst < best_max:
+            best_axis, best_max = axis, worst
+    return best_axis, best_max, len(pts)
+
+
+def cross_track_max(points, axis, limit=SEARCH_M):
+    a = math.radians(axis)
+    pts = [(x, y) for x, y in points if math.hypot(x, y) <= limit]
+    return max((abs(x * math.cos(a) - y * math.sin(a)) for x, y in pts), default=None)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--city", action="append", required=True)
+    parser.add_argument("--city", action="append", default=[],
+                        help="roster key in drafts/city_rosters.json (repeatable)")
+    parser.add_argument("--point", help="LAT,LON of a camera that is not in a roster (a live "
+                                        "Phoenix entry); pair with --approach")
+    parser.add_argument("--approach", action="append", default=[],
+                        help='"W/B Northern Avenue": direction token + the OSM road name '
+                             'to fit for a --point camera (repeatable)')
+    parser.add_argument("--label", default="point", help="name printed for a --point camera")
     parser.add_argument("--only", help="only rows whose name contains this text")
     parser.add_argument("--inventory", action="store_true",
                         help="instead of fitting, list every highway way within 400 m of "
@@ -110,8 +146,19 @@ def main():
                              "relative to the camera (N/S/E/W extent in metres) -- for "
                              "finding what a leg of the intersection is actually called")
     args = parser.parse_args()
+    if not args.city and not args.point:
+        parser.error("give --city KEY (roster rows) or --point LAT,LON --approach \"W/B Road Name\"")
     with open(ROSTERS) as handle:
         rosters = json.load(handle)
+    if args.point:
+        # A camera outside the rosters (the live Phoenix file): one synthetic
+        # row, measured exactly like a roster row.
+        if not args.approach:
+            parser.error("--point needs at least one --approach")
+        lat, lon = (float(v) for v in args.point.split(","))
+        rosters["point"] = {"entries": [{"name": args.label, "lat": lat, "lon": lon,
+                                         "directional": {a: None for a in args.approach}}]}
+        args.city.append("point")
     if args.inventory:
         for key in args.city:
             for row in rosters[key]["entries"]:
@@ -198,6 +245,17 @@ def main():
                 delta = "" if current is None else f"{((h_all - current + 180) % 360) - 180:+.1f}"
                 print(f"  {row['name']} [{label}] | {len(side)} | {h_all:6.1f} | "
                       f"{h_near:6.1f} | {h_far:6.1f} | {dev:5.1f} | {current} | {delta}{widened}")
+                # The corridor question, answered directly: which axis line keeps
+                # the whole 600 m approach inside the gate, and does any?
+                best_axis, best_max, n_pts = corridor_fit(side)
+                if best_axis is not None:
+                    verdict = ("OK" if best_max <= CORRIDOR_M
+                               else f"EXCEEDS {CORRIDOR_M:.0f} m -- no single road_axis_deg fits this approach")
+                    heading_axis = int(round(h_all)) % 180
+                    at_heading = cross_track_max(side, heading_axis)
+                    print(f"      corridor: best axis {best_axis:3d} keeps max cross-track {best_max:5.1f} m "
+                          f"over {n_pts} approach points within {SEARCH_M:.0f} m [{verdict}]; "
+                          f"the fitted heading as an axis ({heading_axis}) gives {at_heading:5.1f} m")
                 time.sleep(1.5)
 
 
