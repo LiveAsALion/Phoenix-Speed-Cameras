@@ -12,3 +12,9 @@ This is DETECTION, not publication: nothing here touches
 `camera_data.json`. A flagged change goes through the normal pipeline
 (`drafts/city_rosters.json` → `build_city_drafts.py --geocode` → tester
 pins / bearing measurement → `stage_city.py` on the tester's go).
+
+Changing the extraction rules: bump `EXTRACTOR_VERSION` in the script. The
+next run re-records every baseline silently; without the bump, the rule
+change itself would be reported as a city change (issue #1 was that).
+A source that yields no location lines prints its page text into the job
+log so the rules can be tuned against the real page.

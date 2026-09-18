@@ -44,6 +44,9 @@ STATE = os.path.join(WATCH, "state.json")
 REPORT = os.path.join(WATCH, "REPORT.md")
 ALERT = os.path.join(WATCH, "ALERT.md")
 FAIL_STREAK_ALERT = 3
+# Bump whenever the extraction rules change: the next run re-baselines every
+# source silently instead of reporting the rule change as a city change.
+EXTRACTOR_VERSION = "2026-09-18.3"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
@@ -81,7 +84,7 @@ LOCATION_PATTERNS = [
     # direction-labelled rows "... | S/B", "E/B and W/B", "northbound"
     re.compile(r"\b(?:N/B|S/B|E/B|W/B|northbound|southbound|eastbound|westbound)\b", re.I),
     # school corridors and schedule rows
-    re.compile(r"\b(?:Jr\.?\s*High|Junior High|High School|Elementary|Middle School|Academy)\b", re.I),
+    re.compile(r"\b(?:Jr\.?\s*High|Junior High|High School|Elementary|Middle School)\b", re.I),
     # Phoenix corridor naming "W/B, Bell Rd: I-17 to 19th Ave" / "16th Street to 18th Street"
     re.compile(rf"\b{ROAD}\.?\s*:\s*.+\bto\b", re.I),
     re.compile(r"\b\d+(?:st|nd|rd|th)\s+(?:St|Street|Ave|Avenue)\b.*\bto\b", re.I),
@@ -238,6 +241,10 @@ def run():
         with open(STATE) as handle:
             state = json.load(handle)
     report, alerts = [f"# City source watch — {now()}", ""], []
+    rebaseline = state.get("_extractor_version") != EXTRACTOR_VERSION
+    state["_extractor_version"] = EXTRACTOR_VERSION
+    if rebaseline:
+        report.append(f"_Extractor {EXTRACTOR_VERSION}: every source re-baselined this run, no alerts._\n")
     for key, city, url, kind in SOURCES:
         st = state.setdefault(key, {"failures": 0})
         st["url"] = url
@@ -256,9 +263,18 @@ def run():
         lines, content_sha, extras = extract(raw, kind)
         debug_dir = os.path.join(WATCH, "_debug")
         os.makedirs(debug_dir, exist_ok=True)
+        all_lines = extras.pop("_all_lines", [])
         with open(os.path.join(debug_dir, f"{key}.lines.txt"), "w") as handle:
-            handle.write("\n".join(extras.pop("_all_lines", [])) + "\n")
+            handle.write("\n".join(all_lines) + "\n")
+        if not lines:
+            # nothing matched: show what the page actually says, in the job log,
+            # so the rules can be tuned without downloading the artifact
+            print(f"[diagnostic] {key}: 0 location lines; page text ({len(all_lines)} lines), first 80:")
+            for l in all_lines[:80]:
+                print("    " + l[:140])
         prev = load_snapshot(key)
+        if rebaseline:
+            prev = None
         st["failures"] = 0
         st["last_status"] = f"ok {note}"
         st["last_run"] = st["last_ok"] = now()
