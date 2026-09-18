@@ -33,8 +33,17 @@ reads the page (Claude for Chrome) and compares it with
 | Mesa | intersections (18) + school corridors | links (season PDFs), stated counts |
 
 `content_sha` (the page text hash) changes are reported but do not open an
-issue: cities edit prose constantly. Location lines, links, map images,
-PDF hashes and counts do.
+issue: cities edit prose constantly. Location lines, links, map images
+and PDF hashes do; stated counts are recorded on every page but only open
+an issue on a page that has NO rows (Tempe, Chandler's map PDF) — on a
+page with rows the rows are the signal, and the prose counts there are
+programme history ("21 red light cameras" in Mesa's background text).
+
+A 200 answer with almost no text (fewer than 10 usable lines) is a
+bot-challenge page, not the source — Tempe served one on run 5 (27 KB
+against 124 KB). It is retried, then counted as a failed night; it never
+becomes a baseline, so the real page the next night cannot read as a
+change.
 
 Changing the extraction rules: bump `EXTRACTOR_VERSION` in the script. The
 next run re-records every baseline silently; without the bump, the rule

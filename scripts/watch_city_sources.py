@@ -44,9 +44,14 @@ STATE = os.path.join(WATCH, "state.json")
 REPORT = os.path.join(WATCH, "REPORT.md")
 ALERT = os.path.join(WATCH, "ALERT.md")
 FAIL_STREAK_ALERT = 3
+# An HTML answer with fewer usable text lines than this is a bot-challenge
+# or interstitial page, not the source (Tempe run 5: HTTP 200, 27 KB, one
+# line -- the title -- against 124 KB and 44 lines for the real page). It is
+# retried and, failing that, counted as a failed fetch, never as a baseline.
+MIN_HTML_LINES = 10
 # Bump whenever the extraction rules change: the next run re-baselines every
 # source silently instead of reporting the rule change as a city change.
-EXTRACTOR_VERSION = "2026-09-18.5"
+EXTRACTOR_VERSION = "2026-09-18.6"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
@@ -134,16 +139,30 @@ def _clients():
     yield "requests", lambda url: requests.get(url, headers=HEADERS, timeout=40, allow_redirects=True)
 
 
+def looks_like_stub(raw):
+    """True when an HTML answer carries almost no text: a challenge page."""
+    try:
+        text, _, _ = html_to_text(raw)
+    except Exception:
+        return True
+    return len(normalize_lines(text)) < MIN_HTML_LINES
+
+
 def fetch(url, kind):
-    """Return (bytes, note); raises after every client has failed twice."""
+    """Return (bytes, note); raises after every client has failed twice.
+    A 200 that is a stub page (see MIN_HTML_LINES) counts as a failure."""
     last = None
     for name, get in _clients():
         for attempt in range(2):
             try:
                 r = get(url)
                 if r.status_code == 200 and r.content:
-                    return r.content, f"{r.status_code} {len(r.content)}B via {name}"
-                last = f"HTTP {r.status_code} via {name}"
+                    if kind == "html" and looks_like_stub(r.content):
+                        last = f"stub page ({len(r.content)}B, <{MIN_HTML_LINES} text lines) via {name}"
+                    else:
+                        return r.content, f"{r.status_code} {len(r.content)}B via {name}"
+                else:
+                    last = f"HTTP {r.status_code} via {name}"
             except Exception as error:
                 last = f"{type(error).__name__}: {error} via {name}"
             time.sleep(5)
@@ -335,9 +354,14 @@ def run():
         prev_extras = st.get("extras") or {}
         st["content_sha"] = content_sha
         st["extras"] = extras
-        link_changes = {k: (prev_extras.get(k), extras.get(k)) for k in SIGNAL_KEYS
+        # counts are recorded everywhere but only ALERT where the page has no
+        # rows (Tempe, Chandler's map PDF): on a page with rows the rows are
+        # the signal, and prose counts there are history ("21 red light
+        # cameras" in Mesa's programme background), not the roster
+        alert_keys = SIGNAL_KEYS if not lines else tuple(k for k in SIGNAL_KEYS if k != "counts")
+        link_changes = {k: (prev_extras.get(k), extras.get(k)) for k in alert_keys
                         if prev is not None and prev_extras.get(k) != extras.get(k)}
-        signals = [k for k in SIGNAL_KEYS if extras.get(k)]
+        signals = [k for k in alert_keys if extras.get(k)]
         if prev is None:
             save_snapshot(key, url, lines, content_sha, extras)
             st["last_change"] = now()
