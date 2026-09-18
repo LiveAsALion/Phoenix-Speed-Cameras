@@ -121,6 +121,11 @@ def main():
             lat, lon = float(row["lat"]), float(row["lon"])
             for label, current in directional.items():
                 token, road = label.split(" ", 1)
+                # The approach can arrive on a road with a different OSM name
+                # than the one the city labels (Tatum Blvd ends at McDonald;
+                # northbound traffic arrives on 44th St). A row's
+                # "measure_road" map names the road to fit for that approach.
+                road = (row.get("measure_road") or {}).get(label, road)
                 # A straight OSM way can have no node for a kilometre, so a
                 # sparse approach side widens the search until it has enough
                 # points (the line fit still runs through the camera point).

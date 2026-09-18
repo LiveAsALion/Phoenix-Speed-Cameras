@@ -749,7 +749,10 @@
           "S/B Tatum Blvd": 183
         },
         "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "S/B measured 183.0 (near 191.0 / far 184.2, dev 45 m — Tatum jogs north of McDonald, still inside the 75 m corridor). N/B is PROVISIONAL = 3, the mirror of the S/B axis: OSM has only one node on Tatum within 600 m south of McDonald (a straight way with sparse nodes), so the approach from the south could not be fitted; re-measure with a wider search before treating it as final"
+        "bearing_note": "S/B measured 183.0 (near 191.0 / far 184.2, dev 45 m — Tatum jogs north of McDonald, still inside the 75 m corridor). N/B is PROVISIONAL = 3, the mirror of the S/B axis: OSM has only one node on Tatum within 600 m south of McDonald (a straight way with sparse nodes), so the approach from the south could not be fitted; re-measure with a wider search before treating it as final | 2026-09-18: at 3000 m OSM still has no 'Tatum Boulevard' south of McDonald — Tatum ENDS at McDonald and the road south is 44th St (it angles into Tatum there, hence the 45 m curvature on the S/B side); the N/B approach is measured on 44th St via measure_road",
+        "measure_road": {
+          "N/B Tatum Blvd": "44th St"
+        }
       }
     ]
   },
