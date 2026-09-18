@@ -46,7 +46,7 @@ ALERT = os.path.join(WATCH, "ALERT.md")
 FAIL_STREAK_ALERT = 3
 # Bump whenever the extraction rules change: the next run re-baselines every
 # source silently instead of reporting the rule change as a city change.
-EXTRACTOR_VERSION = "2026-09-18.3"
+EXTRACTOR_VERSION = "2026-09-18.4"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
@@ -90,6 +90,24 @@ LOCATION_PATTERNS = [
     re.compile(r"\b\d+(?:st|nd|rd|th)\s+(?:St|Street|Ave|Avenue)\b.*\bto\b", re.I),
 ]
 LINK_PATTERN = re.compile(r"\.pdf(?:\?|$)", re.I)
+# A direction phrase, and the cut point after one: Paradise Valley lists all
+# six of its sites in ONE text node ("... Rd.-both E/B and W/B E. Lincoln Dr.
+# and Tatum Blvd-All four directions E. Lincoln Dr. and ..."), so a run-on
+# line is split after each direction phrase where a new capitalised road
+# name starts.
+DIRECTION_PHRASE = re.compile(r"\b(?:[NSEW]/B|(?:north|south|east|west)bound|all four directions|both directions)\b", re.I)
+DIRECTION_CUT = re.compile(r"(\b(?:[NSEW]/B|(?:north|south|east|west)bound|directions|only)\b\.?)\s+(?=[A-Z])")
+# Stated counts ("14 intersections", "four mobile cameras", "Camera (12)") --
+# the only text signal on a page that draws its locations on a map image
+# (Tempe) or a PDF with no text rows (Chandler's map).
+NUMBER = r"(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty)"
+COUNT_PATTERNS = [
+    re.compile(rf"\b{NUMBER}\s+(?:[A-Za-z]+\s+){{0,2}}?(?:intersections?|cameras?|locations?|sites?|schools?|corridors?)\b", re.I),
+    re.compile(r"\bcameras?\s*\(\s*\d+\s*\)", re.I),
+]
+# Every extras key that, on change, needs a human even when the location
+# lines held (a re-issued map image, a new schedule PDF, a count that moved).
+SIGNAL_KEYS = ("links", "map_images", "pdf_sha", "counts")
 
 
 def now():
@@ -176,8 +194,30 @@ def normalize_lines(text):
         for piece in raw.replace("\xa0", " ").split(";"):
             line = re.sub(r"\s+", " ", piece).strip(" \t|-•·.")
             if len(line) >= 4:
-                lines.append(line)
+                lines.extend(split_runon(line))
     return lines
+
+
+def split_runon(line):
+    """A line too long to be one location row that carries several direction
+    phrases is a list glued into one text node (Paradise Valley): cut it
+    after each direction phrase where the next capitalised road begins.
+    Lines that already fit the row limit are returned untouched."""
+    if len(line) <= 160 or len(DIRECTION_PHRASE.findall(line)) < 2:
+        return [line]
+    parts = DIRECTION_CUT.sub(r"\1\n", line).split("\n")
+    out = [p.strip(" \t|-•·.") for p in parts]
+    return [p for p in out if len(p) >= 4]
+
+
+def count_phrases(lines):
+    """Distinct stated counts on the page, lowercased, in sorted order."""
+    found = set()
+    for line in lines:
+        for pattern in COUNT_PATTERNS:
+            for match in pattern.finditer(line):
+                found.add(re.sub(r"\s+", " ", match.group(0)).lower())
+    return sorted(found)
 
 
 def location_lines(lines):
@@ -212,6 +252,9 @@ def extract(raw, kind):
             extras["map_images"] = sorted(set(imgs))
     lines = normalize_lines(text)
     content_sha = hashlib.sha256("\n".join(lines).encode()).hexdigest()[:16]
+    counts = count_phrases(lines)
+    if counts:
+        extras["counts"] = counts
     extras["_all_lines"] = lines          # debug dump only; stripped before saving
     return location_lines(lines), content_sha, extras
 
@@ -282,25 +325,30 @@ def run():
         prev_extras = st.get("extras") or {}
         st["content_sha"] = content_sha
         st["extras"] = extras
-        link_changes = {k: (prev_extras.get(k), extras.get(k)) for k in ("links", "map_images", "pdf_sha")
+        link_changes = {k: (prev_extras.get(k), extras.get(k)) for k in SIGNAL_KEYS
                         if prev is not None and prev_extras.get(k) != extras.get(k)}
+        signals = [k for k in SIGNAL_KEYS if extras.get(k)]
         if prev is None:
             save_snapshot(key, url, lines, content_sha, extras)
             st["last_change"] = now()
-            report.append(f"- **{city}**: baseline recorded ({len(lines)} location lines)")
+            report.append(f"- **{city}**: baseline recorded ({len(lines)} location lines"
+                          + (f"; also watching {', '.join(signals)}" if signals else "") + ")")
             continue
         added = [l for l in lines if l.lower() not in {p.lower() for p in prev}]
         removed = [p for p in prev if p.lower() not in {l.lower() for l in lines}]
         if link_changes and not (added or removed):
-            # a new schedule PDF, a re-issued map, a replaced map image: a
-            # human should look even though the location lines held
+            # a new schedule PDF, a re-issued map image, a stated count that
+            # moved: a human should look even though the location lines held
             save_snapshot(key, url, lines, content_sha, extras)
             st["last_change"] = now()
-            body = [f"## {city}: linked documents changed (location lines unchanged)\n{url}\n"]
+            body = [f"## {city}: page signals changed (location lines unchanged)\n{url}\n"]
             for k, (before, after) in link_changes.items():
                 body.append(f"{k}: was {json.dumps(before)}\n    now {json.dumps(after)}")
+            body.append("\nA map image or PDF with a new identity, or a count that moved, usually means "
+                        "the roster changed on a page that lists no rows: read the source (Claude for Chrome) "
+                        "and compare with drafts/city_rosters.json.")
             alerts.append("\n".join(body))
-            report.append(f"- **{city}**: linked documents changed ({', '.join(link_changes)})")
+            report.append(f"- **{city}**: page signals changed ({', '.join(link_changes)})")
             time.sleep(2)
             continue
         if added or removed:
