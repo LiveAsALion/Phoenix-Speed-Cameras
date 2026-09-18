@@ -1,5 +1,5 @@
 # https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program
-# fetched 2026-09-18T08:22:56+00:00  content_sha aa8f7cb1fd09de76
+# fetched 2026-09-18T08:27:47+00:00  content_sha aa8f7cb1fd09de76
 # counts: ["14 intersection", "19 intersections", "21 red light cameras"]
 # links: ["/files/assets/public/v/1/publicsafety/police/photosafety/fall2026.pdf [Fall 2026 (PDF,\u00a0469KB)]", "/files/assets/public/v/1/publicsafety/police/photosafety/spring2027.pdf [Spring 2027 (PDF,\u00a0450KB)]"]
 Alma School/Guadalupe
