@@ -368,5 +368,243 @@
         "longitude": -111.927364,
         "direction_deg": -1,
         "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Guadalupe Rd: Mesa",
+        "latitude": 33.364235,
+        "longitude": -111.859097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Stapley Dr: Mesa",
+        "latitude": 33.407913,
+        "longitude": -111.805334,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Extension Rd: Mesa",
+        "latitude": 33.407748,
+        "longitude": -111.84838,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Country Club Dr and Southern Ave: Mesa",
+        "latitude": 33.393317,
+        "longitude": -111.840075,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Country Club Dr and University Dr: Mesa",
+        "latitude": 33.422372,
+        "longitude": -111.83995,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ellsworth Rd and Pecos Rd: Mesa",
+        "latitude": 33.29225,
+        "longitude": -111.63497,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and Carriage Ln: Mesa",
+        "latitude": 33.363865,
+        "longitude": -111.892298,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Gilbert Rd and Baseline Rd: Mesa",
+        "latitude": 33.379598,
+        "longitude": -111.788141,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Gilbert Rd and McKellips Rd: Mesa",
+        "latitude": 33.451758,
+        "longitude": -111.787657,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Greenfield Rd and Main St: Mesa",
+        "latitude": 33.415491,
+        "longitude": -111.736421,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Broadway Rd: Mesa",
+        "latitude": 33.408144,
+        "longitude": -111.684752,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Hampton Ave: Mesa",
+        "latitude": 33.390398,
+        "longitude": -111.684787,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and McKellips Rd: Mesa",
+        "latitude": 33.451652,
+        "longitude": -111.684139,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Southern Ave: Mesa",
+        "latitude": 33.393984,
+        "longitude": -111.684748,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Main St: Mesa",
+        "latitude": 33.415668,
+        "longitude": -111.684528,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Higley Rd: Mesa",
+        "latitude": 33.393831,
+        "longitude": -111.719342,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Stapley Dr: Mesa",
+        "latitude": 33.393359,
+        "longitude": -111.805425,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Mesa Dr: Mesa",
+        "latitude": 33.422352,
+        "longitude": -111.822881,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Rhodes Jr High on Baseline Rd: Mesa",
+        "latitude": 33.378695,
+        "longitude": -111.870875,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Rhodes Jr High on Baseline Rd: Mesa",
+        "latitude": 33.378519,
+        "longitude": -111.871039,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Brimhall Jr High on Southern Ave: Mesa",
+        "latitude": 33.393855,
+        "longitude": -111.72467,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Brimhall Jr High on Southern Ave: Mesa",
+        "latitude": 33.393689,
+        "longitude": -111.724199,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "S/B, Fremont Jr High on Power Rd: Mesa",
+        "latitude": 33.432782,
+        "longitude": -111.684456,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "N/B, Fremont Jr High on Power Rd: Mesa",
+        "latitude": 33.434232,
+        "longitude": -111.684233,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "E/B, Mesa High on Southern Ave: Mesa",
+        "latitude": 33.393507,
+        "longitude": -111.794087,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Mesa High on Southern Ave: Mesa",
+        "latitude": 33.393527,
+        "longitude": -111.79487,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Red Mountain High on Brown Rd: Mesa",
+        "latitude": 33.436936,
+        "longitude": -111.674937,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Red Mountain High on Brown Rd: Mesa",
+        "latitude": 33.436888,
+        "longitude": -111.673477,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "N/B, Porter Elementary on Lindsay Rd: Mesa",
+        "latitude": 33.389825,
+        "longitude": -111.771171,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "S/B, Porter Elementary on Lindsay Rd: Mesa",
+        "latitude": 33.391413,
+        "longitude": -111.771277,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "N/B, Skyline High on Crismon Rd: Mesa",
+        "latitude": 33.398308,
+        "longitude": -111.61533,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "S/B, Skyline High on Crismon Rd: Mesa",
+        "latitude": 33.398933,
+        "longitude": -111.615485,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
     }
 ]
