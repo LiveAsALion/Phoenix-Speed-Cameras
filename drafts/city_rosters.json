@@ -148,7 +148,7 @@
   "mesa": {
     "city_label": "Mesa",
     "default_type": "red_light_speed",
-    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page). 2026-09-18: the seven school corridors the tester could see are DIRECTIONAL POLE PAIRS (14 entries, one per pole, pins at the poles); Eastmark High and Highland Jr High dropped (no cameras found); Skyline N/B pole pin and the Ellsworth & Pecos spot-check owed before go-live.",
+    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page). 2026-09-18: the seven school corridors the tester could see are DIRECTIONAL POLE PAIRS (14 entries, one per pole, pins at the poles); Eastmark High and Highland Jr High dropped (no cameras found); Skyline both poles pinned and Ellsworth & Pecos confirmed 2026-09-18; every school pole carries road_axis_deg so the corridor gate applies.",
     "sources": [
       "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official list -- ADJUDICATES; also carries the school-zone corridor list and the Fall 2026 / Spring 2027 flasher-schedule PDFs)",
       "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts (DEAD 2026-09-17)"
@@ -208,7 +208,7 @@
         "name": "Ellsworth Rd and Pecos Rd",
         "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check | SPOT-CHECK STILL OWED (2026-09-18): northern crossing 33.29225,-111.63497 pinned; tester to confirm vs the southern crossing 33.28498,-111.63493",
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check | SPOT-CHECK STILL OWED (2026-09-18): northern crossing 33.29225,-111.63497 pinned; tester to confirm vs the southern crossing 33.28498,-111.63493 | SPOT-CHECK DONE 2026-09-18: tester confirmed the northern crossing 33.29225,-111.63497",
         "lat": 33.29225,
         "lon": -111.63497,
         "resolved_how": "osm-intersection",
@@ -345,8 +345,9 @@
         "directional": {
           "W/B Baseline Rd": 270
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Rhodes Jr High on Baseline Rd",
@@ -359,8 +360,9 @@
         "directional": {
           "E/B Baseline Rd": 90
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Brimhall Jr High on Southern Ave",
@@ -373,8 +375,9 @@
         "directional": {
           "W/B Southern Ave": 270
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Brimhall Jr High on Southern Ave",
@@ -387,8 +390,9 @@
         "directional": {
           "E/B Southern Ave": 90
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Fremont Jr High on Power Rd",
@@ -401,8 +405,9 @@
         "directional": {
           "S/B Power Rd": 180
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 0
       },
       {
         "name": "Fremont Jr High on Power Rd",
@@ -415,8 +420,9 @@
         "directional": {
           "N/B Power Rd": 0
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 0
       },
       {
         "name": "Mesa High on Southern Ave",
@@ -429,8 +435,9 @@
         "directional": {
           "E/B Southern Ave": 90
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Mesa High on Southern Ave",
@@ -443,22 +450,9 @@
         "directional": {
           "W/B Southern Ave": 270
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
-      },
-      {
-        "name": "Skyline High on Crismon Rd",
-        "query": "Crismon Rd at Skyline High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.398977,
-        "lon": -111.615385,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "S/B Crismon Rd": 180
-        },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Red Mountain High on Brown Rd",
@@ -471,8 +465,9 @@
         "directional": {
           "W/B Brown Rd": 270
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Red Mountain High on Brown Rd",
@@ -485,8 +480,9 @@
         "directional": {
           "E/B Brown Rd": 90
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 90
       },
       {
         "name": "Porter Elementary on Lindsay Rd",
@@ -499,8 +495,9 @@
         "directional": {
           "N/B Lindsay Rd": 0
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 0
       },
       {
         "name": "Porter Elementary on Lindsay Rd",
@@ -513,17 +510,39 @@
         "directional": {
           "S/B Lindsay Rd": 180
         },
-        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+        "road_axis_deg": 0
       },
       {
         "name": "Skyline High on Crismon Rd",
         "query": "Crismon Rd at Skyline High School, Mesa, AZ",
         "type": "school_zone",
+        "lat": 33.398308,
+        "lon": -111.61533,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
         "directional": {
-          "N/B Crismon Rd": null
+          "N/B Crismon Rd": 0
         },
-        "confidence": "official page corridor; N/B POLE PIN OWED — the 2026-09-18 reply repeated the geocoder's school-building coordinate (33.398839,-111.612325), which is 285 m east of Crismon Rd; the S/B pole is pinned at 33.398977,-111.615385"
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
+        "road_axis_deg": 0,
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
+      },
+      {
+        "name": "Skyline High on Crismon Rd",
+        "query": "Crismon Rd at Skyline High School, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.398933,
+        "lon": -111.615485,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "S/B Crismon Rd": 180
+        },
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
+        "road_axis_deg": 0,
+        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
       }
     ],
     "dropped_2026-09-18": [

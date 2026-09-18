@@ -20,10 +20,12 @@ ROOT = os.path.dirname(HERE)
 UPDATER = os.path.join(ROOT, "update_cameras.py")
 LIVE = os.path.join(ROOT, "camera_data.json")
 KEEP = ("name", "latitude", "longitude", "direction_deg", "type")
+OPTIONAL = ("road_axis_deg",)
 
 
 def entry_text(e):
-    body = ",\n".join(f'        "{k}": {json.dumps(e[k])}' for k in KEEP)
+    keys = [k for k in KEEP + OPTIONAL if k in e]
+    body = ",\n".join(f'        "{k}": {json.dumps(e[k])}' for k in keys)
     return "    {\n" + body + "\n    }"
 
 
@@ -43,7 +45,7 @@ def main(cities):
         for e in entries:
             if e["name"] in live_names or f'"name": {json.dumps(e["name"])}' in updater:
                 sys.exit(f"{city}: {e['name']!r} is already live -- refusing")
-        clean = [{k: e[k] for k in KEEP} for e in entries]
+        clean = [{k: e[k] for k in KEEP + OPTIONAL if k in e} for e in entries]
         # updater: insert before the closing bracket of MANUAL_CAMERAS
         start = updater.index("\nMANUAL_CAMERAS = [")
         end = updater.index("\n]\n", start)

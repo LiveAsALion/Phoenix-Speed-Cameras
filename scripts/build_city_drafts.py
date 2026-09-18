@@ -183,9 +183,15 @@ def main():
                         failures.append(f"{row['name']} [{approach}] direction_deg not measured")
                         print(f"        {approach}: direction not measured -- run measure_road_bearings.py")
                         continue
-                    out.append({"name": f"{token}, {row['name']}: {label}",
-                                **base, "direction_deg": int(deg),
-                                "_approaches": [approach]})
+                    entry = {"name": f"{token}, {row['name']}: {label}",
+                             **base, "direction_deg": int(deg),
+                             "_approaches": [approach]}
+                    if "road_axis_deg" in row:
+                        # school_zone entries get the corridor gate only from an
+                        # explicit axis (the engine derives none from their
+                        # direction_deg); the axis is a LINE, 0 == 180.
+                        entry["road_axis_deg"] = int(row["road_axis_deg"])
+                    out.append(entry)
             else:
                 out.append({"name": f"{row['name']}: {label}", **base,
                             "direction_deg": int(row.get("direction_deg", -1)),
