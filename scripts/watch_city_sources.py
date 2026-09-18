@@ -336,7 +336,13 @@ def run():
         try:
             raw, note = fetch(url, kind)
         except Exception as error:
-            st["failures"] = st.get("failures", 0) + 1
+            # the streak counts distinct UTC days, not runs: eight manual
+            # runs in one morning (2026-09-18) are one night, and a source
+            # that rate-limits the runner during such a burst (Tempe) must
+            # not reach the three-night alert from that alone
+            today = now()[:10]
+            st["fail_days"] = ([d for d in st.get("fail_days", []) if d != today] + [today])[-10:]
+            st["failures"] = len(st["fail_days"])
             st["last_status"] = f"FAIL {error}"
             st["last_run"] = now()
             report.append(f"- **{city}**: FETCH FAILED ({error}); {st['failures']} night(s) in a row")
@@ -366,6 +372,7 @@ def run():
         if rebaseline:
             prev = None
         st["failures"] = 0
+        st.pop("fail_days", None)
         st["last_status"] = f"ok {note}"
         st["last_run"] = st["last_ok"] = now()
         prev_sha = st.get("content_sha")

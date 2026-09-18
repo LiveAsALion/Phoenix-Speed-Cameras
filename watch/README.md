@@ -50,7 +50,10 @@ against 124 KB). It is retried as Chrome, then as Safari and Firefox
 (curl_cffi impersonation), then plain requests; failing all, it is a
 failed night and never becomes a baseline, so the real page the next
 night cannot read as a change. Three failed nights running open an
-issue.
+issue — counted as distinct UTC days, so re-running the workflow by hand
+several times in one day cannot inflate the streak (Tempe answered every
+browser shape with the stub during the 2026-09-18 burst of manual runs:
+its filter is rate- or address-based, not fingerprint-based).
 
 Changing the extraction rules: bump `EXTRACTOR_VERSION` in the script. The
 next run re-records every baseline silently; without the bump, the rule
