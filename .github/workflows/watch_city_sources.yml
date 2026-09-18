@@ -1,0 +1,50 @@
+name: Watch City Camera Sources
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 requests lxml
+
+      - name: Fetch and compare every city source
+        run: python scripts/watch_city_sources.py
+
+      - name: Commit snapshots
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add watch
+          git commit -m "City source watch: nightly snapshots" || echo "No changes to commit"
+          git push
+
+      - name: Open an issue when a human is needed
+        if: ${{ hashFiles('watch/ALERT.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create camera-source-watch --color D93F0B --description "A city camera source changed or went dark" 2>/dev/null || true
+          gh issue create \
+            --title "City camera source changed — $(date -u +%Y-%m-%d)" \
+            --label camera-source-watch \
+            --body-file watch/ALERT.md
