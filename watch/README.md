@@ -39,11 +39,18 @@ an issue on a page that has NO rows (Tempe, Chandler's map PDF) — on a
 page with rows the rows are the signal, and the prose counts there are
 programme history ("21 red light cameras" in Mesa's background text).
 
+Link and image URLs are compared with their query parameters SORTED:
+the image CDN behind phoenix.gov serves `?quality=85&preferwebp=true`
+and `?preferwebp=true&quality=85` on alternate fetches (issue #2 was
+that, a false alarm).
+
 A 200 answer with almost no text (fewer than 10 usable lines) is a
 bot-challenge page, not the source — Tempe served one on run 5 (27 KB
-against 124 KB). It is retried, then counted as a failed night; it never
-becomes a baseline, so the real page the next night cannot read as a
-change.
+against 124 KB). It is retried as Chrome, then as Safari and Firefox
+(curl_cffi impersonation), then plain requests; failing all, it is a
+failed night and never becomes a baseline, so the real page the next
+night cannot read as a change. Three failed nights running open an
+issue.
 
 Changing the extraction rules: bump `EXTRACTOR_VERSION` in the script. The
 next run re-records every baseline silently; without the bump, the rule

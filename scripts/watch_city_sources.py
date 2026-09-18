@@ -36,6 +36,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -51,7 +52,7 @@ FAIL_STREAK_ALERT = 3
 MIN_HTML_LINES = 10
 # Bump whenever the extraction rules change: the next run re-baselines every
 # source silently instead of reporting the rule change as a city change.
-EXTRACTOR_VERSION = "2026-09-18.6"
+EXTRACTOR_VERSION = "2026-09-18.7"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
@@ -131,10 +132,15 @@ def _clients():
     run); requests is the fallback when curl_cffi is not installed."""
     try:
         from curl_cffi import requests as cffi
-        yield "chrome", lambda url: cffi.get(url, headers=HEADERS, timeout=40,
-                                             allow_redirects=True, impersonate="chrome")
     except ImportError:
-        pass
+        cffi = None
+    if cffi is not None:
+        # Tempe's filter answers some Chrome-shaped fetches with a challenge
+        # stub (runs 5 and 7 of 2026-09-18) and others with the page: a
+        # second and third browser shape before giving the night up
+        for browser in ("chrome", "safari", "firefox"):
+            yield browser, (lambda url, b=browser: cffi.get(url, headers=HEADERS, timeout=40,
+                                                            allow_redirects=True, impersonate=b))
     import requests
     yield "requests", lambda url: requests.get(url, headers=HEADERS, timeout=40, allow_redirects=True)
 
@@ -151,22 +157,34 @@ def looks_like_stub(raw):
 def fetch(url, kind):
     """Return (bytes, note); raises after every client has failed twice.
     A 200 that is a stub page (see MIN_HTML_LINES) counts as a failure."""
-    last = None
+    notes = []
     for name, get in _clients():
         for attempt in range(2):
             try:
                 r = get(url)
                 if r.status_code == 200 and r.content:
                     if kind == "html" and looks_like_stub(r.content):
-                        last = f"stub page ({len(r.content)}B, <{MIN_HTML_LINES} text lines) via {name}"
+                        notes.append(f"stub page {len(r.content)}B via {name}")
                     else:
                         return r.content, f"{r.status_code} {len(r.content)}B via {name}"
                 else:
-                    last = f"HTTP {r.status_code} via {name}"
+                    notes.append(f"HTTP {r.status_code} via {name}")
             except Exception as error:
-                last = f"{type(error).__name__}: {error} via {name}"
+                notes.append(f"{type(error).__name__}: {str(error)[:80]} via {name}")
             time.sleep(5)
-    raise RuntimeError(last)
+    raise RuntimeError("; ".join(dict.fromkeys(notes)))
+
+
+def canon_url(href):
+    """The same resource, one spelling: query parameters sorted. Adobe's
+    image CDN behind phoenix.gov serves ?quality=85&preferwebp=true and
+    ?preferwebp=true&quality=85 on alternate fetches (issue #2)."""
+    try:
+        parts = urlsplit(href.strip())
+    except ValueError:
+        return href.strip()
+    query = urlencode(sorted(parse_qsl(parts.query, keep_blank_values=True)))
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, query, ""))
 
 
 def html_to_text(raw):
@@ -176,13 +194,13 @@ def html_to_text(raw):
         tag.decompose()
     links = []
     for a in soup.find_all("a", href=True):
-        href = a["href"].strip()
+        href = canon_url(a["href"])
         label = a.get_text(" ", strip=True)
         if LINK_PATTERN.search(href) or re.search(r"schedule|rotation|location|map", href + " " + label, re.I):
             links.append(f"{href} [{label[:60]}]")
     imgs = []
     for img in soup.find_all("img"):
-        src, alt = img.get("src", ""), img.get("alt", "")
+        src, alt = canon_url(img.get("src", "")), img.get("alt", "")
         if src and re.search(r"map|radar|camera|enforce|location", src + " " + alt, re.I):
             imgs.append(f"{src} [{alt[:60]}]")
     # table rows read as one line ("Camera Location | Direction" tables)
