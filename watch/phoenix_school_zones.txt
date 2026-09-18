@@ -1,5 +1,7 @@
 # https://www.phoenix.gov/administration/departments/streets/safety-improvements/road-safety-action-plan/photo-safety.html
-# fetched 2026-09-18T08:01:54+00:00  content_sha 89fdcf5f7a980b1e
+# fetched 2026-09-18T08:05:31+00:00  content_sha 89fdcf5f7a980b1e
+# links: ["#active-location-list [Active Location List]", "#location-map [Location Map]"]
+# map_images: ["/adobe/dynamicmedia/deliver/dm-aid--91bf492b-162f-4b41-88ed-91df60c47423/photosafety-001.jpg?quality=85&preferwebp=true [Side of camera, view of roadway]", "/adobe/dynamicmedia/deliver/dm-aid--f0572664-3192-46fb-b9d1-be5c5db7fbaf/photosafety-017.jpg?quality=85&preferwebp=true [Safety Camera showing Road Safety Action Plan logo]"]
 Thunderbird Road: 35th Avenue to Interstate 17
 32nd Street : Greenway Parkway to Bell Road
 Northern Avenue: 16th Street to 18th Street

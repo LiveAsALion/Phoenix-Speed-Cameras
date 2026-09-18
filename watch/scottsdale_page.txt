@@ -1,0 +1,16 @@
+# https://www.scottsdaleaz.gov/police/police-units/photo-enforcement
+# fetched 2026-09-18T08:05:35+00:00  content_sha 0b7f0734af1f45b0
+# links: ["# [Neighborhood Map Home]", "/docs/default-source/scottsdaleaz/orgchart.pdf?sfvrsn=e36a7e9f_3 [City Organization Chart & Directory]", "/maps [Map Center]", "/solid-waste/holiday-collection-schedule [Holiday Collection Schedule]", "/solid-waste/my-services [Find My Pickup Schedule]", "https://eservices.scottsdaleaz.gov/maps/my-neighborhood [What's happening in your neighborhood?]", "https://www.scottsdaleaz.gov/docs/default-source/scottsdaleaz/city-court/civil-traffic-cases/bond-card.pdf?sfvrsn=9b0a421a_6 [Scottsdale City Court Bond Card]"]
+# map_images: ["/images/default-source/default-album/police/red-light-intersection-zone.webp?sfvrsn=b4ac905c_3 [overhead view of an intersection with an overlay showing the]"]
+Public Safety Teen Academy
+Scottsdale Road at McDowell Road | S/B
+Scottsdale Road at Thomas Road | N/B
+Indian School Road at Hayden Road | W/B
+Shea Blvd. at 90th St. | E/B
+Shea Blvd. at 92nd St. | W/B
+Frank Lloyd Wright Blvd. at Cactus Road | S/B
+Frank Lloyd Wright Blvd. at Greenway-Hayden Loop | E/B
+Scottsdale Road at Frank Lloyd Wright Blvd. | N/B
+Frank Lloyd Wright Blvd. at Greenway-Hayden Loop | W/B
+Scottsdale Road at Pinnacle Peak Road | S/B
+Thomas Road at Hayden Road | E/B

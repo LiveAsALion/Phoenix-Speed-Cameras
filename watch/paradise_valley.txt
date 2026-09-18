@@ -1,0 +1,3 @@
+# https://www.paradisevalleyaz.gov/153/Photo-Radar
+# fetched 2026-09-18T08:05:37+00:00  content_sha 47fd0ab178892c5a
+# map_images: ["/ImageRepository/Document?documentID=11573 [PV PE Map 2025]"]
