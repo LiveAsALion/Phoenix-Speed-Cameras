@@ -1,883 +1,1351 @@
 {
-  "_readme": "Per-city candidate rosters for SpeedShield expansion. NOT fetched by the app. Pipeline: (1) adjudicate each roster against the city's official list (URLs in sources), (2) python3 scripts/build_city_drafts.py --geocode writes drafts/<city>.geocoded.json with sanity-gated coordinates, (3) tester pin-drops a sample / any flagged rows, (4) verified entries are pasted into MANUAL_CAMERAS in update_cameras.py, which is what goes live. Names follow the app convention 'X and Y: City' (speech stops at the colon). direction_deg -1 = omnidirectional; approaches are recorded for the record even though the alert is omnidirectional (Tempe precedent). Compiled 2026-09-02 from search results only -- every official page was network-blocked from the session; see confidence per entry. DIRECTIONAL (2026-09-17, tester decision): where a city publishes the approach a camera enforces, the row carries a \"directional\" map {\"S/B Scottsdale Rd\": 180, ...} and the geocoder emits ONE ENTRY PER APPROACH named with the Phoenix prefix convention (\"S/B, Scottsdale Rd and McDowell Rd: Scottsdale\"; the app strips the prefix for speech and speaks the direction from direction_deg). A null value means the bearing is not yet measured (scripts/measure_road_bearings.py) and the city is not written. Sites enforcing all approaches, and cities that publish no approaches (Chandler, Mesa), stay omnidirectional (-1).",
-  "chandler": {
-    "city_label": "Chandler",
-    "default_type": "red_light_speed",
-    "status": "ACTIVE - 'Currently, there are 12 intersections in Chandler equipped with photo enforcement cameras. These cameras monitor both red light and speed violations.' CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome) from the city page; the linked camera map PDF (dated 2024-08-15, legend 'Camera (12)') has 12 unlabeled pins and NO directions, so approaches are unknown for every row -> omnidirectional is the only option. Page shows no date and no vans.",
-    "sources": [
-      "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement (official list of 12 -- ADJUDICATES)",
-      "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf (2024-08-15, 12 unlabeled pins)"
+ "_readme": "Per-city candidate rosters for SpeedShield expansion. NOT fetched by the app. Pipeline: (1) adjudicate each roster against the city's official list (URLs in sources), (2) python3 scripts/build_city_drafts.py --geocode writes drafts/<city>.geocoded.json with sanity-gated coordinates, (3) tester pin-drops a sample / any flagged rows, (4) verified entries are pasted into MANUAL_CAMERAS in update_cameras.py, which is what goes live. Names follow the app convention 'X and Y: City' (speech stops at the colon). direction_deg -1 = omnidirectional; approaches are recorded for the record even though the alert is omnidirectional (Tempe precedent). Compiled 2026-09-02 from search results only -- every official page was network-blocked from the session; see confidence per entry. DIRECTIONAL (2026-09-17, tester decision): where a city publishes the approach a camera enforces, the row carries a \"directional\" map {\"S/B Scottsdale Rd\": 180, ...} and the geocoder emits ONE ENTRY PER APPROACH named with the Phoenix prefix convention (\"S/B, Scottsdale Rd and McDowell Rd: Scottsdale\"; the app strips the prefix for speech and speaks the direction from direction_deg). A null value means the bearing is not yet measured (scripts/measure_road_bearings.py) and the city is not written. Sites enforcing all approaches, and cities that publish no approaches (Chandler, Mesa), stay omnidirectional (-1).",
+ "chandler": {
+  "city_label": "Chandler",
+  "default_type": "red_light_speed",
+  "status": "ACTIVE - 'Currently, there are 12 intersections in Chandler equipped with photo enforcement cameras. These cameras monitor both red light and speed violations.' CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome) from the city page; the linked camera map PDF (dated 2024-08-15, legend 'Camera (12)') has 12 unlabeled pins and NO directions, so approaches are unknown for every row -> omnidirectional is the only option. Page shows no date and no vans.",
+  "sources": [
+   "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement (official list of 12 -- ADJUDICATES)",
+   "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf (2024-08-15, 12 unlabeled pins)"
+  ],
+  "entries": [
+   {
+    "name": "Alma School Rd and Queen Creek Rd",
+    "query": "Alma School Rd & Queen Creek Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.261916,
+    "lon": -111.858578,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Alma School Rd and Ray Rd",
+    "query": "Alma School Rd & Ray Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.3206,
+    "lon": -111.859137,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Alma School Rd and Warner Rd",
+    "query": "Alma School Rd & Warner Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.33509,
+    "lon": -111.85911,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Arizona Ave and Ray Rd",
+    "query": "Arizona Ave & Ray Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.3206297,
+    "lon": -111.841615,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "Arizona Ave and Warner Rd",
+    "query": "Arizona Ave & Warner Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.335134,
+    "lon": -111.841752,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Arizona Ave and Ocotillo Rd",
+    "query": "Arizona Ave & Ocotillo Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.247607,
+    "lon": -111.8412465,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "Chandler Blvd and Dobson Rd",
+    "query": "Chandler Blvd & Dobson Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.305965,
+    "lon": -111.876336,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Chandler Blvd and Kyrene Rd",
+    "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.3053484,
+    "lon": -111.9457214,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "McQueen Rd and Queen Creek Rd",
+    "query": "McQueen Rd & Queen Creek Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.262392,
+    "lon": -111.824132,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Ray Rd and Dobson Rd",
+    "query": "Ray Rd & Dobson Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.3205739,
+    "lon": -111.876403,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "Ray Rd and McClintock Dr",
+    "query": "Ray Rd & McClintock Dr, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.320029,
+    "lon": -111.911172,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Ray Rd and Rural Rd",
+    "query": "Ray Rd & Rural Rd, Chandler, AZ",
+    "approaches": [],
+    "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.319799,
+    "lon": -111.927364,
+    "resolved_how": "as-written",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   }
+  ],
+  "dropped_2026-09-17": [
+   {
+    "name": "Cooper Rd and Riggs Rd",
+    "reason": "was on the 2016 launch list; not on the city's current list of 12"
+   },
+   {
+    "name": "Dobson Rd and Ray Rd",
+    "reason": "was on the 2016 launch list; not on the city's current list of 12"
+   },
+   {
+    "name": "McClintock Dr and Ray Rd",
+    "reason": "was on the 2016 launch list; not on the city's current list of 12"
+   }
+  ]
+ },
+ "mesa": {
+  "city_label": "Mesa",
+  "default_type": "red_light_speed",
+  "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page). 2026-09-18: the seven school corridors the tester could see are DIRECTIONAL POLE PAIRS (14 entries, one per pole, pins at the poles); Eastmark High and Highland Jr High dropped (no cameras found); Skyline both poles pinned and Ellsworth & Pecos confirmed 2026-09-18; every school pole carries road_axis_deg so the corridor gate applies.",
+  "sources": [
+   "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official list -- ADJUDICATES; also carries the school-zone corridor list and the Fall 2026 / Spring 2027 flasher-schedule PDFs)",
+   "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts (DEAD 2026-09-17)"
+  ],
+  "entries": [
+   {
+    "name": "Alma School Rd and Guadalupe Rd",
+    "query": "Alma School Rd & Guadalupe Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.364235,
+    "lon": -111.859097,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Broadway Rd and Stapley Dr",
+    "query": "Broadway Rd & Stapley Dr, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.407913,
+    "lon": -111.805334,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Broadway Rd and Extension Rd",
+    "query": "Broadway Rd & Extension Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.407748,
+    "lon": -111.84838,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Country Club Dr and Southern Ave",
+    "query": "Country Club Dr & Southern Ave, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.393317,
+    "lon": -111.840075,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Country Club Dr and University Dr",
+    "query": "Country Club Dr & University Dr, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.422372,
+    "lon": -111.83995,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Ellsworth Rd and Pecos Rd",
+    "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check | SPOT-CHECK STILL OWED (2026-09-18): northern crossing 33.29225,-111.63497 pinned; tester to confirm vs the southern crossing 33.28498,-111.63493 | SPOT-CHECK DONE 2026-09-18: tester confirmed the northern crossing 33.29225,-111.63497",
+    "lat": 33.29225,
+    "lon": -111.63497,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928) — AMBIGUOUS (33.29225,-111.63497 vs 33.28498,-111.63493); the northern node sits on the Pecos Rd section-line alignment implied by the run's own Chandler nodes (Queen Creek 33.2619 + 2 mi ≈ 33.291), the southern one is 660 m south of it; tester spot-check requested"
+   },
+   {
+    "name": "Guadalupe Rd and Carriage Ln",
+    "query": "Guadalupe Rd & Carriage Ln, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.363865,
+    "lon": -111.892298,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "Gilbert Rd and Baseline Rd",
+    "query": "Gilbert Rd & Baseline Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.379598,
+    "lon": -111.788141,
+    "resolved_how": "as-written",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Gilbert Rd and McKellips Rd",
+    "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.451758,
+    "lon": -111.787657,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Greenfield Rd and Main St",
+    "query": "Greenfield Rd & Main St, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.415491,
+    "lon": -111.736421,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+   },
+   {
+    "name": "Power Rd and Broadway Rd",
+    "query": "Power Rd & Broadway Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.408144,
+    "lon": -111.684752,
+    "resolved_how": "as-written",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Power Rd and Hampton Ave",
+    "query": "Power Rd & Hampton Ave, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.390398,
+    "lon": -111.684787,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Power Rd and McKellips Rd",
+    "query": "Power Rd & McKellips Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.451652,
+    "lon": -111.684139,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Power Rd and Southern Ave",
+    "query": "Power Rd & Southern Ave, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.393984,
+    "lon": -111.684748,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Power Rd and Main St",
+    "query": "Power Rd & Main St, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.415668,
+    "lon": -111.684528,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Southern Ave and Higley Rd",
+    "query": "Southern Ave & Higley Rd, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.393831,
+    "lon": -111.719342,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Southern Ave and Stapley Dr",
+    "query": "Southern Ave & Stapley Dr, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.393359,
+    "lon": -111.805425,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "University Dr and Mesa Dr",
+    "query": "University Dr & Mesa Dr, Mesa, AZ",
+    "approaches": [],
+    "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
+    "lat": 33.422352,
+    "lon": -111.822881,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Rhodes Jr High on Baseline Rd",
+    "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.378695,
+    "lon": -111.870875,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "W/B Baseline Rd": 270
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Rhodes Jr High on Baseline Rd",
+    "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.378519,
+    "lon": -111.871039,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "E/B Baseline Rd": 90
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Brimhall Jr High on Southern Ave",
+    "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.393855,
+    "lon": -111.72467,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "W/B Southern Ave": 270
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Brimhall Jr High on Southern Ave",
+    "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.393689,
+    "lon": -111.724199,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "E/B Southern Ave": 90
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Fremont Jr High on Power Rd",
+    "query": "Power Rd at Fremont Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.432782,
+    "lon": -111.684456,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "S/B Power Rd": 180
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 0
+   },
+   {
+    "name": "Fremont Jr High on Power Rd",
+    "query": "Power Rd at Fremont Jr High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.434232,
+    "lon": -111.684233,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "N/B Power Rd": 0
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 0
+   },
+   {
+    "name": "Mesa High on Southern Ave",
+    "query": "Southern Ave at Mesa High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.393507,
+    "lon": -111.794087,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "E/B Southern Ave": 90
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Mesa High on Southern Ave",
+    "query": "Southern Ave at Mesa High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.393527,
+    "lon": -111.79487,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "W/B Southern Ave": 270
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Red Mountain High on Brown Rd",
+    "query": "Brown Rd at Red Mountain High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.436936,
+    "lon": -111.674937,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "W/B Brown Rd": 270
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Red Mountain High on Brown Rd",
+    "query": "Brown Rd at Red Mountain High, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.436888,
+    "lon": -111.673477,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "E/B Brown Rd": 90
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 90
+   },
+   {
+    "name": "Porter Elementary on Lindsay Rd",
+    "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.389825,
+    "lon": -111.771171,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "N/B Lindsay Rd": 0
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 0
+   },
+   {
+    "name": "Porter Elementary on Lindsay Rd",
+    "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.391413,
+    "lon": -111.771277,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "S/B Lindsay Rd": 180
+    },
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
+    "road_axis_deg": 0
+   },
+   {
+    "name": "Skyline High on Crismon Rd",
+    "query": "Crismon Rd at Skyline High School, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.398308,
+    "lon": -111.61533,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "N/B Crismon Rd": 0
+    },
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
+    "road_axis_deg": 0,
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
+   },
+   {
+    "name": "Skyline High on Crismon Rd",
+    "query": "Crismon Rd at Skyline High School, Mesa, AZ",
+    "type": "school_zone",
+    "lat": 33.398933,
+    "lon": -111.615485,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin at the camera pole 2026-09-18",
+    "directional": {
+     "S/B Crismon Rd": 180
+    },
+    "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
+    "road_axis_deg": 0,
+    "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
+   }
+  ],
+  "dropped_2026-09-18": [
+   {
+    "name": "Eastmark High school zone",
+    "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped (guessed pins have no place)"
+   },
+   {
+    "name": "Highland Jr High school zone",
+    "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped"
+   }
+  ]
+ },
+ "scottsdale": {
+  "city_label": "Scottsdale",
+  "default_type": "red_light_speed",
+  "status": "ACTIVE since 1996 - 11 fixed camera systems at 10 intersections (red light + speed >=11 over). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome): the official PDF (header 'Fixed Camera Locations (updated 3/1/2019)') and the police page (footer 'Last Updated: Apr 9, 2026') carry the identical 11-row table. The page mentions no mobile vans and links no other list. Thomas Rd @ Hayden Rd E/B is on the 2026 page -> the 2019 'deactivated' news is superseded; watch item CLOSED.",
+  "sources": [
+   "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official table: Camera Location | Direction -- ADJUDICATES)",
+   "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement",
+   "2passdd.com 'Scottsdale Photo Camera Locations (updated 2024) N of 11' series (independent, matches the PDF row for row)",
+   "abc15 / 12news 2019-03-01: activated SB Scottsdale@Pinnacle Peak, WB Shea@92nd, WB FLW@Greenway-Hayden Loop, WB Indian School@Hayden; deactivated EB Thomas@Hayden, EB McDowell@Scottsdale"
+  ],
+  "entries": [
+   {
+    "name": "Scottsdale Rd and McDowell Rd",
+    "query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ",
+    "approaches": [
+     "S/B Scottsdale Rd"
     ],
-    "entries": [
-      {
-        "name": "Alma School Rd and Queen Creek Rd",
-        "query": "Alma School Rd & Queen Creek Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.261916,
-        "lon": -111.858578,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Alma School Rd and Ray Rd",
-        "query": "Alma School Rd & Ray Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.3206,
-        "lon": -111.859137,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Alma School Rd and Warner Rd",
-        "query": "Alma School Rd & Warner Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.33509,
-        "lon": -111.85911,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Arizona Ave and Ray Rd",
-        "query": "Arizona Ave & Ray Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.3206297,
-        "lon": -111.841615,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "Arizona Ave and Warner Rd",
-        "query": "Arizona Ave & Warner Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.335134,
-        "lon": -111.841752,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Arizona Ave and Ocotillo Rd",
-        "query": "Arizona Ave & Ocotillo Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.247607,
-        "lon": -111.8412465,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "Chandler Blvd and Dobson Rd",
-        "query": "Chandler Blvd & Dobson Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.305965,
-        "lon": -111.876336,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Chandler Blvd and Kyrene Rd",
-        "query": "Chandler Blvd & Kyrene Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.3053484,
-        "lon": -111.9457214,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "McQueen Rd and Queen Creek Rd",
-        "query": "McQueen Rd & Queen Creek Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.262392,
-        "lon": -111.824132,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Ray Rd and Dobson Rd",
-        "query": "Ray Rd & Dobson Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.3205739,
-        "lon": -111.876403,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "Ray Rd and McClintock Dr",
-        "query": "Ray Rd & McClintock Dr, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.320029,
-        "lon": -111.911172,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Ray Rd and Rural Rd",
-        "query": "Ray Rd & Rural Rd, Chandler, AZ",
-        "approaches": [],
-        "confidence": "official city page list of 12, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.319799,
-        "lon": -111.927364,
-        "resolved_how": "as-written",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      }
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.466266,
+    "lon": -111.92603,
+    "resolved_how": "as-written",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "S/B Scottsdale Rd": 180
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Scottsdale Rd and Thomas Rd",
+    "query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ",
+    "approaches": [
+     "N/B Scottsdale Rd"
     ],
-    "dropped_2026-09-17": [
-      {
-        "name": "Cooper Rd and Riggs Rd",
-        "reason": "was on the 2016 launch list; not on the city's current list of 12"
-      },
-      {
-        "name": "Dobson Rd and Ray Rd",
-        "reason": "was on the 2016 launch list; not on the city's current list of 12"
-      },
-      {
-        "name": "McClintock Dr and Ray Rd",
-        "reason": "was on the 2016 launch list; not on the city's current list of 12"
-      }
-    ]
-  },
-  "mesa": {
-    "city_label": "Mesa",
-    "default_type": "red_light_speed",
-    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page). 2026-09-18: the seven school corridors the tester could see are DIRECTIONAL POLE PAIRS (14 entries, one per pole, pins at the poles); Eastmark High and Highland Jr High dropped (no cameras found); Skyline both poles pinned and Ellsworth & Pecos confirmed 2026-09-18; every school pole carries road_axis_deg so the corridor gate applies.",
-    "sources": [
-      "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official list -- ADJUDICATES; also carries the school-zone corridor list and the Fall 2026 / Spring 2027 flasher-schedule PDFs)",
-      "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts (DEAD 2026-09-17)"
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.480353,
+    "lon": -111.926169,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "N/B Scottsdale Rd": 0
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Indian School Rd and Hayden Rd",
+    "query": "Indian School Rd & Hayden Rd, Scottsdale, AZ",
+    "approaches": [
+     "W/B Indian School Rd"
     ],
-    "entries": [
-      {
-        "name": "Alma School Rd and Guadalupe Rd",
-        "query": "Alma School Rd & Guadalupe Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.364235,
-        "lon": -111.859097,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Broadway Rd and Stapley Dr",
-        "query": "Broadway Rd & Stapley Dr, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.407913,
-        "lon": -111.805334,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Broadway Rd and Extension Rd",
-        "query": "Broadway Rd & Extension Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.407748,
-        "lon": -111.84838,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Country Club Dr and Southern Ave",
-        "query": "Country Club Dr & Southern Ave, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.393317,
-        "lon": -111.840075,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Country Club Dr and University Dr",
-        "query": "Country Club Dr & University Dr, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.422372,
-        "lon": -111.83995,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Ellsworth Rd and Pecos Rd",
-        "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check | SPOT-CHECK STILL OWED (2026-09-18): northern crossing 33.29225,-111.63497 pinned; tester to confirm vs the southern crossing 33.28498,-111.63493 | SPOT-CHECK DONE 2026-09-18: tester confirmed the northern crossing 33.29225,-111.63497",
-        "lat": 33.29225,
-        "lon": -111.63497,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928) — AMBIGUOUS (33.29225,-111.63497 vs 33.28498,-111.63493); the northern node sits on the Pecos Rd section-line alignment implied by the run's own Chandler nodes (Queen Creek 33.2619 + 2 mi ≈ 33.291), the southern one is 660 m south of it; tester spot-check requested"
-      },
-      {
-        "name": "Guadalupe Rd and Carriage Ln",
-        "query": "Guadalupe Rd & Carriage Ln, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.363865,
-        "lon": -111.892298,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "Gilbert Rd and Baseline Rd",
-        "query": "Gilbert Rd & Baseline Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.379598,
-        "lon": -111.788141,
-        "resolved_how": "as-written",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Gilbert Rd and McKellips Rd",
-        "query": "Gilbert Rd & McKellips Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.451758,
-        "lon": -111.787657,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Greenfield Rd and Main St",
-        "query": "Greenfield Rd & Main St, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.415491,
-        "lon": -111.736421,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
-      },
-      {
-        "name": "Power Rd and Broadway Rd",
-        "query": "Power Rd & Broadway Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.408144,
-        "lon": -111.684752,
-        "resolved_how": "as-written",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Power Rd and Hampton Ave",
-        "query": "Power Rd & Hampton Ave, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.390398,
-        "lon": -111.684787,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Power Rd and McKellips Rd",
-        "query": "Power Rd & McKellips Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.451652,
-        "lon": -111.684139,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Power Rd and Southern Ave",
-        "query": "Power Rd & Southern Ave, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.393984,
-        "lon": -111.684748,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Power Rd and Main St",
-        "query": "Power Rd & Main St, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.415668,
-        "lon": -111.684528,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Southern Ave and Higley Rd",
-        "query": "Southern Ave & Higley Rd, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.393831,
-        "lon": -111.719342,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Southern Ave and Stapley Dr",
-        "query": "Southern Ave & Stapley Dr, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.393359,
-        "lon": -111.805425,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "University Dr and Mesa Dr",
-        "query": "University Dr & Mesa Dr, Mesa, AZ",
-        "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published",
-        "lat": 33.422352,
-        "lon": -111.822881,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Rhodes Jr High on Baseline Rd",
-        "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.378695,
-        "lon": -111.870875,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "W/B Baseline Rd": 270
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Rhodes Jr High on Baseline Rd",
-        "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.378519,
-        "lon": -111.871039,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "E/B Baseline Rd": 90
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Brimhall Jr High on Southern Ave",
-        "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.393855,
-        "lon": -111.72467,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "W/B Southern Ave": 270
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Brimhall Jr High on Southern Ave",
-        "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.393689,
-        "lon": -111.724199,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "E/B Southern Ave": 90
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Fremont Jr High on Power Rd",
-        "query": "Power Rd at Fremont Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.432782,
-        "lon": -111.684456,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "S/B Power Rd": 180
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 0
-      },
-      {
-        "name": "Fremont Jr High on Power Rd",
-        "query": "Power Rd at Fremont Jr High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.434232,
-        "lon": -111.684233,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "N/B Power Rd": 0
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 0
-      },
-      {
-        "name": "Mesa High on Southern Ave",
-        "query": "Southern Ave at Mesa High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.393507,
-        "lon": -111.794087,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "E/B Southern Ave": 90
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Mesa High on Southern Ave",
-        "query": "Southern Ave at Mesa High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.393527,
-        "lon": -111.79487,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "W/B Southern Ave": 270
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Red Mountain High on Brown Rd",
-        "query": "Brown Rd at Red Mountain High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.436936,
-        "lon": -111.674937,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "W/B Brown Rd": 270
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Red Mountain High on Brown Rd",
-        "query": "Brown Rd at Red Mountain High, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.436888,
-        "lon": -111.673477,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "E/B Brown Rd": 90
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 90
-      },
-      {
-        "name": "Porter Elementary on Lindsay Rd",
-        "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.389825,
-        "lon": -111.771171,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "N/B Lindsay Rd": 0
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 0
-      },
-      {
-        "name": "Porter Elementary on Lindsay Rd",
-        "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.391413,
-        "lon": -111.771277,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "S/B Lindsay Rd": 180
-        },
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18",
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)",
-        "road_axis_deg": 0
-      },
-      {
-        "name": "Skyline High on Crismon Rd",
-        "query": "Crismon Rd at Skyline High School, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.398308,
-        "lon": -111.61533,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "N/B Crismon Rd": 0
-        },
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
-        "road_axis_deg": 0,
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
-      },
-      {
-        "name": "Skyline High on Crismon Rd",
-        "query": "Crismon Rd at Skyline High School, Mesa, AZ",
-        "type": "school_zone",
-        "lat": 33.398933,
-        "lon": -111.615485,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin at the camera pole 2026-09-18",
-        "directional": {
-          "S/B Crismon Rd": 180
-        },
-        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction); N/B re-pinned after the first reply carried the building coordinate",
-        "road_axis_deg": 0,
-        "bearing_source": "compass value on a straight section-line road; road_axis_deg set so the 75 m corridor gate applies to this school_zone entry (the engine only derives an axis from direction_deg for non-school types) — tester direction 2026-09-18"
-      }
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.494875,
+    "lon": -111.908877,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "W/B Indian School Rd": 270
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Shea Blvd and 90th St",
+    "query": "Shea Blvd & 90th St, Scottsdale, AZ",
+    "approaches": [
+     "E/B Shea Blvd"
     ],
-    "dropped_2026-09-18": [
-      {
-        "name": "Eastmark High school zone",
-        "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped (guessed pins have no place)"
-      },
-      {
-        "name": "Highland Jr High school zone",
-        "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped"
-      }
-    ]
-  },
-  "scottsdale": {
-    "city_label": "Scottsdale",
-    "default_type": "red_light_speed",
-    "status": "ACTIVE since 1996 - 11 fixed camera systems at 10 intersections (red light + speed >=11 over). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome): the official PDF (header 'Fixed Camera Locations (updated 3/1/2019)') and the police page (footer 'Last Updated: Apr 9, 2026') carry the identical 11-row table. The page mentions no mobile vans and links no other list. Thomas Rd @ Hayden Rd E/B is on the 2026 page -> the 2019 'deactivated' news is superseded; watch item CLOSED.",
-    "sources": [
-      "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf (official table: Camera Location | Direction -- ADJUDICATES)",
-      "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement",
-      "2passdd.com 'Scottsdale Photo Camera Locations (updated 2024) N of 11' series (independent, matches the PDF row for row)",
-      "abc15 / 12news 2019-03-01: activated SB Scottsdale@Pinnacle Peak, WB Shea@92nd, WB FLW@Greenway-Hayden Loop, WB Indian School@Hayden; deactivated EB Thomas@Hayden, EB McDowell@Scottsdale"
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.582536,
+    "lon": -111.886125,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "E/B Shea Blvd": 86
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+    "bearing_note": "E/B measured 85.5 (near 90.9 / far 84.0, dev 18 m): Shea bends slightly west of 90th"
+   },
+   {
+    "name": "Shea Blvd and 92nd St",
+    "query": "Shea Blvd & 92nd St, Scottsdale, AZ",
+    "approaches": [
+     "W/B Shea Blvd"
     ],
-    "entries": [
-      {
-        "name": "Scottsdale Rd and McDowell Rd",
-        "query": "Scottsdale Rd & McDowell Rd, Scottsdale, AZ",
-        "approaches": [
-          "S/B Scottsdale Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.466266,
-        "lon": -111.92603,
-        "resolved_how": "as-written",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "S/B Scottsdale Rd": 180
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Scottsdale Rd and Thomas Rd",
-        "query": "Scottsdale Rd & Thomas Rd, Scottsdale, AZ",
-        "approaches": [
-          "N/B Scottsdale Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.480353,
-        "lon": -111.926169,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "N/B Scottsdale Rd": 0
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Indian School Rd and Hayden Rd",
-        "query": "Indian School Rd & Hayden Rd, Scottsdale, AZ",
-        "approaches": [
-          "W/B Indian School Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.494875,
-        "lon": -111.908877,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "W/B Indian School Rd": 270
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Shea Blvd and 90th St",
-        "query": "Shea Blvd & 90th St, Scottsdale, AZ",
-        "approaches": [
-          "E/B Shea Blvd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.582536,
-        "lon": -111.886125,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "E/B Shea Blvd": 86
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "E/B measured 85.5 (near 90.9 / far 84.0, dev 18 m): Shea bends slightly west of 90th"
-      },
-      {
-        "name": "Shea Blvd and 92nd St",
-        "query": "Shea Blvd & 92nd St, Scottsdale, AZ",
-        "approaches": [
-          "W/B Shea Blvd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.582537,
-        "lon": -111.882697,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "W/B Shea Blvd": 270
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Frank Lloyd Wright Blvd and Cactus Rd",
-        "query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ",
-        "approaches": [
-          "S/B Frank Lloyd Wright Blvd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.59731,
-        "lon": -111.843267,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "S/B Frank Lloyd Wright Blvd": 125
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "S/B measured 124.8 (near 135.1 / far 125.7, dev 36 m): the road curves through the approach; 125 keeps every approach point inside the 75 m corridor"
-      },
-      {
-        "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
-        "query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
-        "approaches": [
-          "E/B Frank Lloyd Wright Blvd",
-          "W/B Frank Lloyd Wright Blvd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry",
-        "lat": 33.6344477,
-        "lon": -111.9077888,
-        "resolved_how": "tester-pin",
-        "resolved_source": "tester map pin-drop 2026-09-17 (no OSM match on two Woz runs; the pin outranks any geocode or grid estimate)",
-        "directional": {
-          "E/B Frank Lloyd Wright Blvd": 105,
-          "W/B Frank Lloyd Wright Blvd": 285
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "E/B 104.9 / W/B 284.8 (dev 13-14 m), a consistent opposite pair"
-      },
-      {
-        "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
-        "query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ",
-        "approaches": [
-          "N/B Scottsdale Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.638115,
-        "lon": -111.925301,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "N/B Scottsdale Rd": 1
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Scottsdale Rd and Pinnacle Peak Rd",
-        "query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ",
-        "approaches": [
-          "S/B Scottsdale Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.698697,
-        "lon": -111.925321,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "S/B Scottsdale Rd": 180
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Thomas Rd and Hayden Rd",
-        "query": "Thomas Rd & Hayden Rd, Scottsdale, AZ",
-        "approaches": [
-          "E/B Thomas Rd"
-        ],
-        "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.480391,
-        "lon": -111.908964,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "E/B Thomas Rd": 90
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      }
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.582537,
+    "lon": -111.882697,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "W/B Shea Blvd": 270
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Frank Lloyd Wright Blvd and Cactus Rd",
+    "query": "Frank Lloyd Wright Blvd & Cactus Rd, Scottsdale, AZ",
+    "approaches": [
+     "S/B Frank Lloyd Wright Blvd"
     ],
-    "dropped_2026-09-17": [
-      {
-        "name": "Scottsdale Rd and Shea Blvd",
-        "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
-      },
-      {
-        "name": "Scottsdale Rd and Cactus Rd",
-        "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
-      },
-      {
-        "name": "Pima Rd and Hualapai Dr",
-        "reason": "appears only on a 2020-era third-party page; not in the official fixed list -- former or mobile site"
-      },
-      {
-        "name": "Frank Lloyd Wright Blvd at 7700 E (fixed speed, both directions)",
-        "reason": "news-story address; a fixed camera would be on the official fixed list and is not"
-      },
-      {
-        "name": "Shea Blvd and 120th St",
-        "reason": "single low-confidence mention; not in the official list"
-      }
-    ]
-  },
-  "paradise_valley": {
-    "city_label": "Paradise Valley",
-    "default_type": "red_light_speed",
-    "status": "ACTIVE (first US photo-radar town) - SIX fixed photo-enforcement locations on the town's program page (map image alt text 'PV PE Map 2025'), red light + speed. CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). The 2020 brochure still said 'five intersections and 2 mobile units'; the 2025 map adds Tatum & Foothill (S/B) and shows Desert Jewel as N/B only, so the two Tatum sites north of Lincoln are a directional pair. Mobile program: a semi-marked police vehicle with a radar device, 24-hour stints, locations unpublished -> out of scope (Tempe precedent). School-zone units: not mentioned on the 2025 page.",
-    "sources": [
-      "https://www.paradisevalleyaz.gov/153/Photo-Radar (official -- ADJUDICATES)",
-      "https://www.paradisevalleyaz.gov/844/Photo-Enforcement",
-      "https://paradisevalleyaz.gov/DocumentCenter/View/3940/Press-Release-Photo-Enforcement (official, 2015-04-29: Lincoln&Tatum NB/SB + Halo EB/WB, Lincoln&Palo Cristi EB/WB, Lincoln&Mockingbird EB, Tatum&Desert Jewel NB/SB)",
-      "https://paradisevalleyaz.gov/DocumentCenter/View/1875/2d (official memo: 2006 amendment added dual systems at Tatum & McDonald, relocated a camera to Lincoln & Mockingbird)",
-      "https://www.paradisevalleyaz.gov/DocumentCenter/View/8639/Photo-Enforcement-Brochure",
-      "https://www.paradisevalleyaz.gov/faq.aspx?TID=31"
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.59731,
+    "lon": -111.843267,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "S/B Frank Lloyd Wright Blvd": 125
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+    "bearing_note": "S/B measured 124.8 (near 135.1 / far 125.7, dev 36 m): the road curves through the approach; 125 keeps every approach point inside the 75 m corridor"
+   },
+   {
+    "name": "Frank Lloyd Wright Blvd and Greenway-Hayden Loop",
+    "query": "Frank Lloyd Wright Blvd & Greenway-Hayden Loop, Scottsdale, AZ",
+    "approaches": [
+     "E/B Frank Lloyd Wright Blvd",
+     "W/B Frank Lloyd Wright Blvd"
     ],
-    "entries": [
-      {
-        "name": "Lincoln Dr and Tatum Blvd",
-        "query": "Lincoln Dr & Tatum Blvd, Paradise Valley, AZ",
-        "approaches": [
-          "N/B Tatum Blvd",
-          "S/B Tatum Blvd",
-          "E/B Lincoln Dr",
-          "W/B Lincoln Dr"
-        ],
-        "confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.531055,
-        "lon": -111.97563,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
-      },
-      {
-        "name": "Lincoln Dr and Palo Cristi Rd",
-        "query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
-        "approaches": [
-          "E/B Lincoln Dr",
-          "W/B Lincoln Dr"
-        ],
-        "confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.531828,
-        "lon": -112.004014,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "E/B Lincoln Dr": 90,
-          "W/B Lincoln Dr": 270
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Lincoln Dr and Mockingbird Ln",
-        "query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
-        "approaches": [
-          "E/B Lincoln Dr",
-          "W/B Lincoln Dr"
-        ],
-        "confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.531278,
-        "lon": -111.934486,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "E/B Lincoln Dr": 89,
-          "W/B Lincoln Dr": 268
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Tatum Blvd and Desert Jewel Dr",
-        "query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
-        "approaches": [
-          "N/B Tatum Blvd"
-        ],
-        "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (0 = N/B): this and the Foothill Dr system are 55 m apart on Tatum (staggered T-intersections); two omnidirectional entries would speak twice back-to-back; Tatum's bearing at both nodes is 0/180 from the run's own points, so the corridor gate is safe",
-        "lat": 33.553581,
-        "lon": -111.975667,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
-        "directional": {
-          "N/B Tatum Blvd": 0
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
-      },
-      {
-        "name": "Tatum Blvd and Foothill Dr",
-        "query": "Tatum Blvd & Foothill Dr, Paradise Valley, AZ",
-        "approaches": [
-          "S/B Tatum Blvd"
-        ],
-        "confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (180 = S/B), see Desert Jewel note",
-        "lat": 33.5530848,
-        "lon": -111.9756704,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
-        "directional": {
-          "S/B Tatum Blvd": 186
-        },
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "S/B measured 186.0 (near 181.4 / far 187.0, dev 16 m)"
-      },
-      {
-        "name": "Tatum Blvd and McDonald Dr",
-        "query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
-        "approaches": [
-          "N/B Tatum Blvd",
-          "S/B Tatum Blvd"
-        ],
-        "confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
-        "lat": 33.5243756,
-        "lon": -111.9763155,
-        "resolved_how": "osm-intersection",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
-        "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "OMNIDIRECTIONAL BY GEOMETRY (2026-09-18, OSM inventory via Woz): Tatum Blvd ENDS at McDonald — every 'North Tatum Boulevard' way lies north of the camera point (S extent -4 m); McDonald's primary carriageways arrive from the WEST at y=-64 m and curve up into Tatum at the camera (way 206896123 spans (-212,-64)->(-5,+4)); McDonald east of Tatum is a minor tertiary leg. 'N/B Tatum' traffic is eastbound McDonald swinging north through a 90-degree bend, which no single direction_deg can carry (a 3-degree axis put the approach 600 m off the corridor at the primary ring -> both tiers suppressed). Both through movements are enforced, so -1 costs only the minor eastern leg. Earlier measurements: S/B 183.0 (near 191 / far 184, dev 45 m); N/B provisional 3 — RETIRED."
-      }
-    ]
-  },
-  "not_in_scope": {
-    "el_mirage": "ENDED 2019-06-30 (council vote; all equipment removed July 2019)",
-    "avondale": "ENDING - portable speed-camera program launched 2024; council voted 5-2 in Nov 2025 to end it (cost, staff load, vandalism). Confirm removal before treating as zero",
-    "glendale": "NONE - council declined to adopt red-light cameras",
-    "peoria": "NONE found",
-    "surprise": "NONE for traffic enforcement (2026 news is about Flock license-plate readers, unrelated to speed/red-light)",
-    "goodyear_gilbert_buckeye_queen_creek_fountain_hills_cave_creek_tolleson": "NONE found in 2026 coverage; the recurring 'Valley cities with cameras' list is Phoenix, Tempe, Mesa, Chandler, Scottsdale, Paradise Valley",
-    "star_valley": "ACTIVE but Gila County (Payson area), outside the metro",
-    "adot_freeways": "NONE since the state program ended in 2010"
-  }
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17; two rows (E/B and W/B) = two systems, ONE entry",
+    "lat": 33.6344477,
+    "lon": -111.9077888,
+    "resolved_how": "tester-pin",
+    "resolved_source": "tester map pin-drop 2026-09-17 (no OSM match on two Woz runs; the pin outranks any geocode or grid estimate)",
+    "directional": {
+     "E/B Frank Lloyd Wright Blvd": 105,
+     "W/B Frank Lloyd Wright Blvd": 285
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+    "bearing_note": "E/B 104.9 / W/B 284.8 (dev 13-14 m), a consistent opposite pair"
+   },
+   {
+    "name": "Scottsdale Rd and Frank Lloyd Wright Blvd",
+    "query": "Scottsdale Rd & Frank Lloyd Wright Blvd, Scottsdale, AZ",
+    "approaches": [
+     "N/B Scottsdale Rd"
+    ],
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.638115,
+    "lon": -111.925301,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "N/B Scottsdale Rd": 1
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Scottsdale Rd and Pinnacle Peak Rd",
+    "query": "Scottsdale Rd & Pinnacle Peak Rd, Scottsdale, AZ",
+    "approaches": [
+     "S/B Scottsdale Rd"
+    ],
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.698697,
+    "lon": -111.925321,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "S/B Scottsdale Rd": 180
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Thomas Rd and Hayden Rd",
+    "query": "Thomas Rd & Hayden Rd, Scottsdale, AZ",
+    "approaches": [
+     "E/B Thomas Rd"
+    ],
+    "confidence": "official PDF (3/1/2019) + police page (updated 2026-04-09), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.480391,
+    "lon": -111.908964,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "E/B Thomas Rd": 90
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   }
+  ],
+  "dropped_2026-09-17": [
+   {
+    "name": "Scottsdale Rd and Shea Blvd",
+    "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
+   },
+   {
+    "name": "Scottsdale Rd and Cactus Rd",
+    "reason": "not in the official fixed-locations PDF or the 2023/2024 series"
+   },
+   {
+    "name": "Pima Rd and Hualapai Dr",
+    "reason": "appears only on a 2020-era third-party page; not in the official fixed list -- former or mobile site"
+   },
+   {
+    "name": "Frank Lloyd Wright Blvd at 7700 E (fixed speed, both directions)",
+    "reason": "news-story address; a fixed camera would be on the official fixed list and is not"
+   },
+   {
+    "name": "Shea Blvd and 120th St",
+    "reason": "single low-confidence mention; not in the official list"
+   }
+  ]
+ },
+ "paradise_valley": {
+  "city_label": "Paradise Valley",
+  "default_type": "red_light_speed",
+  "status": "ACTIVE (first US photo-radar town) - SIX fixed photo-enforcement locations on the town's program page (map image alt text 'PV PE Map 2025'), red light + speed. CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). The 2020 brochure still said 'five intersections and 2 mobile units'; the 2025 map adds Tatum & Foothill (S/B) and shows Desert Jewel as N/B only, so the two Tatum sites north of Lincoln are a directional pair. Mobile program: a semi-marked police vehicle with a radar device, 24-hour stints, locations unpublished -> out of scope (Tempe precedent). School-zone units: not mentioned on the 2025 page.",
+  "sources": [
+   "https://www.paradisevalleyaz.gov/153/Photo-Radar (official -- ADJUDICATES)",
+   "https://www.paradisevalleyaz.gov/844/Photo-Enforcement",
+   "https://paradisevalleyaz.gov/DocumentCenter/View/3940/Press-Release-Photo-Enforcement (official, 2015-04-29: Lincoln&Tatum NB/SB + Halo EB/WB, Lincoln&Palo Cristi EB/WB, Lincoln&Mockingbird EB, Tatum&Desert Jewel NB/SB)",
+   "https://paradisevalleyaz.gov/DocumentCenter/View/1875/2d (official memo: 2006 amendment added dual systems at Tatum & McDonald, relocated a camera to Lincoln & Mockingbird)",
+   "https://www.paradisevalleyaz.gov/DocumentCenter/View/8639/Photo-Enforcement-Brochure",
+   "https://www.paradisevalleyaz.gov/faq.aspx?TID=31"
+  ],
+  "entries": [
+   {
+    "name": "Lincoln Dr and Tatum Blvd",
+    "query": "Lincoln Dr & Tatum Blvd, Paradise Valley, AZ",
+    "approaches": [
+     "N/B Tatum Blvd",
+     "S/B Tatum Blvd",
+     "E/B Lincoln Dr",
+     "W/B Lincoln Dr"
+    ],
+    "confidence": "official page: 'E. Lincoln Dr. and Tatum Blvd-All four directions', verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.531055,
+    "lon": -111.97563,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+   },
+   {
+    "name": "Lincoln Dr and Palo Cristi Rd",
+    "query": "Lincoln Dr & Palo Cristi Rd, Paradise Valley, AZ",
+    "approaches": [
+     "E/B Lincoln Dr",
+     "W/B Lincoln Dr"
+    ],
+    "confidence": "official page: 'E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B' (36th St becomes Palo Cristi at Lincoln), verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.531828,
+    "lon": -112.004014,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "E/B Lincoln Dr": 90,
+     "W/B Lincoln Dr": 270
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Lincoln Dr and Mockingbird Ln",
+    "query": "Lincoln Dr & Mockingbird Ln, Paradise Valley, AZ",
+    "approaches": [
+     "E/B Lincoln Dr",
+     "W/B Lincoln Dr"
+    ],
+    "confidence": "official page: 'both E/B and W/B', verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.531278,
+    "lon": -111.934486,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "E/B Lincoln Dr": 89,
+     "W/B Lincoln Dr": 268
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Tatum Blvd and Desert Jewel Dr",
+    "query": "Tatum Blvd & Desert Jewel Dr, Paradise Valley, AZ",
+    "approaches": [
+     "N/B Tatum Blvd"
+    ],
+    "confidence": "official page: 'N. Tatum Blvd. and Desert Jewel Dr.-N/B' (N/B ONLY; the 09-02 draft said NB+SB), verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (0 = N/B): this and the Foothill Dr system are 55 m apart on Tatum (staggered T-intersections); two omnidirectional entries would speak twice back-to-back; Tatum's bearing at both nodes is 0/180 from the run's own points, so the corridor gate is safe",
+    "lat": 33.553581,
+    "lon": -111.975667,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)",
+    "directional": {
+     "N/B Tatum Blvd": 0
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)"
+   },
+   {
+    "name": "Tatum Blvd and Foothill Dr",
+    "query": "Tatum Blvd & Foothill Dr, Paradise Valley, AZ",
+    "approaches": [
+     "S/B Tatum Blvd"
+    ],
+    "confidence": "official page: 'N. Tatum Blvd. and E. Foothill Dr. -S/B' -- NEW, absent from the 09-02 draft and from the 2020 brochure's five, verbatim transcription by Claude for Chrome 2026-09-17 | STAGED DIRECTIONAL (180 = S/B), see Desert Jewel note",
+    "lat": 33.5530848,
+    "lon": -111.9756704,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
+    "directional": {
+     "S/B Tatum Blvd": 186
+    },
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+    "bearing_note": "S/B measured 186.0 (near 181.4 / far 187.0, dev 16 m)"
+   },
+   {
+    "name": "Tatum Blvd and McDonald Dr",
+    "query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
+    "approaches": [
+     "N/B Tatum Blvd",
+     "S/B Tatum Blvd"
+    ],
+    "confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
+    "lat": 33.5243756,
+    "lon": -111.9763155,
+    "resolved_how": "osm-intersection",
+    "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
+    "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
+    "bearing_note": "OMNIDIRECTIONAL BY GEOMETRY (2026-09-18, OSM inventory via Woz): Tatum Blvd ENDS at McDonald — every 'North Tatum Boulevard' way lies north of the camera point (S extent -4 m); McDonald's primary carriageways arrive from the WEST at y=-64 m and curve up into Tatum at the camera (way 206896123 spans (-212,-64)->(-5,+4)); McDonald east of Tatum is a minor tertiary leg. 'N/B Tatum' traffic is eastbound McDonald swinging north through a 90-degree bend, which no single direction_deg can carry (a 3-degree axis put the approach 600 m off the corridor at the primary ring -> both tiers suppressed). Both through movements are enforced, so -1 costs only the minor eastern leg. Earlier measurements: S/B 183.0 (near 191 / far 184, dev 45 m); N/B provisional 3 — RETIRED."
+   }
+  ]
+ },
+ "albuquerque": {
+  "city_label": "Albuquerque",
+  "region": "NM",
+  "bbox": [
+   34.9,
+   -107.0,
+   35.4,
+   -106.35
+  ],
+  "default_type": "speed",
+  "status": "CANDIDATE 2026-09-18 (research only, nothing staged). City of Albuquerque Automated Speed Enforcement: FIXED pole cameras, mid-block or near an intersection, ONE DIRECTION OF TRAVEL each (the city states it), go-live dates published per camera; $100 civil fine; 38 active per the city's page as summarised 2026-09 (34 in June + 2 in July + 2 on 2026-07-29 + 2 on 2026-09-04). Ordinance 21-69 (signed 2021-10-15) also allows MOBILE units -- none are listed with locations, so mobile is out of scope like Phoenix's. The 32 rows below (36 approaches) are from web-search SUMMARIES of the official page, not a verbatim read: the Claude for Chrome capture in SpeedShield docs/EXPANSION_RESEARCH_ABQ_LA_2026-09.md is the adjudication step. Geocoding: OSM street names in Albuquerque carry a quadrant suffix ('Gibson Boulevard Southeast') -- check osm_street_name matching on the first Woz run; mid-block rows use the new 'A between B and C' query form (midpoint of the two intersections); every approach heading must be measured (measure_road_bearings.py) before the city is written. Legal: no NM ban activity; 2026 SB 91 would let the city keep 100% of fines.",
+  "sources": [
+   "https://www.cabq.gov/automated-speed-enforcement (official list: every camera with direction of travel and go-live date; the page to capture VERBATIM with Claude for Chrome)",
+   "https://www.cabq.gov/automated-speed-enforcement/camera-data (per-camera counts)",
+   "https://www.cabq.gov/automated-speed-enforcement/ase-documents",
+   "https://www.krqe.com/news/albuquerque-metro/map-speed-cameras-in-albuquerque/ (press map, city + county)",
+   "https://abq.news/2026/06/albuquerque-adds-four-new-speed-cameras-bringing-citywide-total-to-34/",
+   "https://www.cabq.gov/municipaldevelopment/news/slowing-speeders-down-two-new-speed-cameras-go-live (2026-07)"
+  ],
+  "entries": [
+   {
+    "name": "Gibson Blvd between Carlisle and San Mateo",
+    "query": "Gibson Blvd between Carlisle Blvd and San Mateo Blvd, Albuquerque, NM",
+    "directional": {
+     "E/B Gibson Blvd": null,
+     "W/B Gibson Blvd": null
+    },
+    "go_live": "2022-04-25",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Unser Blvd at Tower Rd",
+    "query": "Unser Blvd & Tower Rd, Albuquerque, NM",
+    "directional": {
+     "N/B Unser Blvd": null
+    },
+    "go_live": "2022-06-10",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "San Mateo Blvd north of Montgomery",
+    "query": "San Mateo Blvd & Montgomery Blvd, Albuquerque, NM",
+    "directional": {
+     "S/B San Mateo Blvd": null
+    },
+    "go_live": "2022-08-01",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'just north of Montgomery' -- pole sits north of the intersection node; pin if the along-road offset matters"
+   },
+   {
+    "name": "Lomas Blvd at Virginia St",
+    "query": "Lomas Blvd & Virginia St, Albuquerque, NM",
+    "directional": {
+     "W/B Lomas Blvd": null
+    },
+    "go_live": "2022-08-01",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Unser Blvd at Flor Del Sol",
+    "query": "Unser Blvd & Dellyne Ave, Albuquerque, NM",
+    "directional": {
+     "N/B Unser Blvd": null
+    },
+    "go_live": "2022-08-01",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'at Flor Del Sol just north of Dellyne'"
+   },
+   {
+    "name": "Coal Ave at Cornell Dr",
+    "query": "Coal Ave & Cornell Dr, Albuquerque, NM",
+    "directional": {
+     "E/B Coal Ave": null
+    },
+    "go_live": "2022-08-08",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Central Ave between Tingley and New York",
+    "query": "Central Ave between Tingley Dr and New York Ave, Albuquerque, NM",
+    "directional": {
+     "W/B Central Ave": null
+    },
+    "go_live": "2022-08-15",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Montgomery Blvd at Jennifer Dr",
+    "query": "Montgomery Blvd & Jennifer Dr, Albuquerque, NM",
+    "directional": {
+     "W/B Montgomery Blvd": null
+    },
+    "go_live": "2023-03-13",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Montgomery Blvd at Julie",
+    "query": "Montgomery Blvd & Julie Ct, Albuquerque, NM",
+    "directional": {
+     "E/B Montgomery Blvd": null
+    },
+    "go_live": "2023-03-13",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "cross-street name uncertain in the summary ('Julie') -- confirm"
+   },
+   {
+    "name": "Lomas Blvd near 3rd St",
+    "query": "Lomas Blvd & 3rd St, Albuquerque, NM",
+    "directional": {
+     "E/B Lomas Blvd": null
+    },
+    "go_live": "2023-05-12",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Wyoming Blvd north of Academy Rd",
+    "query": "Wyoming Blvd & Academy Rd, Albuquerque, NM",
+    "directional": {
+     "N/B Wyoming Blvd": null
+    },
+    "go_live": "2023-05-23",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'just north of Academy'"
+   },
+   {
+    "name": "Coors Blvd between Montano and Paseo del Norte",
+    "query": "Coors Blvd between Montano Rd and Paseo del Norte, Albuquerque, NM",
+    "directional": {
+     "N/B Coors Blvd": null
+    },
+    "go_live": "2023-09-15",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Coors Bypass south of Ellison Dr",
+    "query": "Coors Bypass & Ellison Dr, Albuquerque, NM",
+    "directional": {
+     "S/B Coors Bypass": null
+    },
+    "go_live": "2023-09-22",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'just south of Ellison'"
+   },
+   {
+    "name": "Paseo del Norte west of Louisiana Blvd",
+    "query": "Paseo del Norte & Louisiana Blvd, Albuquerque, NM",
+    "directional": {
+     "W/B Paseo del Norte": null
+    },
+    "go_live": "2023-12-05",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'west of Louisiana'"
+   },
+   {
+    "name": "Broadway Blvd north of Iron Ave",
+    "query": "Broadway Blvd & Iron Ave, Albuquerque, NM",
+    "directional": {
+     "S/B Broadway Blvd": null
+    },
+    "go_live": "2024-06-26",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'just north of Iron'; the 2026 N/B camera is 'between Iron and Coal' -- two poles, one site"
+   },
+   {
+    "name": "Central Ave between Louisiana and San Pedro",
+    "query": "Central Ave between Louisiana Blvd and San Pedro Dr, Albuquerque, NM",
+    "directional": {
+     "E/B Central Ave": null,
+     "W/B Central Ave": null
+    },
+    "go_live": "2025-10-03",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Carlisle Blvd between Hilton and Delamar",
+    "query": "Carlisle Blvd between Hilton Ave and Delamar Ave, Albuquerque, NM",
+    "directional": {
+     "S/B Carlisle Blvd": null
+    },
+    "go_live": "2025-01-30",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "summary printed 'live 1/30/25' under a 2026 heading -- year uncertain; 'Delmar' may be Delamar Ave"
+   },
+   {
+    "name": "Lead Ave near Bryn Mawr Dr",
+    "query": "Lead Ave & Bryn Mawr Dr, Albuquerque, NM",
+    "directional": {
+     "W/B Lead Ave": null
+    },
+    "go_live": "2026-02-06",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Eubank Blvd near Sierra Vista",
+    "query": "Eubank Blvd & Sierra Vista, Albuquerque, NM",
+    "directional": {
+     "S/B Eubank Blvd": null
+    },
+    "go_live": "2026-02-06",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "cross-street suffix unknown"
+   },
+   {
+    "name": "Broadway Blvd between Iron and Coal",
+    "query": "Broadway Blvd between Iron Ave and Coal Ave, Albuquerque, NM",
+    "directional": {
+     "N/B Broadway Blvd": null
+    },
+    "go_live": "2026-03-23",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Unser Blvd near Old Ouray Rd",
+    "query": "Unser Blvd & Old Ouray Rd, Albuquerque, NM",
+    "directional": {
+     "N/B Unser Blvd": null
+    },
+    "go_live": "2026-03-23",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Juan Tabo Blvd near Copper Ave",
+    "query": "Juan Tabo Blvd & Copper Ave, Albuquerque, NM",
+    "directional": {
+     "S/B Juan Tabo Blvd": null
+    },
+    "go_live": "2026-03-23",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Zuni Rd between Mesilla and Espanola",
+    "query": "Zuni Rd between Mesilla St and Espanola St, Albuquerque, NM",
+    "directional": {
+     "W/B Zuni Rd": null
+    },
+    "go_live": "2026-03-23",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Menaul Blvd west of Vassar Dr",
+    "query": "Menaul Blvd & Vassar Dr, Albuquerque, NM",
+    "directional": {
+     "W/B Menaul Blvd": null
+    },
+    "go_live": "2026-04-01",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'west of Vassar'"
+   },
+   {
+    "name": "Unser Blvd near Gwin Rd",
+    "query": "Unser Blvd & Gwin Rd, Albuquerque, NM",
+    "directional": {
+     "S/B Unser Blvd": null
+    },
+    "go_live": "2026-06-19",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "4th St north of Griegos Rd",
+    "query": "4th St & Griegos Rd, Albuquerque, NM",
+    "directional": {
+     "S/B 4th St": null
+    },
+    "go_live": "2026-06-19",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'north of Griegos'"
+   },
+   {
+    "name": "Central Ave near 61st St",
+    "query": "Central Ave & 61st St, Albuquerque, NM",
+    "directional": {
+     "E/B Central Ave": null,
+     "W/B Central Ave": null
+    },
+    "go_live": "2026-06-19",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Tramway Blvd near Lomas Blvd",
+    "query": "Tramway Blvd & Lomas Blvd, Albuquerque, NM",
+    "directional": {
+     "S/B Tramway Blvd": null
+    },
+    "go_live": "2026-07-24",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Paseo del Norte west of Barstow St",
+    "query": "Paseo del Norte & Barstow St, Albuquerque, NM",
+    "directional": {
+     "W/B Paseo del Norte": null
+    },
+    "go_live": "2026-07-24",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'west of Barstow'"
+   },
+   {
+    "name": "Coors Blvd north of St Joseph Dr",
+    "query": "Coors Blvd & St Joseph Dr, Albuquerque, NM",
+    "directional": {
+     "N/B Coors Blvd": null,
+     "S/B Coors Blvd": null
+    },
+    "go_live": "2026-07-29",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding",
+    "placement_note": "city: 'north of St. Joseph'"
+   },
+   {
+    "name": "Central Ave at Texas St",
+    "query": "Central Ave & Texas St, Albuquerque, NM",
+    "directional": {
+     "W/B Central Ave": null
+    },
+    "go_live": "2026-09-04",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   },
+   {
+    "name": "Louisiana Blvd near Marquette Ave",
+    "query": "Louisiana Blvd & Marquette Ave, Albuquerque, NM",
+    "directional": {
+     "N/B Louisiana Blvd": null
+    },
+    "go_live": "2026-09-04",
+    "confidence": "cabq.gov ASE list as summarised by web search 2026-09-18 -- NOT verbatim; confirm street, cross street, direction and date with Claude for Chrome before geocoding"
+   }
+  ]
+ },
+ "bernalillo_county": {
+  "city_label": "Bernalillo County",
+  "region": "NM",
+  "bbox": [
+   34.9,
+   -107.0,
+   35.4,
+   -106.35
+  ],
+  "default_type": "speed",
+  "status": "CANDIDATE 2026-09-18 (research only). Bernalillo County Automated Photo Speed Enforcement (unincorporated county + county-run state-road sites): fixed, directional, launched 2024-08 with 10 cameras, 'roughly 15 locations' by 2026-09; the 12 sites below carry 18 approaches. Same alert semantics as the city's. Not verbatim -- capture the county page and the 2025-11 PDF with Claude for Chrome first. Interleaves geographically with the city's cameras (South Valley, West Side, North Valley), so both rosters ship together or not at all.",
+  "sources": [
+   "https://www.bernco.gov/public-works/automated-photo-speed-enforcement/ (official page; the list to capture verbatim)",
+   "https://www.bernco.gov/public-works/wp-content/uploads/sites/76/2025/11/SpeedCameras_ActiveandProposed.pdf (active + proposed, 2025-11)",
+   "https://www.bernco.gov/blog/2026/09/08/bernalillo-county-adds-speed-cameras-to-improve-roadway-safety-on-paseo-del-norte/ (Paseo del Norte E/B + W/B, warnings until 2026-09-30)",
+   "https://www.krqe.com/news/albuquerque-metro/bernalillo-county-installs-2-new-speed-enforcement-cameras/",
+   "https://www.yahoo.com/news/bernalillo-county-installs-speed-cameras-210111676.html (state-road sites: NM 45, NM 500, NM 528, NM 556)"
+  ],
+  "entries": [
+   {
+    "name": "Paradise Blvd at Radcliffe Rd",
+    "query": "Paradise Blvd & Radcliffe Rd, Albuquerque, NM",
+    "directional": {
+     "E/B Paradise Blvd": null,
+     "W/B Paradise Blvd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Isleta Blvd between Arenal and Montrose",
+    "query": "Isleta Blvd between Arenal Rd and Montrose Pl, Albuquerque, NM",
+    "directional": {
+     "N/B Isleta Blvd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Isleta Blvd between Sunbeam and Brother",
+    "query": "Isleta Blvd between Sunbeam Rd and Brother Rd, Albuquerque, NM",
+    "directional": {
+     "S/B Isleta Blvd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Golf Course Rd between Congress and Sutton",
+    "query": "Golf Course Rd between Congress Ave and Sutton St, Albuquerque, NM",
+    "directional": {
+     "N/B Golf Course Rd": null,
+     "S/B Golf Course Rd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Bridge Blvd between Old Coors and Atrisco",
+    "query": "Bridge Blvd between Old Coors Dr and Atrisco Dr, Albuquerque, NM",
+    "directional": {
+     "E/B Bridge Blvd": null,
+     "W/B Bridge Blvd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Arenal Rd between Isleta and Tapia",
+    "query": "Arenal Rd between Isleta Blvd and Tapia Blvd, Albuquerque, NM",
+    "directional": {
+     "E/B Arenal Rd": null,
+     "W/B Arenal Rd": null
+    },
+    "go_live": "2024-fall",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Coors Blvd between Gun Club and Rio Bravo",
+    "query": "Coors Blvd between Gun Club Rd and Rio Bravo Blvd, Albuquerque, NM",
+    "directional": {
+     "N/B Coors Blvd": null
+    },
+    "go_live": "2025-2026 (NM 45, active)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Coors Blvd between Sage and Tower",
+    "query": "Coors Blvd between Sage Rd and Tower Rd, Albuquerque, NM",
+    "directional": {
+     "N/B Coors Blvd": null
+    },
+    "go_live": "2026 (NM 45; 'in about three weeks' at the time of the article -- confirm live)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Dennis Chavez Blvd between Condershire and Coors",
+    "query": "Dennis Chavez Blvd between Condershire Dr and Coors Blvd, Albuquerque, NM",
+    "directional": {
+     "N/B Dennis Chavez Blvd": null,
+     "S/B Dennis Chavez Blvd": null
+    },
+    "go_live": "2025-2026 (NM 500, in operation)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Alameda Blvd between Rio Grande and Guadalupe Trail",
+    "query": "Alameda Blvd between Rio Grande Blvd and Guadalupe Trl, Albuquerque, NM",
+    "directional": {
+     "W/B Alameda Blvd": null
+    },
+    "go_live": "2025-2026 (NM 528 'Alameda Parkway', active)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Tramway Blvd between Tramway Terrace and San Rafael",
+    "query": "Tramway Blvd between Tramway Terrace Pl and San Rafael Ave, Albuquerque, NM",
+    "directional": {
+     "N/B Tramway Blvd": null
+    },
+    "go_live": "2026 (NM 556; 'in about 90 days' at the time of the article -- confirm live)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding"
+   },
+   {
+    "name": "Paseo del Norte near the Rio Grande overpass",
+    "query": "Paseo del Norte & Rio Grande Blvd, Albuquerque, NM",
+    "directional": {
+     "E/B Paseo del Norte": null,
+     "W/B Paseo del Norte": null
+    },
+    "go_live": "2026-09 (NM 423; warnings until 2026-09-30, citations after)",
+    "confidence": "bernco.gov list as summarised by web search 2026-09-18 -- NOT verbatim; confirm with the county page + 2025-11 PDF before geocoding",
+    "placement_note": "county: 'near the Rio Grande overpass' -- the intersection query is a placeholder; pin from the county page/map"
+   }
+  ]
+ },
+ "not_in_scope": {
+  "el_mirage": "ENDED 2019-06-30 (council vote; all equipment removed July 2019)",
+  "avondale": "ENDING - portable speed-camera program launched 2024; council voted 5-2 in Nov 2025 to end it (cost, staff load, vandalism). Confirm removal before treating as zero",
+  "glendale": "NONE - council declined to adopt red-light cameras",
+  "peoria": "NONE found",
+  "surprise": "NONE for traffic enforcement (2026 news is about Flock license-plate readers, unrelated to speed/red-light)",
+  "goodyear_gilbert_buckeye_queen_creek_fountain_hills_cave_creek_tolleson": "NONE found in 2026 coverage; the recurring 'Valley cities with cameras' list is Phoenix, Tempe, Mesa, Chandler, Scottsdale, Paradise Valley",
+  "star_valley": "ACTIVE but Gila County (Payson area), outside the metro",
+  "adot_freeways": "NONE since the state program ended in 2010",
+  "rio_rancho": "MOBILE ONLY (2026-09-18): 10 mobile units in roadside boxes on local roads, rotated on police data, plus 3 mobile units on NM 528 rotated between Iris Rd and Idalia Rd / Sara Rd; 7 initial placements were named 2025-12-13 (Nicklaus & Broadmoor, Unser & Westside, Unser & Paseo Del Volcan, Loma Colorado & Broadmoor, Idalia & Loma Colorado, Rockaway & Pyrite, Golf Course & 16th) but NO rotation schedule is published (rrnm.gov/stop). Out of scope on the same rule as Phoenix's mobile units; re-check if the city starts posting placements",
+  "albuquerque_mobile_units": "Ordinance 21-69 allows mobile devices; no published locations -- out of scope like Phoenix's vans",
+  "san_bernardino_city": "NONE (2026-09-18): no automated speed enforcement (not an AB 645 pilot city; only Caltrans' AB 289 work-zone pilot could touch the area and it is state-run, unpublished); the red-light camera program was ended by a 5-0 council vote in March 2011 and the cameras removed. 2026 'safety camera' news is Flock/surveillance cameras, not enforcement",
+  "san_bernardino_county_cities": "NONE found: Victorville ended red-light cameras 2015-03; Montclair and Rancho Cucamonga discontinued theirs. SB 720 (signed 2025-10-13) now lets any CA city adopt red-light cameras -- no Inland Empire adopter found as of 2026-09-18",
+  "los_angeles_pending": "PENDING LAUNCH (see SpeedShield docs/EXPANSION_RESEARCH_ABQ_LA_2026-09.md): 125 AB 645 speed-safety locations approved 2026-03-24, Verra Mobility, installation 2026-04..07, 60-day warnings late summer/fall 2026, citations late 2026, many sites cameras in BOTH directions; official list ladot.lacity.gov/speed-safety-system#locations + the 2026-02 impact report. Not a roster yet: needs the verbatim 125-row capture and a decision on shipping ~250 directional entries in the single file"
+ }
 }

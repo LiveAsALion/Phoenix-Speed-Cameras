@@ -40,11 +40,21 @@ ROSTERS = os.path.join(REPO_ROOT, "drafts", "city_rosters.json")
 OUT_DIR = os.path.join(REPO_ROOT, "drafts")
 
 # Wider than the school-zone box: Mesa's eastern intersections (Ellsworth,
-# Crismon, Signal Butte) sit past -111.80.
+# Crismon, Signal Butte) sit past -111.80. This is the DEFAULT box; a roster
+# outside the Valley carries its own "bbox": [lat_min, lon_min, lat_max,
+# lon_max] (Albuquerque, 2026-09-18) and every lookup for that city is
+# bounded by it instead.
 LAT_MIN, LAT_MAX = 33.15, 33.95
 LON_MIN, LON_MAX = -112.55, -111.55
+DEFAULT_BBOX = (LAT_MIN, LON_MIN, LAT_MAX, LON_MAX)
 
-CITY_BBOX = f"{LAT_MIN},{LON_MIN},{LAT_MAX},{LON_MAX}"
+
+def bbox_string(bbox):
+    lat_min, lon_min, lat_max, lon_max = bbox
+    return f"{lat_min},{lon_min},{lat_max},{lon_max}"
+
+
+CITY_BBOX = bbox_string(DEFAULT_BBOX)
 
 _CENTROID_TYPES = {
     "city", "town", "village", "administrative", "municipality",
@@ -52,9 +62,10 @@ _CENTROID_TYPES = {
 }
 
 
-def _acceptable(result):
+def _acceptable(result, bbox=DEFAULT_BBOX):
     lat, lon = float(result["lat"]), float(result["lon"])
-    if not (LAT_MIN <= lat <= LAT_MAX and LON_MIN <= lon <= LON_MAX):
+    lat_min, lon_min, lat_max, lon_max = bbox
+    if not (lat_min <= lat <= lat_max and lon_min <= lon <= lon_max):
         return None
     if result.get("type") in _CENTROID_TYPES or result.get("class") == "boundary":
         return None
@@ -68,29 +79,51 @@ def load_rosters():
             if isinstance(v, dict) and "entries" in v}
 
 
-def geocode(query):
-    """Resolve an 'A & B, City, AZ' query to (lat, lon, how) or None.
+def _intersection(a, b, bbox):
+    """One OSM intersection of streets a and b inside bbox, or None (with the
+    ambiguity printed when they meet more than once)."""
+    try:
+        clusters = overpass_intersection(osm_street_name(a.strip()),
+                                         osm_street_name(b.strip()), bbox=bbox_string(bbox))
+    except Exception as error:
+        print(f"      overpass error: {error}")
+        return None
+    if len(clusters) == 1:
+        return clusters[0][0], clusters[0][1]
+    if len(clusters) > 1:
+        print(f"      ambiguous: {len(clusters)} separate intersections of {a.strip()} / {b.strip()}: "
+              + "; ".join(f"{c[0]:.5f},{c[1]:.5f}" for c in clusters)
+              + "  -> add lat/lon to the roster row")
+    return None
 
-    Overpass first (the actual OSM node where the two streets meet), then
-    Nominatim phrasings. If the streets meet in more than one place the
+
+def geocode(query, bbox=DEFAULT_BBOX):
+    """Resolve a roster query to (lat, lon, how) or None.
+
+    Two forms:
+      'A & B, City, ST'                  -- the intersection of A and B
+      'A between B and C, City, ST'      -- MID-BLOCK: the midpoint of A's
+                                            intersections with B and with C
+                                            (Albuquerque publishes its speed
+                                            cameras this way, 2026-09-18)
+    Overpass first (the actual OSM nodes), then Nominatim phrasings for the
+    intersection form. If the streets meet in more than one place the
     candidates are printed and the row is left unresolved: put the right
     one into the roster as "lat"/"lon" and re-run.
     """
-    if " & " in query:
-        a, b = query.split(",")[0].split(" & ", 1)
-        try:
-            clusters = overpass_intersection(osm_street_name(a.strip()),
-                                             osm_street_name(b.strip()), bbox=CITY_BBOX)
-        except Exception as error:
-            print(f"      overpass error: {error}")
-            clusters = []
-        if len(clusters) == 1:
-            return clusters[0][0], clusters[0][1], "osm-intersection"
-        if len(clusters) > 1:
-            print(f"      ambiguous: {len(clusters)} separate intersections: "
-                  + "; ".join(f"{c[0]:.5f},{c[1]:.5f}" for c in clusters)
-                  + "  -> add lat/lon to the roster row")
-            return None
+    head = query.split(",")[0]
+    if " between " in head and " and " in head.split(" between ", 1)[1]:
+        street, rest = head.split(" between ", 1)
+        b, c = rest.split(" and ", 1)
+        first, second = _intersection(street, b, bbox), _intersection(street, c, bbox)
+        if first and second:
+            return ((first[0] + second[0]) / 2, (first[1] + second[1]) / 2, "osm-midblock-midpoint")
+        return None
+    if " & " in head:
+        a, b = head.split(" & ", 1)
+        found = _intersection(a, b, bbox)
+        if found:
+            return found[0], found[1], "osm-intersection"
     attempts = [(query, "as-written")]
     if " & " in query:
         attempts.append((query.replace(" & ", " and "), "and-phrasing"))
@@ -101,7 +134,7 @@ def geocode(query):
             print(f"      lookup error ({how}): {error}")
             results = []
         for result in results:
-            found = _acceptable(result)
+            found = _acceptable(result, bbox)
             if found:
                 return found[0], found[1], how
         time.sleep(REQUEST_INTERVAL_SECONDS)
@@ -135,7 +168,8 @@ def main():
     for key, city in rosters.items():
         label = city["city_label"]
         default_type = city.get("default_type", "red_light_speed")
-        print(f"\n[{key}] geocoding {len(city['entries'])} rows")
+        bbox = tuple(city["bbox"]) if city.get("bbox") else DEFAULT_BBOX
+        print(f"\n[{key}] geocoding {len(city['entries'])} rows within {bbox_string(bbox)}")
         out, failures, seen, dupes = [], [], {}, []
         for index, row in enumerate(city["entries"], start=1):
             if index > 1:
@@ -148,7 +182,7 @@ def main():
                 found = (float(row["lat"]), float(row["lon"]),
                          row.get("resolved_how", "manual"))
             else:
-                found = geocode(row["query"])
+                found = geocode(row["query"], bbox)
             if not found:
                 failures.append(row["name"])
                 print(f"  [{index:2}] FAIL  {row['name']}")
@@ -159,7 +193,7 @@ def main():
                 dupes.append((seen[point], row["name"], point))
             else:
                 seen[point] = row["name"]
-            by_intersection = how in ("osm-intersection", "manual", "tester-pin") or (
+            by_intersection = how in ("osm-intersection", "osm-midblock-midpoint", "manual", "tester-pin") or (
                 " & " in row["query"] and how in ("as-written", "and-phrasing"))
             flag = "" if by_intersection else "   <- resolved by NAME/ADDRESS, pin-drop it"
             print(f"  [{index:2}] ok    {row['name']:48} {lat:.6f},{lon:.6f} [{how}]{flag}")
