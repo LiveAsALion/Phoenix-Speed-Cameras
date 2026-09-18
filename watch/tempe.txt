@@ -1,2 +1,4 @@
 # https://www.tempe.gov/government/transportation-and-sustainability/transportation/photo-enforcement
-# fetched 2026-09-18T08:19:52+00:00  content_sha 135ef781620fce54
+# fetched 2026-09-18T08:22:54+00:00  content_sha 57ac84638ae22b32
+# counts: ["14 intersections", "four mobile cameras"]
+# map_images: ["https://www.tempe.gov/home/showpublishedimage/82824/639059752083870000 [Photo Enforcement Map_030625]", "https://www.tempe.gov/home/showpublishedimage/85566/638940541388930000 [Photo Enforcement Header]"]

@@ -1,5 +1,5 @@
 # https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement
-# fetched 2026-09-18T08:19:53+00:00  content_sha 18c1dacf757faa9a
+# fetched 2026-09-18T08:22:55+00:00  content_sha 18c1dacf757faa9a
 # counts: ["12 intersections"]
 # links: ["/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf [Photo Enforcement Camera Map]"]
 # map_images: ["/sites/default/files/2024-10/red-light-photo-enforcement-camera.jpg [red light photo enforcement camera]"]

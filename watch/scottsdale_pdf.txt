@@ -1,5 +1,5 @@
 # https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf
-# fetched 2026-09-18T08:19:53+00:00  content_sha b1765cc1263ebf88
+# fetched 2026-09-18T08:22:54+00:00  content_sha b1765cc1263ebf88
 # pdf_sha: "66e52250a314f720"
 Scottsdale Rd at McDowell Rd S/B
 Scottsdale Rd at Thomas Rd N/B

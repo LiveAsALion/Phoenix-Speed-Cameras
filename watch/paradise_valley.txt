@@ -1,5 +1,5 @@
 # https://www.paradisevalleyaz.gov/153/Photo-Radar
-# fetched 2026-09-18T08:19:53+00:00  content_sha a7b63fbec55eaf7d
+# fetched 2026-09-18T08:22:55+00:00  content_sha a7b63fbec55eaf7d
 # map_images: ["/ImageRepository/Document?documentID=11573 [PV PE Map 2025]"]
 E. Lincoln Dr. and 36th St/Palo Cristi Rd.-both E/B and W/B
 E. Lincoln Dr. and Tatum Blvd-All four directions
