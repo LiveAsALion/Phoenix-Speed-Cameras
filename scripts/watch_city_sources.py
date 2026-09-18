@@ -184,7 +184,7 @@ def canon_url(href):
     except ValueError:
         return href.strip()
     query = urlencode(sorted(parse_qsl(parts.query, keep_blank_values=True)))
-    return urlunsplit((parts.scheme, parts.netloc, parts.path, query, ""))
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, query, parts.fragment))
 
 
 def html_to_text(raw):
