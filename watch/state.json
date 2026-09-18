@@ -1,5 +1,5 @@
 {
-  "_extractor_version": "2026-09-18.4",
+  "_extractor_version": "2026-09-18.5",
   "chandler_page": {
     "content_sha": "18c1dacf757faa9a",
     "extras": {
@@ -14,9 +14,9 @@
       ]
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:55+00:00",
-    "last_ok": "2026-09-18T08:17:55+00:00",
-    "last_run": "2026-09-18T08:17:55+00:00",
+    "last_change": "2026-09-18T08:19:53+00:00",
+    "last_ok": "2026-09-18T08:19:53+00:00",
+    "last_run": "2026-09-18T08:19:53+00:00",
     "last_status": "ok 200 194638B via chrome",
     "url": "https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement"
   },
@@ -29,9 +29,9 @@
       "pdf_sha": "d8bd039ad2cfd195"
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:55+00:00",
-    "last_ok": "2026-09-18T08:17:55+00:00",
-    "last_run": "2026-09-18T08:17:55+00:00",
+    "last_change": "2026-09-18T08:19:54+00:00",
+    "last_ok": "2026-09-18T08:19:54+00:00",
+    "last_run": "2026-09-18T08:19:54+00:00",
     "last_status": "ok 200 165678B via chrome",
     "url": "https://www.chandleraz.gov/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf"
   },
@@ -41,9 +41,7 @@
       "counts": [
         "14 intersection",
         "19 intersections",
-        "21 red light cameras",
-        "35 mph during school",
-        "35 mph school"
+        "21 red light cameras"
       ],
       "links": [
         "/files/assets/public/v/1/publicsafety/police/photosafety/fall2026.pdf [Fall 2026 (PDF,\u00a0469KB)]",
@@ -51,10 +49,10 @@
       ]
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:56+00:00",
-    "last_ok": "2026-09-18T08:17:56+00:00",
-    "last_run": "2026-09-18T08:17:56+00:00",
-    "last_status": "ok 200 174608B via chrome",
+    "last_change": "2026-09-18T08:19:54+00:00",
+    "last_ok": "2026-09-18T08:19:54+00:00",
+    "last_run": "2026-09-18T08:19:54+00:00",
+    "last_status": "ok 200 174613B via chrome",
     "url": "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program"
   },
   "paradise_valley": {
@@ -65,9 +63,9 @@
       ]
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:54+00:00",
-    "last_ok": "2026-09-18T08:17:54+00:00",
-    "last_run": "2026-09-18T08:17:54+00:00",
+    "last_change": "2026-09-18T08:19:53+00:00",
+    "last_ok": "2026-09-18T08:19:53+00:00",
+    "last_run": "2026-09-18T08:19:53+00:00",
     "last_status": "ok 200 110002B via chrome",
     "url": "https://www.paradisevalleyaz.gov/153/Photo-Radar"
   },
@@ -82,15 +80,15 @@
         "#location-map [Location Map]"
       ],
       "map_images": [
-        "/adobe/dynamicmedia/deliver/dm-aid--91bf492b-162f-4b41-88ed-91df60c47423/photosafety-001.jpg?quality=85&preferwebp=true [Side of camera, view of roadway]",
-        "/adobe/dynamicmedia/deliver/dm-aid--f0572664-3192-46fb-b9d1-be5c5db7fbaf/photosafety-017.jpg?quality=85&preferwebp=true [Safety Camera showing Road Safety Action Plan logo]"
+        "/adobe/dynamicmedia/deliver/dm-aid--91bf492b-162f-4b41-88ed-91df60c47423/photosafety-001.jpg?preferwebp=true&quality=85 [Side of camera, view of roadway]",
+        "/adobe/dynamicmedia/deliver/dm-aid--f0572664-3192-46fb-b9d1-be5c5db7fbaf/photosafety-017.jpg?preferwebp=true&quality=85 [Safety Camera showing Road Safety Action Plan logo]"
       ]
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:52+00:00",
-    "last_ok": "2026-09-18T08:17:52+00:00",
-    "last_run": "2026-09-18T08:17:52+00:00",
-    "last_status": "ok 200 255139B via chrome",
+    "last_change": "2026-09-18T08:19:52+00:00",
+    "last_ok": "2026-09-18T08:19:52+00:00",
+    "last_run": "2026-09-18T08:19:52+00:00",
+    "last_status": "ok 200 255143B via chrome",
     "url": "https://www.phoenix.gov/administration/departments/streets/safety-improvements/road-safety-action-plan/photo-safety.html"
   },
   "scottsdale_page": {
@@ -110,9 +108,9 @@
       ]
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:53+00:00",
-    "last_ok": "2026-09-18T08:17:53+00:00",
-    "last_run": "2026-09-18T08:17:53+00:00",
+    "last_change": "2026-09-18T08:19:52+00:00",
+    "last_ok": "2026-09-18T08:19:52+00:00",
+    "last_run": "2026-09-18T08:19:52+00:00",
     "last_status": "ok 200 266248B via chrome",
     "url": "https://www.scottsdaleaz.gov/police/police-units/photo-enforcement"
   },
@@ -122,30 +120,20 @@
       "pdf_sha": "66e52250a314f720"
     },
     "failures": 0,
-    "last_change": "2026-09-18T08:17:54+00:00",
-    "last_ok": "2026-09-18T08:17:54+00:00",
-    "last_run": "2026-09-18T08:17:54+00:00",
+    "last_change": "2026-09-18T08:19:53+00:00",
+    "last_ok": "2026-09-18T08:19:53+00:00",
+    "last_run": "2026-09-18T08:19:53+00:00",
     "last_status": "ok 200 70637B via chrome",
     "url": "https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf"
   },
   "tempe": {
-    "content_sha": "57ac84638ae22b32",
-    "extras": {
-      "counts": [
-        "14 intersections",
-        "four mobile cameras",
-        "one of the intersection"
-      ],
-      "map_images": [
-        "https://www.tempe.gov/home/showpublishedimage/82824/639059752083870000 [Photo Enforcement Map_030625]",
-        "https://www.tempe.gov/home/showpublishedimage/85566/638940541388930000 [Photo Enforcement Header]"
-      ]
-    },
+    "content_sha": "135ef781620fce54",
+    "extras": {},
     "failures": 0,
-    "last_change": "2026-09-18T08:17:53+00:00",
-    "last_ok": "2026-09-18T08:17:53+00:00",
-    "last_run": "2026-09-18T08:17:53+00:00",
-    "last_status": "ok 200 123943B via chrome",
+    "last_change": "2026-09-18T08:19:52+00:00",
+    "last_ok": "2026-09-18T08:19:52+00:00",
+    "last_run": "2026-09-18T08:19:52+00:00",
+    "last_status": "ok 200 27376B via chrome",
     "url": "https://www.tempe.gov/government/transportation-and-sustainability/transportation/photo-enforcement"
   }
 }
