@@ -303,17 +303,10 @@ MANUAL_CAMERAS = [
         "type": "red_light_speed"
     },
     {
-        "name": "N/B, Tatum Blvd and McDonald Dr: Paradise Valley",
+        "name": "Tatum Blvd and McDonald Dr: Paradise Valley",
         "latitude": 33.5243756,
         "longitude": -111.9763155,
-        "direction_deg": 3,
-        "type": "red_light_speed"
-    },
-    {
-        "name": "S/B, Tatum Blvd and McDonald Dr: Paradise Valley",
-        "latitude": 33.5243756,
-        "longitude": -111.9763155,
-        "direction_deg": 183,
+        "direction_deg": -1,
         "type": "red_light_speed"
     },
     {

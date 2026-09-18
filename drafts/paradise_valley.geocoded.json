@@ -94,28 +94,16 @@
     ]
   },
   {
-    "name": "N/B, Tatum Blvd and McDonald Dr: Paradise Valley",
+    "name": "Tatum Blvd and McDonald Dr: Paradise Valley",
     "latitude": 33.5243756,
     "longitude": -111.9763155,
     "type": "red_light_speed",
     "_confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
     "_resolved_by": "intersection",
     "_query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
-    "direction_deg": 3,
+    "direction_deg": -1,
     "_approaches": [
-      "N/B Tatum Blvd"
-    ]
-  },
-  {
-    "name": "S/B, Tatum Blvd and McDonald Dr: Paradise Valley",
-    "latitude": 33.5243756,
-    "longitude": -111.9763155,
-    "type": "red_light_speed",
-    "_confidence": "official page: 'S. Tatum Blvd. and E. McDonald Dr.-both N/B and S/B', verbatim transcription by Claude for Chrome 2026-09-17",
-    "_resolved_by": "intersection",
-    "_query": "Tatum Blvd & McDonald Dr, Paradise Valley, AZ",
-    "direction_deg": 183,
-    "_approaches": [
+      "N/B Tatum Blvd",
       "S/B Tatum Blvd"
     ]
   }

@@ -744,15 +744,8 @@
         "lon": -111.9763155,
         "resolved_how": "osm-intersection",
         "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)",
-        "directional": {
-          "N/B Tatum Blvd": 3,
-          "S/B Tatum Blvd": 183
-        },
         "bearing_source": "measured 2026-09-17 from OSM way geometry (scripts/measure_road_bearings.py, Woz run on a67eb51)",
-        "bearing_note": "S/B measured 183.0 (near 191.0 / far 184.2, dev 45 m — Tatum jogs north of McDonald, still inside the 75 m corridor). N/B is PROVISIONAL = 3, the mirror of the S/B axis: OSM has only one node on Tatum within 600 m south of McDonald (a straight way with sparse nodes), so the approach from the south could not be fitted; re-measure with a wider search before treating it as final | 2026-09-18: at 3000 m OSM still has no 'Tatum Boulevard' south of McDonald — Tatum ENDS at McDonald and the road south is 44th St (it angles into Tatum there, hence the 45 m curvature on the S/B side); the N/B approach is measured on 44th St via measure_road",
-        "measure_road": {
-          "N/B Tatum Blvd": "44th St"
-        }
+        "bearing_note": "OMNIDIRECTIONAL BY GEOMETRY (2026-09-18, OSM inventory via Woz): Tatum Blvd ENDS at McDonald — every 'North Tatum Boulevard' way lies north of the camera point (S extent -4 m); McDonald's primary carriageways arrive from the WEST at y=-64 m and curve up into Tatum at the camera (way 206896123 spans (-212,-64)->(-5,+4)); McDonald east of Tatum is a minor tertiary leg. 'N/B Tatum' traffic is eastbound McDonald swinging north through a 90-degree bend, which no single direction_deg can carry (a 3-degree axis put the approach 600 m off the corridor at the primary ring -> both tiers suppressed). Both through movements are enforced, so -1 costs only the minor eastern leg. Earlier measurements: S/B 183.0 (near 191 / far 184, dev 45 m); N/B provisional 3 — RETIRED."
       }
     ]
   },
