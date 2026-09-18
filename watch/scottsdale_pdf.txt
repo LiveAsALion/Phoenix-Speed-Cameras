@@ -1,0 +1,14 @@
+# https://ww2.scottsdaleaz.gov/Assets/ScottsdaleAZ/Police/Photoradar/photo-enforcement-fixed-camera-locations.pdf
+# fetched 2026-09-18T08:02:07+00:00  content_sha b1765cc1263ebf88
+# pdf_sha: "66e52250a314f720"
+Scottsdale Rd at McDowell Rd S/B
+Scottsdale Rd at Thomas Rd N/B
+Indian School Rd at Hayden Rd W/B
+Shea Blvd at 90th St E/B
+Shea Blvd at 92nd St W/B
+Frank Lloyd Wright Blvd at Cactus Rd S/B
+Frank Lloyd Wright Blvd at Greenway-Hayden Loop E/B
+Scottsdale Rd at Frank Lloyd Wright Blvd N/B
+Frank Lloyd Wright Blvd at Greenway-Hayden Loop W/B
+Scottsdale Rd at Pinnacle Peak Rd S/B
+Thomas Rd at Hayden Rd E/B

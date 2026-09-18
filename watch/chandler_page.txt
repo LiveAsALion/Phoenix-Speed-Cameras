@@ -1,0 +1,16 @@
+# https://www.chandleraz.gov/residents/transportation/traffic-engineering/red-light-photo-enforcement
+# fetched 2026-09-18T08:02:08+00:00  content_sha 18c1dacf757faa9a
+# map_images: ["/sites/default/files/2024-10/red-light-photo-enforcement-camera.jpg"]
+# pdf_links: ["/sites/default/files/departments/development-services/City-of-Chandler-Photo-Enforcement-Camera-Map.pdf"]
+Alma School Road and Queen Creek Road
+Alma School Road and Ray Road
+Alma School Road and Warner Road
+Arizona Avenue and Ray Road
+Arizona Avenue and Warner Road
+Arizona Avenue and Ocotillo Road
+Chandler Boulevard and Dobson Road
+Chandler Blvd and Kyrene Road
+McQueen Road and Queen Creek Road
+Ray Road and Dobson Road
+Ray Road and McClintock Rd
+Ray Road and Rural Road
