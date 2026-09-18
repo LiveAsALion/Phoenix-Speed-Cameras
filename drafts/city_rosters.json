@@ -148,7 +148,7 @@
   "mesa": {
     "city_label": "Mesa",
     "default_type": "red_light_speed",
-    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page).",
+    "status": "ACTIVE - official page lists 18 intersections with 'intersection safety cameras' (no approaches, no vans mentioned) plus school-zone speed camera CORRIDORS at 9 schools (fixed, 35 mph when flashing / 45 otherwise per earlier reporting). CONFIRMED VERBATIM 2026-09-17 (Claude for Chrome). A 2018-era 'Facts' paragraph on the same page says '21 red light cameras and 14 intersection speed cameras at 19 intersections' -- one more than the current list; the current list governs. The old mesaazpolice.gov 'facts' URL is DEAD (redirects to a not-found page). 2026-09-18: the seven school corridors the tester could see are DIRECTIONAL POLE PAIRS (14 entries, one per pole, pins at the poles); Eastmark High and Highland Jr High dropped (no cameras found); Skyline N/B pole pin and the Ellsworth & Pecos spot-check owed before go-live.",
     "sources": [
       "https://www.mesaaz.gov/Public-Safety/Mesa-Police/About-Mesa-Police/Photo-Safety-Program (official list -- ADJUDICATES; also carries the school-zone corridor list and the Fall 2026 / Spring 2027 flasher-schedule PDFs)",
       "https://www.mesaazpolice.gov/about-mesa-pd/photo-safety-program/automated-red-light-photo-enforcement-facts (DEAD 2026-09-17)"
@@ -208,7 +208,7 @@
         "name": "Ellsworth Rd and Pecos Rd",
         "query": "Ellsworth Rd & Pecos Rd, Mesa, AZ",
         "approaches": [],
-        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check",
+        "confidence": "official page list of 18, verbatim transcription by Claude for Chrome 2026-09-17; approaches not published; 2026-09-17: two OSM crossings, northern (main signalised Pecos alignment) chosen — spot-check | SPOT-CHECK STILL OWED (2026-09-18): northern crossing 33.29225,-111.63497 pinned; tester to confirm vs the southern crossing 33.28498,-111.63493",
         "lat": 33.29225,
         "lon": -111.63497,
         "resolved_how": "osm-intersection",
@@ -336,102 +336,204 @@
       },
       {
         "name": "Rhodes Jr High on Baseline Rd",
-        "query": "Rhodes Junior High School, Mesa, AZ",
+        "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Rhodes Jr. High School corridor on West Baseline Road, between Longmore and Pennington' -- the first mid-block speed camera in Mesa; pin the Baseline midpoint between Longmore and Pennington; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.380256,
-        "lon": -111.870542,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.378695,
+        "lon": -111.870875,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "W/B Baseline Rd": 270
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Rhodes Jr High on Baseline Rd",
+        "query": "Baseline Rd at Rhodes Jr High, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.378519,
+        "lon": -111.871039,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "E/B Baseline Rd": 90
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Brimhall Jr High on Southern Ave",
-        "query": "4949 E Southern Ave, Mesa, AZ",
+        "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Franklin@Brimhall corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required | 2026-09-17: name lookup FAILED in the Woz run; query switched to the campus street address (Brimhall Jr High, 4949 E Southern Ave) — still a pin-drop row",
-        "lat": 33.39128,
-        "lon": -111.723406,
-        "resolved_how": "as-written",
-        "resolved_source": "Woz geocode re-run 2026-09-17 (commit 4aa7928)"
+        "lat": 33.393855,
+        "lon": -111.72467,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "W/B Southern Ave": 270
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Brimhall Jr High on Southern Ave",
+        "query": "Southern Ave at Brimhall Jr High, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.393689,
+        "lon": -111.724199,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "E/B Southern Ave": 90
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Fremont Jr High on Power Rd",
-        "query": "Fremont Junior High School, Mesa, AZ",
+        "query": "Power Rd at Fremont Jr High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Fremont Jr. High School corridor on Power Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.434686,
-        "lon": -111.682622,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.432782,
+        "lon": -111.684456,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "S/B Power Rd": 180
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Fremont Jr High on Power Rd",
+        "query": "Power Rd at Fremont Jr High, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.434232,
+        "lon": -111.684233,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "N/B Power Rd": 0
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Mesa High on Southern Ave",
-        "query": "Mesa High School, Mesa, AZ",
+        "query": "Southern Ave at Mesa High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Mesa High School corridor on Southern Avenue'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.397127,
-        "lon": -111.794705,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.393507,
+        "lon": -111.794087,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "E/B Southern Ave": 90
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Mesa High on Southern Ave",
+        "query": "Southern Ave at Mesa High, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.393527,
+        "lon": -111.79487,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "W/B Southern Ave": 270
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Skyline High on Crismon Rd",
-        "query": "Skyline High School, Mesa, AZ",
+        "query": "Crismon Rd at Skyline High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Skyline High School corridor on Crismon Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.398839,
-        "lon": -111.612325,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.398977,
+        "lon": -111.615385,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "S/B Crismon Rd": 180
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Red Mountain High on Brown Rd",
-        "query": "Red Mountain High School, Mesa, AZ",
+        "query": "Brown Rd at Red Mountain High, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Red Mountain High School on Brown Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.433375,
-        "lon": -111.675189,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.436936,
+        "lon": -111.674937,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "W/B Brown Rd": 270
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Red Mountain High on Brown Rd",
+        "query": "Brown Rd at Red Mountain High, Mesa, AZ",
+        "type": "school_zone",
+        "lat": 33.436888,
+        "lon": -111.673477,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "E/B Brown Rd": 90
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
         "name": "Porter Elementary on Lindsay Rd",
-        "query": "Porter Elementary School, Mesa, AZ",
+        "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page: 'Porter Elementary School corridor on Lindsay Road'; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.390794,
-        "lon": -111.772514,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.389825,
+        "lon": -111.771171,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "N/B Lindsay Rd": 0
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
       },
       {
-        "name": "Eastmark High school zone",
-        "query": "Eastmark High School, Mesa, AZ",
+        "name": "Porter Elementary on Lindsay Rd",
+        "query": "Lindsay Rd at Porter Elementary, Mesa, AZ",
         "type": "school_zone",
-        "approaches": [],
-        "confidence": "page names the school only ('Eastmark High School'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.323902,
-        "lon": -111.626727,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "lat": 33.391413,
+        "lon": -111.771277,
+        "resolved_how": "tester-pin",
+        "resolved_source": "tester map pin at the camera pole 2026-09-18",
+        "directional": {
+          "S/B Lindsay Rd": 180
+        },
+        "bearing_source": "compass value on a straight section-line road; school_zone entries get the heading filter only (no corridor gate), so no measurement is load-bearing",
+        "confidence": "official page corridor; tester map pin at the camera pole 2026-09-18 (each pole photographs one direction)"
+      },
+      {
+        "name": "Skyline High on Crismon Rd",
+        "query": "Crismon Rd at Skyline High School, Mesa, AZ",
+        "type": "school_zone",
+        "directional": {
+          "N/B Crismon Rd": null
+        },
+        "confidence": "official page corridor; N/B POLE PIN OWED — the 2026-09-18 reply repeated the geocoder's school-building coordinate (33.398839,-111.612325), which is 285 m east of Crismon Rd; the S/B pole is pinned at 33.398977,-111.615385"
+      }
+    ],
+    "dropped_2026-09-18": [
+      {
+        "name": "Eastmark High school zone",
+        "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped (guessed pins have no place)"
       },
       {
         "name": "Highland Jr High school zone",
-        "query": "Highland Junior High School, Mesa, AZ",
-        "type": "school_zone",
-        "approaches": [],
-        "confidence": "page names the school only ('Highland Junior High'); road not stated -- pin-drop required; verbatim transcription by Claude for Chrome 2026-09-17. Resolves by school NAME -> geocoder flags it; the camera sits on the named road beside the school, so a tester pin on that road is required",
-        "lat": 33.362272,
-        "lon": -111.684094,
-        "resolved_how": "school-name",
-        "resolved_source": "Woz geocode run 2026-09-17 (commit 1653c39)"
+        "reason": "named on the city page with no road; tester found no cameras on the map / Street View 2026-09-18 — not shipped"
       }
     ]
   },
