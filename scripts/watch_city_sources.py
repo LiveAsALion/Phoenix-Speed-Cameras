@@ -46,7 +46,7 @@ ALERT = os.path.join(WATCH, "ALERT.md")
 FAIL_STREAK_ALERT = 3
 # Bump whenever the extraction rules change: the next run re-baselines every
 # source silently instead of reporting the rule change as a city change.
-EXTRACTOR_VERSION = "2026-09-18.4"
+EXTRACTOR_VERSION = "2026-09-18.5"
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
@@ -101,8 +101,13 @@ DIRECTION_CUT = re.compile(r"(\b(?:[NSEW]/B|(?:north|south|east|west)bound|direc
 # the only text signal on a page that draws its locations on a map image
 # (Tempe) or a PDF with no text rows (Chandler's map).
 NUMBER = r"(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty)"
+# "35 mph during school" and "one of the intersection" are prose, not counts:
+# a number that is a unit reading, or a phrase bridged by a function word,
+# does not count.
+NOT_A_COUNT = r"(?!\s*(?:mph|km|mile|miles|minute|minutes|day|days|hour|hours|percent|%|feet|ft)\b)"
+FILLER = r"(?:(?!(?:of|the|a|an|in|on|at|to|for|or|and|is|are|per|with|by)\s)[A-Za-z]+\s+){0,2}?"
 COUNT_PATTERNS = [
-    re.compile(rf"\b{NUMBER}\s+(?:[A-Za-z]+\s+){{0,2}}?(?:intersections?|cameras?|locations?|sites?|schools?|corridors?)\b", re.I),
+    re.compile(rf"\b{NUMBER}{NOT_A_COUNT}\s+{FILLER}(?:intersections?|cameras?|locations?|sites?|schools?|corridors?)\b", re.I),
     re.compile(r"\bcameras?\s*\(\s*\d+\s*\)", re.I),
 ]
 # Every extras key that, on change, needs a human even when the location
@@ -315,6 +320,11 @@ def run():
             print(f"[diagnostic] {key}: 0 location lines; page text ({len(all_lines)} lines), first 80:")
             for l in all_lines[:80]:
                 print("    " + l[:140])
+        for phrase in extras.get("counts", []):
+            # the sentence each count came from, so a moved count can be read
+            # in the job log without opening the page
+            context = next((l for l in all_lines if phrase in re.sub(r"\s+", " ", l).lower()), "")
+            print(f"[count] {key}: '{phrase}' in: {context[:200]}")
         prev = load_snapshot(key)
         if rebaseline:
             prev = None
