@@ -104,9 +104,46 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--city", action="append", required=True)
     parser.add_argument("--only", help="only rows whose name contains this text")
+    parser.add_argument("--inventory", action="store_true",
+                        help="instead of fitting, list every highway way within 400 m of "
+                             "each selected site with its OSM name and where its points lie "
+                             "relative to the camera (N/S/E/W extent in metres) -- for "
+                             "finding what a leg of the intersection is actually called")
     args = parser.parse_args()
     with open(ROSTERS) as handle:
         rosters = json.load(handle)
+    if args.inventory:
+        for key in args.city:
+            for row in rosters[key]["entries"]:
+                if not row.get("directional"):
+                    continue
+                if args.only and args.only.lower() not in row["name"].lower():
+                    continue
+                lat, lon = float(row["lat"]), float(row["lon"])
+                print(f"\n[{key}] {row['name']} @ {lat},{lon} -- highway ways within 400 m:")
+                query = ('[out:json][timeout:25];'
+                         f'way["highway"](around:400,{lat},{lon});out geom;')
+                elements, error = [], None
+                for attempt in range(3):
+                    try:
+                        elements = _overpass(query)
+                        break
+                    except Exception as err:
+                        error = err
+                        time.sleep(5 * (attempt + 1))
+                if error and not elements:
+                    print(f"   NO GEOMETRY ({error})")
+                    continue
+                for e in elements:
+                    geom = e.get("geometry") or []
+                    if not geom:
+                        continue
+                    xy = [local_xy(lat, lon, g["lat"], g["lon"]) for g in geom]
+                    tags = e.get("tags", {})
+                    print(f"   {tags.get('name', '(unnamed)')!s:40} {tags.get('highway', ''):14} "
+                          f"nodes={len(xy):3} N={max(p[1] for p in xy):6.0f} S={min(p[1] for p in xy):6.0f} "
+                          f"E={max(p[0] for p in xy):6.0f} W={min(p[0] for p in xy):6.0f}  way {e.get('id')}")
+        return
     print("label | points(approach side) | heading ALL | heading NEAR(<250m) | "
           "heading FAR(250-600m) | max deviation m | roster value | delta")
     for key in args.city:
@@ -132,8 +169,11 @@ def main():
                 side, xy, radius, error = [], [], SEARCH_M, None
                 for radius in (SEARCH_M, 1200, 2000, 3000):
                     pts, error = road_points(road, lat, lon, radius)
-                    if error or not pts:
+                    if error:
                         break
+                    if not pts:          # nothing by that name yet: keep widening
+                        time.sleep(1.5)
+                        continue
                     xy = [local_xy(lat, lon, plat, plon) for plat, plon in pts]
                     side = [p for p in xy if on_approach_side(token, *p)
                             and math.hypot(*p) <= radius]
