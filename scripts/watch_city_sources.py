@@ -77,7 +77,7 @@ LOCATION_PATTERNS = [
     # "Scottsdale Rd at McDowell Rd", "Alma School Road and Queen Creek Road", "Broadway/Stapley"
     re.compile(rf"\b[A-Z0-9][\w'.\-]*(?:\s+[A-Z0-9][\w'.\-]*)*\s*{ROAD}\.?{JOIN}[A-Z0-9][\w'.\-]*(?:\s+[A-Z0-9][\w'.\-]*)*\s*{ROAD}\.?", re.I),
     # Mesa-style "Alma School/Guadalupe", "Power/Main"
-    re.compile(r"^[A-Z][\w'. ]{2,30}/[A-Z][\w'. ]{2,30}$"),
+    re.compile(r"^[A-Z][\w'.]*(?: [A-Z][\w'.]*){0,2}/[A-Z][\w'.]*(?: [A-Z][\w'.]*){0,2}$"),
     # direction-labelled rows "... | S/B", "E/B and W/B", "northbound"
     re.compile(r"\b(?:N/B|S/B|E/B|W/B|northbound|southbound|eastbound|westbound)\b", re.I),
     # school corridors and schedule rows
@@ -93,19 +93,34 @@ def now():
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
-def fetch(url, kind):
-    """Return (bytes, note) with two attempts; raises on final failure."""
+def _clients():
+    """Fetch clients in trust order. curl_cffi impersonates a real Chrome TLS
+    fingerprint, which is what gets past the Akamai/Cloudflare bot filters
+    that answer plain python-requests with 403 (Tempe, Mesa on the first
+    run); requests is the fallback when curl_cffi is not installed."""
+    try:
+        from curl_cffi import requests as cffi
+        yield "chrome", lambda url: cffi.get(url, headers=HEADERS, timeout=40,
+                                             allow_redirects=True, impersonate="chrome")
+    except ImportError:
+        pass
     import requests
+    yield "requests", lambda url: requests.get(url, headers=HEADERS, timeout=40, allow_redirects=True)
+
+
+def fetch(url, kind):
+    """Return (bytes, note); raises after every client has failed twice."""
     last = None
-    for attempt in range(2):
-        try:
-            r = requests.get(url, headers=HEADERS, timeout=40, allow_redirects=True)
-            if r.status_code == 200 and r.content:
-                return r.content, f"{r.status_code} {len(r.content)}B"
-            last = f"HTTP {r.status_code}"
-        except Exception as error:
-            last = f"{type(error).__name__}: {error}"
-        time.sleep(5)
+    for name, get in _clients():
+        for attempt in range(2):
+            try:
+                r = get(url)
+                if r.status_code == 200 and r.content:
+                    return r.content, f"{r.status_code} {len(r.content)}B via {name}"
+                last = f"HTTP {r.status_code} via {name}"
+            except Exception as error:
+                last = f"{type(error).__name__}: {error} via {name}"
+            time.sleep(5)
     raise RuntimeError(last)
 
 
@@ -116,9 +131,15 @@ def html_to_text(raw):
         tag.decompose()
     links = []
     for a in soup.find_all("a", href=True):
-        if LINK_PATTERN.search(a["href"]):
-            links.append(a["href"].strip())
-    imgs = [img.get("src", "") for img in soup.find_all("img") if img.get("src")]
+        href = a["href"].strip()
+        label = a.get_text(" ", strip=True)
+        if LINK_PATTERN.search(href) or re.search(r"schedule|rotation|location|map", href + " " + label, re.I):
+            links.append(f"{href} [{label[:60]}]")
+    imgs = []
+    for img in soup.find_all("img"):
+        src, alt = img.get("src", ""), img.get("alt", "")
+        if src and re.search(r"map|radar|camera|enforce|location", src + " " + alt, re.I):
+            imgs.append(f"{src} [{alt[:60]}]")
     # table rows read as one line ("Camera Location | Direction" tables)
     for tr in soup.find_all("tr"):
         cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
@@ -183,12 +204,12 @@ def extract(raw, kind):
     else:
         text, links, imgs = html_to_text(raw)
         if links:
-            extras["pdf_links"] = sorted(set(links))
-        maps = [i for i in imgs if re.search(r"map|radar|camera|enforce", i, re.I)]
-        if maps:
-            extras["map_images"] = sorted(set(maps))
+            extras["links"] = sorted(set(links))
+        if imgs:
+            extras["map_images"] = sorted(set(imgs))
     lines = normalize_lines(text)
     content_sha = hashlib.sha256("\n".join(lines).encode()).hexdigest()[:16]
+    extras["_all_lines"] = lines          # debug dump only; stripped before saving
     return location_lines(lines), content_sha, extras
 
 
@@ -233,13 +254,20 @@ def run():
             time.sleep(2)
             continue
         lines, content_sha, extras = extract(raw, kind)
+        debug_dir = os.path.join(WATCH, "_debug")
+        os.makedirs(debug_dir, exist_ok=True)
+        with open(os.path.join(debug_dir, f"{key}.lines.txt"), "w") as handle:
+            handle.write("\n".join(extras.pop("_all_lines", [])) + "\n")
         prev = load_snapshot(key)
         st["failures"] = 0
         st["last_status"] = f"ok {note}"
         st["last_run"] = st["last_ok"] = now()
         prev_sha = st.get("content_sha")
+        prev_extras = st.get("extras") or {}
         st["content_sha"] = content_sha
         st["extras"] = extras
+        link_changes = {k: (prev_extras.get(k), extras.get(k)) for k in ("links", "map_images", "pdf_sha")
+                        if prev is not None and prev_extras.get(k) != extras.get(k)}
         if prev is None:
             save_snapshot(key, url, lines, content_sha, extras)
             st["last_change"] = now()
@@ -247,7 +275,18 @@ def run():
             continue
         added = [l for l in lines if l.lower() not in {p.lower() for p in prev}]
         removed = [p for p in prev if p.lower() not in {l.lower() for l in lines}]
-        prev_extras = state.get(key, {}).get("extras_prev", {})
+        if link_changes and not (added or removed):
+            # a new schedule PDF, a re-issued map, a replaced map image: a
+            # human should look even though the location lines held
+            save_snapshot(key, url, lines, content_sha, extras)
+            st["last_change"] = now()
+            body = [f"## {city}: linked documents changed (location lines unchanged)\n{url}\n"]
+            for k, (before, after) in link_changes.items():
+                body.append(f"{k}: was {json.dumps(before)}\n    now {json.dumps(after)}")
+            alerts.append("\n".join(body))
+            report.append(f"- **{city}**: linked documents changed ({', '.join(link_changes)})")
+            time.sleep(2)
+            continue
         if added or removed:
             save_snapshot(key, url, lines, content_sha, extras)
             st["last_change"] = now()
