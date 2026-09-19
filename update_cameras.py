@@ -49,6 +49,14 @@ NAME_DIRECTION_OVERRIDES = {
 # a renamed camera stops matching and simply loses its corridor (safe).
 ROAD_AXIS_OVERRIDES = {
     "27th Avenue: Colter Street to Missouri Avenue": 0,      # 27th Ave runs north-south
+    # Northern Ave bends toward SR-51 east of the pin: the westbound approach
+    # heads 268 in its last 250 m and 240 out at 250-600 m, so the due-west
+    # axis (direction_deg 270) put a driver 212 m off the corridor at 550 m
+    # and silenced the primary (al-android v25, 2026-09-18 3:58 pm). Measured
+    # 2026-09-18 from OSM geometry (scripts/measure_road_bearings.py --point,
+    # 43 approach points): axis 73 (== 253) keeps every point within 64 m of
+    # the line; the tightest stretch is the near straight at ~250 m (~65-70 m).
+    "W/B Northern Avenue: 16th Street to 18th Street": 73,
 }
 
 # Coordinate overrides for scraped pins that do not sit on the roadway they
