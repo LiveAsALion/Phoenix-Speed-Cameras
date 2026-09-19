@@ -99,8 +99,16 @@
     "file": "archive/camera_data/camera_data__through_2026-09-18T02-06-50Z.json",
     "sha256": "f28f6e808e39868208071e071a06692cf7143f9adb0c539903021265e47ec95e",
     "valid_from": "2026-09-14T02:16:55Z",
-    "valid_to": null,
+    "valid_to": "2026-09-19T00:55:06Z",
     "archived_at": "2026-09-18T02:06:50Z",
+    "source_active_file": "camera_data.json"
+  },
+  {
+    "file": "archive/camera_data/camera_data__through_2026-09-19T00-55-06Z.json",
+    "sha256": "c48a786d006392632995965627054b331d65adbab7d82b1f3ae2e762db2b6bb1",
+    "valid_from": "2026-09-19T00:55:06Z",
+    "valid_to": null,
+    "archived_at": "2026-09-19T00:55:06Z",
     "source_active_file": "camera_data.json"
   }
 ]
