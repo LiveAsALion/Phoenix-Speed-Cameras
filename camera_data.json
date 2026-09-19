@@ -1,611 +1,611 @@
 [
-  {
-    "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
-    "latitude": 33.6107377912465,
-    "longitude": -112.129570020092,
-    "direction_deg": 90
-  },
-  {
-    "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
-    "latitude": 33.6306925590751,
-    "longitude": -112.013295987503,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
-    "latitude": 33.6111001946346,
-    "longitude": -112.108167386106,
-    "direction_deg": 270
-  },
-  {
-    "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
-    "latitude": 33.4908277615037,
-    "longitude": -112.064939622434,
-    "direction_deg": 0
-  },
-  {
-    "name": "N/B, 51st Ave: Van Buren St to I-10",
-    "latitude": 33.4555827502405,
-    "longitude": -112.169019611102,
-    "direction_deg": 0
-  },
-  {
-    "name": "W/B, Baseline Rd: 16th St to 24th St",
-    "latitude": 33.3779075016387,
-    "longitude": -112.039357278235,
-    "direction_deg": 270
-  },
-  {
-    "name": "W/B, Bell Rd: I-17 to 19th Ave",
-    "latitude": 33.6402100874448,
-    "longitude": -112.105172846625,
-    "direction_deg": 270
-  },
-  {
-    "name": "27th Avenue: Colter Street to Missouri Avenue",
-    "latitude": 33.51575,
-    "longitude": -112.116861,
-    "direction_deg": 0,
-    "road_axis_deg": 0
-  },
-  {
-    "name": "W/B Northern Avenue: 16th Street to 18th Street",
-    "latitude": 33.555284,
-    "longitude": -112.046447,
-    "direction_deg": 270,
-    "road_axis_deg": 73
-  },
-  {
-    "name": "Baseline Rd and Rural Rd: Tempe",
-    "latitude": 33.378238,
-    "longitude": -111.928687,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Baseline Rd and Mill Ave: Tempe",
-    "latitude": 33.3789,
-    "longitude": -111.9392,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Southern Ave and Mill Ave: Tempe",
-    "latitude": 33.3932,
-    "longitude": -111.9394,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Warner Rd and McClintock Dr: Tempe",
-    "latitude": 33.3346,
-    "longitude": -111.9097,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Guadalupe Rd and McClintock Dr: Tempe",
-    "latitude": 33.3635,
-    "longitude": -111.9097,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "University Dr and McClintock Dr: Tempe",
-    "latitude": 33.4221,
-    "longitude": -111.9097,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Broadway Rd and McClintock Dr: Tempe",
-    "latitude": 33.4077,
-    "longitude": -111.9097,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Broadway Rd and Rural Rd: Tempe",
-    "latitude": 33.4077,
-    "longitude": -111.9267,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Elliot Rd and Rural Rd: Tempe",
-    "latitude": 33.349184,
-    "longitude": -111.928467,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Elliot Rd and Kyrene Rd: Tempe",
-    "latitude": 33.349186,
-    "longitude": -111.945717,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "University Dr and Priest Dr: Tempe",
-    "latitude": 33.421936,
-    "longitude": -111.960913,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Curry Rd and Scottsdale Rd: Tempe",
-    "latitude": 33.4407,
-    "longitude": -111.9262,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Rio Salado Pkwy and Rural Rd: Tempe",
-    "latitude": 33.4287,
-    "longitude": -111.9258,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "48th St and Broadway Rd: Tempe",
-    "latitude": 33.4068,
-    "longitude": -111.9785,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "S/B, Scottsdale Rd and McDowell Rd: Scottsdale",
-    "latitude": 33.466266,
-    "longitude": -111.92603,
-    "direction_deg": 180,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "N/B, Scottsdale Rd and Thomas Rd: Scottsdale",
-    "latitude": 33.480353,
-    "longitude": -111.926169,
-    "direction_deg": 0,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Indian School Rd and Hayden Rd: Scottsdale",
-    "latitude": 33.494875,
-    "longitude": -111.908877,
-    "direction_deg": 270,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "E/B, Shea Blvd and 90th St: Scottsdale",
-    "latitude": 33.582536,
-    "longitude": -111.886125,
-    "direction_deg": 86,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Shea Blvd and 92nd St: Scottsdale",
-    "latitude": 33.582537,
-    "longitude": -111.882697,
-    "direction_deg": 270,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "S/B, Frank Lloyd Wright Blvd and Cactus Rd: Scottsdale",
-    "latitude": 33.59731,
-    "longitude": -111.843267,
-    "direction_deg": 125,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "E/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
-    "latitude": 33.6344477,
-    "longitude": -111.9077888,
-    "direction_deg": 105,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
-    "latitude": 33.6344477,
-    "longitude": -111.9077888,
-    "direction_deg": 285,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "N/B, Scottsdale Rd and Frank Lloyd Wright Blvd: Scottsdale",
-    "latitude": 33.638115,
-    "longitude": -111.925301,
-    "direction_deg": 1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "S/B, Scottsdale Rd and Pinnacle Peak Rd: Scottsdale",
-    "latitude": 33.698697,
-    "longitude": -111.925321,
-    "direction_deg": 180,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "E/B, Thomas Rd and Hayden Rd: Scottsdale",
-    "latitude": 33.480391,
-    "longitude": -111.908964,
-    "direction_deg": 90,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Lincoln Dr and Tatum Blvd: Paradise Valley",
-    "latitude": 33.531055,
-    "longitude": -111.97563,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "E/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
-    "latitude": 33.531828,
-    "longitude": -112.004014,
-    "direction_deg": 90,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
-    "latitude": 33.531828,
-    "longitude": -112.004014,
-    "direction_deg": 270,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "E/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
-    "latitude": 33.531278,
-    "longitude": -111.934486,
-    "direction_deg": 89,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
-    "latitude": 33.531278,
-    "longitude": -111.934486,
-    "direction_deg": 268,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "N/B, Tatum Blvd and Desert Jewel Dr: Paradise Valley",
-    "latitude": 33.553581,
-    "longitude": -111.975667,
-    "direction_deg": 0,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "S/B, Tatum Blvd and Foothill Dr: Paradise Valley",
-    "latitude": 33.5530848,
-    "longitude": -111.9756704,
-    "direction_deg": 186,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Tatum Blvd and McDonald Dr: Paradise Valley",
-    "latitude": 33.5243756,
-    "longitude": -111.9763155,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Alma School Rd and Queen Creek Rd: Chandler",
-    "latitude": 33.261916,
-    "longitude": -111.858578,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Alma School Rd and Ray Rd: Chandler",
-    "latitude": 33.3206,
-    "longitude": -111.859137,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Alma School Rd and Warner Rd: Chandler",
-    "latitude": 33.33509,
-    "longitude": -111.85911,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Arizona Ave and Ray Rd: Chandler",
-    "latitude": 33.3206297,
-    "longitude": -111.841615,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Arizona Ave and Warner Rd: Chandler",
-    "latitude": 33.335134,
-    "longitude": -111.841752,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Arizona Ave and Ocotillo Rd: Chandler",
-    "latitude": 33.247607,
-    "longitude": -111.8412465,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Chandler Blvd and Dobson Rd: Chandler",
-    "latitude": 33.305965,
-    "longitude": -111.876336,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Chandler Blvd and Kyrene Rd: Chandler",
-    "latitude": 33.3053484,
-    "longitude": -111.9457214,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "McQueen Rd and Queen Creek Rd: Chandler",
-    "latitude": 33.262392,
-    "longitude": -111.824132,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Ray Rd and Dobson Rd: Chandler",
-    "latitude": 33.3205739,
-    "longitude": -111.876403,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Ray Rd and McClintock Dr: Chandler",
-    "latitude": 33.320029,
-    "longitude": -111.911172,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Ray Rd and Rural Rd: Chandler",
-    "latitude": 33.319799,
-    "longitude": -111.927364,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Alma School Rd and Guadalupe Rd: Mesa",
-    "latitude": 33.364235,
-    "longitude": -111.859097,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Broadway Rd and Stapley Dr: Mesa",
-    "latitude": 33.407913,
-    "longitude": -111.805334,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Broadway Rd and Extension Rd: Mesa",
-    "latitude": 33.407748,
-    "longitude": -111.84838,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Country Club Dr and Southern Ave: Mesa",
-    "latitude": 33.393317,
-    "longitude": -111.840075,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Country Club Dr and University Dr: Mesa",
-    "latitude": 33.422372,
-    "longitude": -111.83995,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Ellsworth Rd and Pecos Rd: Mesa",
-    "latitude": 33.29225,
-    "longitude": -111.63497,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Guadalupe Rd and Carriage Ln: Mesa",
-    "latitude": 33.363865,
-    "longitude": -111.892298,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Gilbert Rd and Baseline Rd: Mesa",
-    "latitude": 33.379598,
-    "longitude": -111.788141,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Gilbert Rd and McKellips Rd: Mesa",
-    "latitude": 33.451758,
-    "longitude": -111.787657,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Greenfield Rd and Main St: Mesa",
-    "latitude": 33.415491,
-    "longitude": -111.736421,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Power Rd and Broadway Rd: Mesa",
-    "latitude": 33.408144,
-    "longitude": -111.684752,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Power Rd and Hampton Ave: Mesa",
-    "latitude": 33.390398,
-    "longitude": -111.684787,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Power Rd and McKellips Rd: Mesa",
-    "latitude": 33.451652,
-    "longitude": -111.684139,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Power Rd and Southern Ave: Mesa",
-    "latitude": 33.393984,
-    "longitude": -111.684748,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Power Rd and Main St: Mesa",
-    "latitude": 33.415668,
-    "longitude": -111.684528,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Southern Ave and Higley Rd: Mesa",
-    "latitude": 33.393831,
-    "longitude": -111.719342,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "Southern Ave and Stapley Dr: Mesa",
-    "latitude": 33.393359,
-    "longitude": -111.805425,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "University Dr and Mesa Dr: Mesa",
-    "latitude": 33.422352,
-    "longitude": -111.822881,
-    "direction_deg": -1,
-    "type": "red_light_speed"
-  },
-  {
-    "name": "W/B, Rhodes Jr High on Baseline Rd: Mesa",
-    "latitude": 33.378695,
-    "longitude": -111.870875,
-    "direction_deg": 270,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "E/B, Rhodes Jr High on Baseline Rd: Mesa",
-    "latitude": 33.378519,
-    "longitude": -111.871039,
-    "direction_deg": 90,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "W/B, Brimhall Jr High on Southern Ave: Mesa",
-    "latitude": 33.393855,
-    "longitude": -111.72467,
-    "direction_deg": 270,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "E/B, Brimhall Jr High on Southern Ave: Mesa",
-    "latitude": 33.393689,
-    "longitude": -111.724199,
-    "direction_deg": 90,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "S/B, Fremont Jr High on Power Rd: Mesa",
-    "latitude": 33.432782,
-    "longitude": -111.684456,
-    "direction_deg": 180,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  },
-  {
-    "name": "N/B, Fremont Jr High on Power Rd: Mesa",
-    "latitude": 33.434232,
-    "longitude": -111.684233,
-    "direction_deg": 0,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  },
-  {
-    "name": "E/B, Mesa High on Southern Ave: Mesa",
-    "latitude": 33.393507,
-    "longitude": -111.794087,
-    "direction_deg": 90,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "W/B, Mesa High on Southern Ave: Mesa",
-    "latitude": 33.393527,
-    "longitude": -111.79487,
-    "direction_deg": 270,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "W/B, Red Mountain High on Brown Rd: Mesa",
-    "latitude": 33.436936,
-    "longitude": -111.674937,
-    "direction_deg": 270,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "E/B, Red Mountain High on Brown Rd: Mesa",
-    "latitude": 33.436888,
-    "longitude": -111.673477,
-    "direction_deg": 90,
-    "type": "school_zone",
-    "road_axis_deg": 90
-  },
-  {
-    "name": "N/B, Porter Elementary on Lindsay Rd: Mesa",
-    "latitude": 33.389825,
-    "longitude": -111.771171,
-    "direction_deg": 0,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  },
-  {
-    "name": "S/B, Porter Elementary on Lindsay Rd: Mesa",
-    "latitude": 33.391413,
-    "longitude": -111.771277,
-    "direction_deg": 180,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  },
-  {
-    "name": "N/B, Skyline High on Crismon Rd: Mesa",
-    "latitude": 33.398308,
-    "longitude": -111.61533,
-    "direction_deg": 0,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  },
-  {
-    "name": "S/B, Skyline High on Crismon Rd: Mesa",
-    "latitude": 33.398933,
-    "longitude": -111.615485,
-    "direction_deg": 180,
-    "type": "school_zone",
-    "road_axis_deg": 0
-  }
+    {
+        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
+        "latitude": 33.6107377912465,
+        "longitude": -112.129570020092,
+        "direction_deg": 90
+    },
+    {
+        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
+        "latitude": 33.6306925590751,
+        "longitude": -112.013295987503,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
+        "latitude": 33.6111001946346,
+        "longitude": -112.108167386106,
+        "direction_deg": 270
+    },
+    {
+        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
+        "latitude": 33.4908277615037,
+        "longitude": -112.064939622434,
+        "direction_deg": 0
+    },
+    {
+        "name": "N/B, 51st Ave: Van Buren St to I-10",
+        "latitude": 33.4555827502405,
+        "longitude": -112.169019611102,
+        "direction_deg": 0
+    },
+    {
+        "name": "W/B, Baseline Rd: 16th St to 24th St",
+        "latitude": 33.3779075016387,
+        "longitude": -112.039357278235,
+        "direction_deg": 270
+    },
+    {
+        "name": "W/B, Bell Rd: I-17 to 19th Ave",
+        "latitude": 33.6402100874448,
+        "longitude": -112.105172846625,
+        "direction_deg": 270
+    },
+    {
+        "name": "27th Avenue: Colter Street to Missouri Avenue",
+        "latitude": 33.51575,
+        "longitude": -112.116861,
+        "direction_deg": 0,
+        "road_axis_deg": 0
+    },
+    {
+        "name": "W/B Northern Avenue: 16th Street to 18th Street",
+        "latitude": 33.555284,
+        "longitude": -112.046447,
+        "direction_deg": 270,
+        "road_axis_deg": 73
+    },
+    {
+        "name": "Baseline Rd and Rural Rd: Tempe",
+        "latitude": 33.378238,
+        "longitude": -111.928687,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Baseline Rd and Mill Ave: Tempe",
+        "latitude": 33.3789,
+        "longitude": -111.9392,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Mill Ave: Tempe",
+        "latitude": 33.3932,
+        "longitude": -111.9394,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Warner Rd and McClintock Dr: Tempe",
+        "latitude": 33.3346,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and McClintock Dr: Tempe",
+        "latitude": 33.3635,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and McClintock Dr: Tempe",
+        "latitude": 33.4221,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and McClintock Dr: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Rural Rd: Tempe",
+        "latitude": 33.4077,
+        "longitude": -111.9267,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Rural Rd: Tempe",
+        "latitude": 33.349184,
+        "longitude": -111.928467,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Elliot Rd and Kyrene Rd: Tempe",
+        "latitude": 33.349186,
+        "longitude": -111.945717,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Priest Dr: Tempe",
+        "latitude": 33.421936,
+        "longitude": -111.960913,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Curry Rd and Scottsdale Rd: Tempe",
+        "latitude": 33.4407,
+        "longitude": -111.9262,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Rio Salado Pkwy and Rural Rd: Tempe",
+        "latitude": 33.4287,
+        "longitude": -111.9258,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "48th St and Broadway Rd: Tempe",
+        "latitude": 33.4068,
+        "longitude": -111.9785,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Scottsdale Rd and McDowell Rd: Scottsdale",
+        "latitude": 33.466266,
+        "longitude": -111.92603,
+        "direction_deg": 180,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Scottsdale Rd and Thomas Rd: Scottsdale",
+        "latitude": 33.480353,
+        "longitude": -111.926169,
+        "direction_deg": 0,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Indian School Rd and Hayden Rd: Scottsdale",
+        "latitude": 33.494875,
+        "longitude": -111.908877,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Shea Blvd and 90th St: Scottsdale",
+        "latitude": 33.582536,
+        "longitude": -111.886125,
+        "direction_deg": 86,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Shea Blvd and 92nd St: Scottsdale",
+        "latitude": 33.582537,
+        "longitude": -111.882697,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Frank Lloyd Wright Blvd and Cactus Rd: Scottsdale",
+        "latitude": 33.59731,
+        "longitude": -111.843267,
+        "direction_deg": 125,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+        "latitude": 33.6344477,
+        "longitude": -111.9077888,
+        "direction_deg": 105,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Frank Lloyd Wright Blvd and Greenway-Hayden Loop: Scottsdale",
+        "latitude": 33.6344477,
+        "longitude": -111.9077888,
+        "direction_deg": 285,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Scottsdale Rd and Frank Lloyd Wright Blvd: Scottsdale",
+        "latitude": 33.638115,
+        "longitude": -111.925301,
+        "direction_deg": 1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Scottsdale Rd and Pinnacle Peak Rd: Scottsdale",
+        "latitude": 33.698697,
+        "longitude": -111.925321,
+        "direction_deg": 180,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Thomas Rd and Hayden Rd: Scottsdale",
+        "latitude": 33.480391,
+        "longitude": -111.908964,
+        "direction_deg": 90,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Lincoln Dr and Tatum Blvd: Paradise Valley",
+        "latitude": 33.531055,
+        "longitude": -111.97563,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
+        "latitude": 33.531828,
+        "longitude": -112.004014,
+        "direction_deg": 90,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Lincoln Dr and Palo Cristi Rd: Paradise Valley",
+        "latitude": 33.531828,
+        "longitude": -112.004014,
+        "direction_deg": 270,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "E/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
+        "latitude": 33.531278,
+        "longitude": -111.934486,
+        "direction_deg": 89,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Lincoln Dr and Mockingbird Ln: Paradise Valley",
+        "latitude": 33.531278,
+        "longitude": -111.934486,
+        "direction_deg": 268,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "N/B, Tatum Blvd and Desert Jewel Dr: Paradise Valley",
+        "latitude": 33.553581,
+        "longitude": -111.975667,
+        "direction_deg": 0,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "S/B, Tatum Blvd and Foothill Dr: Paradise Valley",
+        "latitude": 33.5530848,
+        "longitude": -111.9756704,
+        "direction_deg": 186,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Tatum Blvd and McDonald Dr: Paradise Valley",
+        "latitude": 33.5243756,
+        "longitude": -111.9763155,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Queen Creek Rd: Chandler",
+        "latitude": 33.261916,
+        "longitude": -111.858578,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Ray Rd: Chandler",
+        "latitude": 33.3206,
+        "longitude": -111.859137,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Warner Rd: Chandler",
+        "latitude": 33.33509,
+        "longitude": -111.85911,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Ray Rd: Chandler",
+        "latitude": 33.3206297,
+        "longitude": -111.841615,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Warner Rd: Chandler",
+        "latitude": 33.335134,
+        "longitude": -111.841752,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Arizona Ave and Ocotillo Rd: Chandler",
+        "latitude": 33.247607,
+        "longitude": -111.8412465,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Chandler Blvd and Dobson Rd: Chandler",
+        "latitude": 33.305965,
+        "longitude": -111.876336,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Chandler Blvd and Kyrene Rd: Chandler",
+        "latitude": 33.3053484,
+        "longitude": -111.9457214,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "McQueen Rd and Queen Creek Rd: Chandler",
+        "latitude": 33.262392,
+        "longitude": -111.824132,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and Dobson Rd: Chandler",
+        "latitude": 33.3205739,
+        "longitude": -111.876403,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and McClintock Dr: Chandler",
+        "latitude": 33.320029,
+        "longitude": -111.911172,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ray Rd and Rural Rd: Chandler",
+        "latitude": 33.319799,
+        "longitude": -111.927364,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Alma School Rd and Guadalupe Rd: Mesa",
+        "latitude": 33.364235,
+        "longitude": -111.859097,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Stapley Dr: Mesa",
+        "latitude": 33.407913,
+        "longitude": -111.805334,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Broadway Rd and Extension Rd: Mesa",
+        "latitude": 33.407748,
+        "longitude": -111.84838,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Country Club Dr and Southern Ave: Mesa",
+        "latitude": 33.393317,
+        "longitude": -111.840075,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Country Club Dr and University Dr: Mesa",
+        "latitude": 33.422372,
+        "longitude": -111.83995,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Ellsworth Rd and Pecos Rd: Mesa",
+        "latitude": 33.29225,
+        "longitude": -111.63497,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Guadalupe Rd and Carriage Ln: Mesa",
+        "latitude": 33.363865,
+        "longitude": -111.892298,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Gilbert Rd and Baseline Rd: Mesa",
+        "latitude": 33.379598,
+        "longitude": -111.788141,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Gilbert Rd and McKellips Rd: Mesa",
+        "latitude": 33.451758,
+        "longitude": -111.787657,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Greenfield Rd and Main St: Mesa",
+        "latitude": 33.415491,
+        "longitude": -111.736421,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Broadway Rd: Mesa",
+        "latitude": 33.408144,
+        "longitude": -111.684752,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Hampton Ave: Mesa",
+        "latitude": 33.390398,
+        "longitude": -111.684787,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and McKellips Rd: Mesa",
+        "latitude": 33.451652,
+        "longitude": -111.684139,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Southern Ave: Mesa",
+        "latitude": 33.393984,
+        "longitude": -111.684748,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Power Rd and Main St: Mesa",
+        "latitude": 33.415668,
+        "longitude": -111.684528,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Higley Rd: Mesa",
+        "latitude": 33.393831,
+        "longitude": -111.719342,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "Southern Ave and Stapley Dr: Mesa",
+        "latitude": 33.393359,
+        "longitude": -111.805425,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "University Dr and Mesa Dr: Mesa",
+        "latitude": 33.422352,
+        "longitude": -111.822881,
+        "direction_deg": -1,
+        "type": "red_light_speed"
+    },
+    {
+        "name": "W/B, Rhodes Jr High on Baseline Rd: Mesa",
+        "latitude": 33.378695,
+        "longitude": -111.870875,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Rhodes Jr High on Baseline Rd: Mesa",
+        "latitude": 33.378519,
+        "longitude": -111.871039,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Brimhall Jr High on Southern Ave: Mesa",
+        "latitude": 33.393855,
+        "longitude": -111.72467,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Brimhall Jr High on Southern Ave: Mesa",
+        "latitude": 33.393689,
+        "longitude": -111.724199,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "S/B, Fremont Jr High on Power Rd: Mesa",
+        "latitude": 33.432782,
+        "longitude": -111.684456,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "N/B, Fremont Jr High on Power Rd: Mesa",
+        "latitude": 33.434232,
+        "longitude": -111.684233,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "E/B, Mesa High on Southern Ave: Mesa",
+        "latitude": 33.393507,
+        "longitude": -111.794087,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Mesa High on Southern Ave: Mesa",
+        "latitude": 33.393527,
+        "longitude": -111.79487,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "W/B, Red Mountain High on Brown Rd: Mesa",
+        "latitude": 33.436936,
+        "longitude": -111.674937,
+        "direction_deg": 270,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "E/B, Red Mountain High on Brown Rd: Mesa",
+        "latitude": 33.436888,
+        "longitude": -111.673477,
+        "direction_deg": 90,
+        "type": "school_zone",
+        "road_axis_deg": 90
+    },
+    {
+        "name": "N/B, Porter Elementary on Lindsay Rd: Mesa",
+        "latitude": 33.389825,
+        "longitude": -111.771171,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "S/B, Porter Elementary on Lindsay Rd: Mesa",
+        "latitude": 33.391413,
+        "longitude": -111.771277,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "N/B, Skyline High on Crismon Rd: Mesa",
+        "latitude": 33.398308,
+        "longitude": -111.61533,
+        "direction_deg": 0,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    },
+    {
+        "name": "S/B, Skyline High on Crismon Rd: Mesa",
+        "latitude": 33.398933,
+        "longitude": -111.615485,
+        "direction_deg": 180,
+        "type": "school_zone",
+        "road_axis_deg": 0
+    }
 ]
