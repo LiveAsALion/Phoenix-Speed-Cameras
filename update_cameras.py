@@ -38,6 +38,12 @@ NAME_DIRECTION_OVERRIDES = {
     # adjacent to 5321 N 27th Ave. Until this entry existed the camera was
     # omnidirectional and fired on I-17 traffic in BOTH directions.
     "27th Avenue: Colter Street to Missouri Avenue": 0,      # east side  -> northbound
+    # 2026-10-22: the city re-published its whole Phoenix roster with NO
+    # direction token in any description, so every scraped entry fell to
+    # omnidirectional. Restored from ground truth only. Tester ground check
+    # 2026-10-22 (northbound 7th St pass): the camera stands on the EAST
+    # side of 7th St just north of Roma Ave, facing NORTHBOUND traffic.
+    "7th St: Indian School Road to Camelback Road": 0,       # east side  -> northbound (tester, 2026-10-22)
 }
 
 # Road AXIS overrides (a line: 0 == 180), distinct from enforcement direction —
@@ -57,6 +63,12 @@ ROAD_AXIS_OVERRIDES = {
     # 43 approach points): axis 73 (== 253) keeps every point within 64 m of
     # the line; the tightest stretch is the near straight at ~250 m (~65-70 m).
     "W/B Northern Avenue: 16th Street to 18th Street": 73,
+    # Same camera under the name the city gave it on 2026-10-22 (its pin,
+    # 33.555297/-112.046559, is the 09-12 pin within 15 m); the measured
+    # axis carries over. The enforcement DIRECTION is deliberately not
+    # restored here: the city dropped its "W/B" label and the tester has
+    # not yet confirmed the pole still faces westbound traffic only.
+    "Northern Ave: 16th Street to SR 51": 73,
 }
 
 # Coordinate overrides for scraped pins that do not sit on the roadway they
