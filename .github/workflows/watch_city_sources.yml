@@ -43,6 +43,9 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add watch
           git commit -m "City source watch: nightly snapshots" || echo "No changes to commit"
+          # The camera updater pushes to main too; rebase onto whatever
+          # landed meanwhile instead of failing "fetch first" (runs #44/#45).
+          git pull --rebase origin main
           git push
 
       - name: Open an issue when a human is needed

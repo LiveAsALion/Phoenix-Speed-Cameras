@@ -19,15 +19,15 @@
     },
     {
         "name": "7th St: Indian School Road to Camelback Road",
-        "latitude": 33.501453,
-        "longitude": -112.064917,
+        "latitude": 33.4998,
+        "longitude": -112.0648,
         "direction_deg": 0
     },
     {
         "name": "Northern Ave: 16th Street to SR 51",
         "latitude": 33.555297,
         "longitude": -112.046559,
-        "direction_deg": -1,
+        "direction_deg": 270,
         "road_axis_deg": 73
     },
     {
@@ -47,6 +47,13 @@
         "latitude": 33.457013,
         "longitude": -112.100171,
         "direction_deg": -1
+    },
+    {
+        "name": "27th Avenue: Camelback Road to Bethany Home Road",
+        "latitude": 33.51575,
+        "longitude": -112.116861,
+        "direction_deg": 0,
+        "road_axis_deg": 0
     },
     {
         "name": "Baseline Rd and Rural Rd: Tempe",

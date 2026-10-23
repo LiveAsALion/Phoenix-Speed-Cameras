@@ -2,8 +2,16 @@ name: Update Camera Data
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    # Hourly (was nightly at 00:00 UTC). One KML fetch per run; a commit
+    # only when the roster changed. Motive 2026-10-22: the city re-published
+    # its Phoenix map during the day and the nightly run plus the devices'
+    # 6-hour cache meant up to ~30 h before a phone saw it.
+    - cron: '0 * * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
 
 jobs:
   update-cameras:
@@ -39,4 +47,18 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Automated camera data update" || echo "No changes to commit"
+          # The city-source watch pushes to main too; rebase onto whatever
+          # landed meanwhile instead of failing "fetch first" (runs #44/#45).
+          git pull --rebase origin main
           git push
+
+      - name: Open an issue when the city's map changed
+        if: ${{ hashFiles('watch/PHOENIX_MAP_ALERT.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create camera-source-watch --color D93F0B --description "A city camera source changed or went dark" 2>/dev/null || true
+          gh issue create \
+            --title "Phoenix camera map changed — $(date -u +%Y-%m-%d)" \
+            --label camera-source-watch \
+            --body-file watch/PHOENIX_MAP_ALERT.md

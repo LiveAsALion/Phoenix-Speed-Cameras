@@ -24,6 +24,7 @@ reads the page (Claude for Chrome) and compares it with
 | Source | Location lines | Other signals watched |
 |---|---|---|
 | Phoenix (school-zone schedule page) | corridor rows (9) | links, map images |
+| Phoenix (camera MAP — the Google My Maps KML the updater consumes) | placemarks: name, pin, direction token — written by `update_cameras.py` itself to `phoenix_kml_placemarks.json` on every run (hourly) | ADDED / REMOVED / RENAMED (same pin) / MOVED > 25 m / DIRECTION TOKEN LOST; a coordinate override whose recorded city pin drifted; a `KEEP_UNTIL_VERIFIED` entry the map carries again. Alert file `PHOENIX_MAP_ALERT.md`, issue from `update_cameras.yml`. Unlike every other row the data is ALREADY PUBLISHED when the issue opens — the file is the roster — so the issue is the re-key/keep checklist, not a go/no-go. |
 | Tempe | none — the list is a map IMAGE | map image identity (`Photo Enforcement Map_<date>`), stated counts ("14 intersections", "four mobile cameras"), page text hash |
 | Scottsdale (police page) | `Road at Road \| S/B` table rows (11) | links, map images |
 | Scottsdale (fixed-locations PDF) | rows (11) | PDF byte hash |

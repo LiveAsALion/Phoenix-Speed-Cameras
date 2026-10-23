@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bell Rd: 35th Ave to I-17",
+    "latitude": 33.639598,
+    "longitude": -112.126222,
+    "direction_token": false
+  },
+  {
+    "name": "Greenway Pkwy: Cave Creek Road to 28th St",
+    "latitude": 33.629479,
+    "longitude": -112.025625,
+    "direction_token": false
+  },
+  {
+    "name": "Shea Blvd: 36th St to 40th St",
+    "latitude": 33.582746,
+    "longitude": -112.002658,
+    "direction_token": false
+  },
+  {
+    "name": "7th St: Indian School Road to Camelback Road",
+    "latitude": 33.501453,
+    "longitude": -112.064917,
+    "direction_token": false
+  },
+  {
+    "name": "Northern Ave: 16th Street to SR 51",
+    "latitude": 33.555297,
+    "longitude": -112.046559,
+    "direction_token": false
+  },
+  {
+    "name": "16th St: Broadway Road to I-17",
+    "latitude": 33.411987,
+    "longitude": -112.047193,
+    "direction_token": false
+  },
+  {
+    "name": "Thunderbird Rd: 19th Ave to Coral Gables",
+    "latitude": 33.609408,
+    "longitude": -112.092061,
+    "direction_token": false
+  },
+  {
+    "name": "19th Ave: Van Buren St to I-10",
+    "latitude": 33.457013,
+    "longitude": -112.100171,
+    "direction_token": false
+  }
+]

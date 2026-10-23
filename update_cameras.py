@@ -1,10 +1,30 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import math
+import os
 import re
+from datetime import datetime, timezone
 
 KML_URL = "https://www.google.com/maps/d/kml?forcekml=1&mid=1aB99-IfJH8EKHO_nVtF-xhgsMTKU_mw"
 OUTPUT_JSON = "camera_data.json"
+
+# The Phoenix MAP is watched for shape changes the way every other city's
+# source is (scripts/watch_city_sources.py): each run records the raw
+# placemarks it parsed (name, city pin, whether a direction token was
+# present) in PLACEMARK_SNAPSHOT and compares them with the committed copy.
+# Any placemark that appears, disappears, moves more than PLACEMARK_MOVE_M or
+# loses its direction token is written to MAP_ALERT, and the workflow opens
+# a `camera-source-watch` issue from that file. Motive (2026-10-22): the city
+# replaced its whole roster — 9 corridors became 8 with no direction tokens
+# at all — and the updater published the new set SILENTLY; the name-keyed
+# overrides below stopped matching, every Phoenix camera fell to
+# omnidirectional, and nobody knew until a tester asked why the map was
+# wrong. The data is still published (the file is the roster); the issue
+# is how a human finds out the same hour.
+PLACEMARK_SNAPSHOT = os.path.join("watch", "phoenix_kml_placemarks.json")
+MAP_ALERT = os.path.join("watch", "PHOENIX_MAP_ALERT.md")
+PLACEMARK_MOVE_M = 25
 
 # Sentinel written when a Placemark has no recognizable direction designator and
 # no manual override below. The SpeedShield app treats direction_deg = -1 as
@@ -44,6 +64,10 @@ NAME_DIRECTION_OVERRIDES = {
     # 2026-10-22 (northbound 7th St pass): the camera stands on the EAST
     # side of 7th St just north of Roma Ave, facing NORTHBOUND traffic.
     "7th St: Indian School Road to Camelback Road": 0,       # east side  -> northbound (tester, 2026-10-22)
+    # Tester, 2026-10-23: "the Northern camera is only on the north side for
+    # westbound traffic" — the W/B the city's old label carried, confirmed
+    # on the ground under the new name. Eastbound Northern stays silent.
+    "Northern Ave: 16th Street to SR 51": 270,               # north side -> westbound (tester, 2026-10-23)
 }
 
 # Road AXIS overrides (a line: 0 == 180), distinct from enforcement direction —
@@ -65,26 +89,80 @@ ROAD_AXIS_OVERRIDES = {
     "W/B Northern Avenue: 16th Street to 18th Street": 73,
     # Same camera under the name the city gave it on 2026-10-22 (its pin,
     # 33.555297/-112.046559, is the 09-12 pin within 15 m); the measured
-    # axis carries over. The enforcement DIRECTION is deliberately not
-    # restored here: the city dropped its "W/B" label and the tester has
-    # not yet confirmed the pole still faces westbound traffic only.
+    # axis carries over. Its westbound direction was restored on
+    # 2026-10-23 (NAME_DIRECTION_OVERRIDES) once the tester confirmed the
+    # pole faces westbound traffic only.
     "Northern Ave: 16th Street to SR 51": 73,
 }
 
-# Coordinate overrides for scraped pins that do not sit on the roadway they
-# enforce (the app's corridor gate suppresses a driver more than ~75 m off
-# the camera's road line, and the 200 m secondary ring never admits a pass
-# whose closest approach is farther than that). Keyed by the exact cleaned
-# name; a renamed or re-pinned source entry stops matching (safe).
+# Coordinate overrides for scraped pins that do not sit where the camera
+# stands (the app's rings and corridor gate are drawn around the pin, so a
+# pin 200 m from the pole fires "600 meters" 200 m early and counts the
+# camera passed 200 m before it). Keyed by the exact cleaned name; a renamed
+# source entry stops matching (safe). Each value carries BOTH the pole
+# coordinate we publish AND the city pin the override was written against:
+# when the scraped pin later moves more than COORDINATE_OVERRIDE_DRIFT_M
+# from that recorded city pin, the run prints a WARNING and writes it to
+# the map alert (an issue is opened) — the city may have re-pinned the pole
+# itself and the override is then the stale one. Retire it by hand.
 #
-# EMPTY ON PURPOSE, and a lesson: on 2026-09-12 the Northern Ave W/B pin
-# (33.555284) was overridden 285 m south because a grid extrapolation said
-# Northern "must" be at 33.5528 there. It is not — Northern Ave jogs
-# north-east at 16th St and the city's pin sits on the road just west of
-# 17th St (tester screenshot of the city map, same day). Reverted within
-# the hour. Never add an entry here from arithmetic; only from the city's
-# map or a ground check.
-COORDINATE_OVERRIDES = {}
+# A lesson, kept: on 2026-09-12 the Northern Ave W/B pin (33.555284) was
+# overridden 285 m south because a grid extrapolation said Northern "must"
+# be at 33.5528 there. It is not — Northern Ave jogs north-east at 16th St
+# and the city's pin sits on the road just west of 17th St (tester
+# screenshot of the city map, same day). Reverted within the hour. Never
+# add an entry here from arithmetic; only from the city's map or a ground
+# check.
+COORDINATE_OVERRIDE_DRIFT_M = 25
+COORDINATE_OVERRIDES = {
+    # 7th St northbound. The city's 2026-10-22 pin is the MIDPOINT of the
+    # "Indian School Road to Camelback Road" corridor; the pole stands ~190 m
+    # south of it, on the EAST side of 7th St just north of Roma Ave, facing
+    # northbound traffic. Ground check: the tester's phone fix at the pole
+    # (33.49976, -112.06497 on the 2026-10-22 6:29 pm pass), moved to the
+    # east curb, and his written confirmation 2026-10-23 ("just north of
+    # Roma on the east side of the street for northbound traffic"). With the
+    # city's pin the primary spoke ~200 m early and the engine counted the
+    # camera passed ~200 m before the pole (diagnostics logs/2026-10-22).
+    "7th St: Indian School Road to Camelback Road": {
+        "lat": 33.4998, "lon": -112.0648,
+        "city_lat": 33.501453, "city_lon": -112.064917,   # the pin on 2026-10-22
+        "since": "2026-10-23",
+    },
+}
+
+# Cameras the city's published LIST still carries while its MAP has dropped
+# them. Standing rule (tester, 2026-10-23): when the page and the map
+# disagree, KEEP the camera until a ground check verifies it is gone — a
+# missed camera is a ticket, a false alert is not. Each entry rides into the
+# output like MANUAL_CAMERAS unless a scraped placemark already lies within
+# KEEP_DEDUPE_M of its pin — the map has it again, under whatever name, so
+# the scraped entry wins and the kept one is skipped with a notice in the
+# map alert (its direction/axis then need re-keying by hand, as on
+# 2026-10-22). Keys beginning with "_" are provenance and are stripped
+# before writing. Remove an entry ONLY on the tester's explicit verification
+# that the camera is gone; the watch (scripts/watch_city_sources.py) reports
+# the page/map disagreement nightly while it lasts (Phoenix issue #4).
+KEEP_DEDUPE_M = 150
+KEEP_UNTIL_VERIFIED = [
+    {
+        # 2026-10-22: the city's map dropped "27th Avenue: Colter Street to
+        # Missouri Avenue" while its page kept listing 27th Avenue
+        # ("Camelback Road to Bethany Home Road", the page's wording — the
+        # same pole; the spoken name is the text before the colon). Pin,
+        # direction and axis are the field-verified values that were live
+        # from 2026-08-18 to 2026-10-22: pole adjacent to 5321 N 27th Ave,
+        # east side, northbound; axis 0 keeps the I-17 (414 m west) outside
+        # the corridor — confirmed 8 passes out of 8 in the diagnostics.
+        "name": "27th Avenue: Camelback Road to Bethany Home Road",
+        "latitude": 33.51575,
+        "longitude": -112.116861,
+        "direction_deg": 0,
+        "road_axis_deg": 0,
+        "_since": "2026-10-23",
+        "_why": "city map dropped it 2026-10-22; city page still lists it",
+    },
+]
 
 # Hand-curated entries appended to every scrape output. The scrape rebuilds
 # camera_data.json from scratch, so anything not in the Phoenix KML and not
@@ -660,17 +738,23 @@ def get_direction(text):
             return deg
     return None
 
-def update_camera_data():
-    print(f"Fetching: {KML_URL}")
-    try:
-        response = requests.get(KML_URL, timeout=15)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, "xml")
-    except Exception as e:
-        print(f"Failed to fetch KML: {e}")
-        return
 
+def haversine_m(lat1, lon1, lat2, lon2):
+    r = 6371000.0
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dphi = p2 - p1
+    dlmb = math.radians(lon2 - lon1)
+    a = math.sin(dphi / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dlmb / 2) ** 2
+    return 2 * r * math.asin(math.sqrt(a))
+
+
+def parse_placemarks(soup, notes):
+    """Turn the KML into camera dicts. Returns (cameras, placemarks): the
+    cameras as the app will see them (overrides applied) and the raw
+    placemarks as the city drew them (for the map snapshot). `notes` collects
+    lines that need a human (override drift) for the map alert."""
     cameras = []
+    placemarks = []
     for pm in soup.find_all("Placemark"):
         desc_tag = pm.find("description")
         coords_tag = pm.find("coordinates")
@@ -694,12 +778,20 @@ def update_camera_data():
 
         # Direction priority: token in the description, then manual override,
         # then omnidirectional fallback.
-        direction_deg = get_direction(desc)
+        token_direction = get_direction(desc)
+        direction_deg = token_direction
         if direction_deg is None:
             direction_deg = NAME_DIRECTION_OVERRIDES.get(clean_name)
         if direction_deg is None:
             print(f"  No direction found, marking omnidirectional: {clean_name}")
             direction_deg = OMNIDIRECTIONAL
+
+        placemarks.append({
+            "name": clean_name,
+            "latitude": lat,
+            "longitude": lon,
+            "direction_token": token_direction is not None,
+        })
 
         camera = {
             "name": clean_name,
@@ -709,26 +801,155 @@ def update_camera_data():
         }
         fix = COORDINATE_OVERRIDES.get(clean_name)
         if fix is not None:
-            print(f"  Coordinate override: {clean_name} {lat},{lon} -> {fix[0]},{fix[1]}")
-            camera["latitude"], camera["longitude"] = fix
+            drift = haversine_m(lat, lon, fix["city_lat"], fix["city_lon"])
+            if drift > COORDINATE_OVERRIDE_DRIFT_M:
+                line = (f"WARNING: city moved {clean_name} by {drift:.0f} m since its coordinate "
+                        f"override was written ({fix['since']}): recorded city pin "
+                        f"{fix['city_lat']},{fix['city_lon']} -> now {lat},{lon}; the override "
+                        f"({fix['lat']},{fix['lon']}) still applies and may be stale — re-check the pole")
+                print(f"  {line}")
+                notes.append(line)
+            print(f"  Coordinate override: {clean_name} {lat},{lon} -> {fix['lat']},{fix['lon']}")
+            camera["latitude"], camera["longitude"] = fix["lat"], fix["lon"]
         road_axis = ROAD_AXIS_OVERRIDES.get(clean_name)
         if road_axis is not None:
             camera["road_axis_deg"] = road_axis
         cameras.append(camera)
+    return cameras, placemarks
+
+
+def kept_cameras(placemarks, notes):
+    """KEEP_UNTIL_VERIFIED entries not already on the map (within KEEP_DEDUPE_M
+    of a scraped placemark), stripped of their provenance keys."""
+    kept = []
+    for entry in KEEP_UNTIL_VERIFIED:
+        near = [pm for pm in placemarks
+                if haversine_m(entry["latitude"], entry["longitude"],
+                               pm["latitude"], pm["longitude"]) <= KEEP_DEDUPE_M]
+        if near:
+            line = (f"KEEP entry skipped: the map again carries a placemark within {KEEP_DEDUPE_M} m "
+                    f"of {entry['name']!r} — {near[0]['name']!r} at {near[0]['latitude']},{near[0]['longitude']}. "
+                    f"The scraped entry is published; carry its direction/axis to the new name by hand "
+                    f"and retire the KEEP entry")
+            print(f"  {line}")
+            notes.append(line)
+            continue
+        print(f"  Keeping (page/map disagreement, unverified): {entry['name']}")
+        kept.append({k: v for k, v in entry.items() if not k.startswith("_")})
+    return kept
+
+
+def load_snapshot():
+    if not os.path.exists(PLACEMARK_SNAPSHOT):
+        return None
+    with open(PLACEMARK_SNAPSHOT, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def diff_placemarks(previous, current):
+    """Human-readable lines for every change in the city's own map."""
+    lines = []
+    prev_by_name = {p["name"]: p for p in previous}
+    cur_by_name = {p["name"]: p for p in current}
+    for name in sorted(set(prev_by_name) - set(cur_by_name)):
+        p = prev_by_name[name]
+        # a renamed pin keeps its coordinate — say so, it is the override re-key case
+        same_spot = [c for c in current
+                     if haversine_m(p["latitude"], p["longitude"], c["latitude"], c["longitude"]) <= PLACEMARK_MOVE_M]
+        if same_spot:
+            lines.append(f"- RENAMED  {name!r} -> {same_spot[0]['name']!r} (same pin; re-key any override)")
+        else:
+            lines.append(f"- REMOVED  {name!r} ({p['latitude']},{p['longitude']})")
+    for name in sorted(set(cur_by_name) - set(prev_by_name)):
+        c = cur_by_name[name]
+        was = [p for p in previous
+               if haversine_m(p["latitude"], p["longitude"], c["latitude"], c["longitude"]) <= PLACEMARK_MOVE_M]
+        if was:
+            continue  # reported above as RENAMED
+        token = "with" if c["direction_token"] else "WITHOUT"
+        lines.append(f"- ADDED    {name!r} ({c['latitude']},{c['longitude']}) {token} a direction token")
+    for name in sorted(set(cur_by_name) & set(prev_by_name)):
+        p, c = prev_by_name[name], cur_by_name[name]
+        moved = haversine_m(p["latitude"], p["longitude"], c["latitude"], c["longitude"])
+        if moved > PLACEMARK_MOVE_M:
+            lines.append(f"- MOVED    {name!r} by {moved:.0f} m: {p['latitude']},{p['longitude']} -> {c['latitude']},{c['longitude']}")
+        if p["direction_token"] and not c["direction_token"]:
+            lines.append(f"- DIRECTION TOKEN LOST on {name!r} (now omnidirectional unless NAME_DIRECTION_OVERRIDES names it)")
+        if c["direction_token"] and not p["direction_token"]:
+            lines.append(f"- DIRECTION TOKEN GAINED on {name!r}")
+    return lines
+
+
+def write_map_alert(sections):
+    if not sections:
+        if os.path.exists(MAP_ALERT):
+            os.unlink(MAP_ALERT)
+        return
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
+    body = [f"# Phoenix map (KML) changed — {stamp}", "",
+            f"Source: {KML_URL}", "",
+            "The updater has ALREADY PUBLISHED the new placemarks to camera_data.json "
+            "(the file is the roster). A human now checks: did the city add, drop, move or "
+            "relabel a camera? Re-key NAME_DIRECTION_OVERRIDES / ROAD_AXIS_OVERRIDES / "
+            "COORDINATE_OVERRIDES for any renamed placemark, and apply the standing rule — "
+            "a camera the city's PAGE still lists stays in KEEP_UNTIL_VERIFIED until a "
+            "ground check says it is gone.", ""]
+    body += sections
+    with open(MAP_ALERT, "w", encoding="utf-8") as f:
+        f.write("\n".join(body) + "\n")
+    print("\nMAP ALERT:\n" + "\n".join(sections))
+
+
+def update_camera_data():
+    print(f"Fetching: {KML_URL}")
+    try:
+        response = requests.get(KML_URL, timeout=15)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "xml")
+    except Exception as e:
+        print(f"Failed to fetch KML: {e}")
+        return
+
+    notes = []
+    cameras, placemarks = parse_placemarks(soup, notes)
 
     if not cameras:
         print("No valid camera locations found.")
         return
 
-    # Manual cities ride along AFTER the empty-scrape guard: a failed or
-    # empty Phoenix scrape still never writes, and a good one always
+    # Kept and manual cities ride along AFTER the empty-scrape guard: a failed
+    # or empty Phoenix scrape still never writes, and a good one always
     # carries the hand-curated entries.
+    cameras.extend(kept_cameras(placemarks, notes))
     cameras.extend(MANUAL_CAMERAS)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(cameras, f, indent=4)
 
     print(f"Success! Saved {len(cameras)} cameras to {OUTPUT_JSON}.")
+
+    # The map watch: compare the city's own placemarks with the committed
+    # snapshot, then record the new snapshot. First run writes the baseline.
+    sections = []
+    previous = load_snapshot()
+    if previous is None:
+        print(f"No placemark snapshot yet — writing the baseline to {PLACEMARK_SNAPSHOT}.")
+    else:
+        changes = diff_placemarks(previous, placemarks)
+        if changes:
+            sections.append("## Placemarks changed")
+            sections.extend(changes)
+            sections.append("")
+    if notes:
+        sections.append("## Overrides and kept entries needing a look")
+        sections.extend(f"- {n}" for n in notes)
+        sections.append("")
+    os.makedirs(os.path.dirname(PLACEMARK_SNAPSHOT), exist_ok=True)
+    with open(PLACEMARK_SNAPSHOT, "w", encoding="utf-8") as f:
+        json.dump(placemarks, f, indent=2)
+        f.write("\n")
+    write_map_alert(sections)
+
 
 if __name__ == "__main__":
     update_camera_data()
