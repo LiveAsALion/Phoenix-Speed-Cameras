@@ -1,59 +1,51 @@
 [
     {
-        "name": "E/B, Thunderbird Rd: 35th Ave to I-17",
-        "latitude": 33.6107377912465,
-        "longitude": -112.129570020092,
-        "direction_deg": 90
+        "name": "Bell Rd: 35th Ave to I-17",
+        "latitude": 33.639598,
+        "longitude": -112.126222,
+        "direction_deg": -1
     },
     {
-        "name": "N/B, 32nd St: Greenway Pkwy to Bell Rd",
-        "latitude": 33.6306925590751,
-        "longitude": -112.013295987503,
-        "direction_deg": 0
+        "name": "Greenway Pkwy: Cave Creek Road to 28th St",
+        "latitude": 33.629479,
+        "longitude": -112.025625,
+        "direction_deg": -1
     },
     {
-        "name": "W/B, Thunderbird Rd: I-17 to 19th Ave",
-        "latitude": 33.6111001946346,
-        "longitude": -112.108167386106,
-        "direction_deg": 270
+        "name": "Shea Blvd: 36th St to 40th St",
+        "latitude": 33.582746,
+        "longitude": -112.002658,
+        "direction_deg": -1
     },
     {
-        "name": "N/B, 7th St: Thomas Rd to Indian School Rd",
-        "latitude": 33.4908277615037,
-        "longitude": -112.064939622434,
-        "direction_deg": 0
+        "name": "7th St: Indian School Road to Camelback Road",
+        "latitude": 33.501453,
+        "longitude": -112.064917,
+        "direction_deg": -1
     },
     {
-        "name": "N/B, 51st Ave: Van Buren St to I-10",
-        "latitude": 33.4555827502405,
-        "longitude": -112.169019611102,
-        "direction_deg": 0
+        "name": "Northern Ave: 16th Street to SR 51",
+        "latitude": 33.555297,
+        "longitude": -112.046559,
+        "direction_deg": -1
     },
     {
-        "name": "W/B, Baseline Rd: 16th St to 24th St",
-        "latitude": 33.3779075016387,
-        "longitude": -112.039357278235,
-        "direction_deg": 270
+        "name": "16th St: Broadway Road to I-17",
+        "latitude": 33.411987,
+        "longitude": -112.047193,
+        "direction_deg": -1
     },
     {
-        "name": "W/B, Bell Rd: I-17 to 19th Ave",
-        "latitude": 33.6402100874448,
-        "longitude": -112.105172846625,
-        "direction_deg": 270
+        "name": "Thunderbird Rd: 19th Ave to Coral Gables",
+        "latitude": 33.609408,
+        "longitude": -112.092061,
+        "direction_deg": -1
     },
     {
-        "name": "27th Avenue: Colter Street to Missouri Avenue",
-        "latitude": 33.51575,
-        "longitude": -112.116861,
-        "direction_deg": 0,
-        "road_axis_deg": 0
-    },
-    {
-        "name": "W/B Northern Avenue: 16th Street to 18th Street",
-        "latitude": 33.555284,
-        "longitude": -112.046447,
-        "direction_deg": 270,
-        "road_axis_deg": 73
+        "name": "19th Ave: Van Buren St to I-10",
+        "latitude": 33.457013,
+        "longitude": -112.100171,
+        "direction_deg": -1
     },
     {
         "name": "Baseline Rd and Rural Rd: Tempe",
