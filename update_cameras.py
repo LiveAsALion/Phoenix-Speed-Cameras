@@ -40,10 +40,26 @@ DIRECTION_MAP = {
 }
 
 # Manual direction overrides for cameras whose source-map description carries no
-# direction token. Direction is derived from which side of the corridor the pin
-# sits on (the camera faces oncoming traffic):
+# direction token.
+#
+# STANDING EVALUATION RULE (tester, 2026-10-23) for any camera whose published
+# list omits the enforced direction: read which side of the street the POLE
+# stands on and announce the traffic it faces (the camera looks at oncoming
+# traffic):
 #   north side -> westbound (270)    south side -> eastbound (90)
 #   east side  -> northbound (0)     west side  -> southbound (180)
+# PRECONDITION: the point read must mark the POLE, to curb precision — a curb
+# is 10-18 m from the centreline of a Phoenix arterial. The city's pre-10-22
+# map pins did: its two Thunderbird pins sat 40 m apart north-south, one per
+# side, the width of the road, and the E/B one was on the south side. Its
+# 2026-10-22 pins do NOT: Thunderbird's sits 168 m south of the road, Bell's
+# 68 m south of the old north-side pole, 7th St's 184 m along the road from
+# the pole (corridor positions, not poles). A side read from such a pin is
+# arithmetic, not a measurement — the 2026-09-12 Northern error — so the side
+# comes from Street View or a drive-by, and the result is recorded HERE by
+# name with its basis. The map alert prints a Street View link for every
+# direction-less placemark to make that check a one-minute job.
+#
 # Keyed by the exact cleaned camera name. If a name later changes on the source
 # map the entry simply stops matching and the camera falls back to
 # omnidirectional (safe), so this never produces a silently wrong direction.
@@ -739,6 +755,15 @@ def get_direction(text):
     return None
 
 
+def maps_links(lat, lon):
+    """Pin + Street View links for a human's side-of-street check."""
+    return (f"pin https://www.google.com/maps/search/?api=1&query={lat},{lon} · "
+            f"Street View https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={lat},{lon}")
+
+
+SIDE_RULE = "pole on the N side -> W/B 270, S -> E/B 90, E -> N/B 0, W -> S/B 180"
+
+
 def haversine_m(lat1, lon1, lat2, lon2):
     r = 6371000.0
     p1, p2 = math.radians(lat1), math.radians(lat2)
@@ -866,15 +891,20 @@ def diff_placemarks(previous, current):
                if haversine_m(p["latitude"], p["longitude"], c["latitude"], c["longitude"]) <= PLACEMARK_MOVE_M]
         if was:
             continue  # reported above as RENAMED
-        token = "with" if c["direction_token"] else "WITHOUT"
-        lines.append(f"- ADDED    {name!r} ({c['latitude']},{c['longitude']}) {token} a direction token")
+        if c["direction_token"]:
+            lines.append(f"- ADDED    {name!r} ({c['latitude']},{c['longitude']}) with a direction token")
+        else:
+            lines.append(f"- ADDED    {name!r} ({c['latitude']},{c['longitude']}) WITHOUT a direction token "
+                         f"-> omnidirectional until a human reads the POLE's side ({SIDE_RULE}); "
+                         f"{maps_links(c['latitude'], c['longitude'])}")
     for name in sorted(set(cur_by_name) & set(prev_by_name)):
         p, c = prev_by_name[name], cur_by_name[name]
         moved = haversine_m(p["latitude"], p["longitude"], c["latitude"], c["longitude"])
         if moved > PLACEMARK_MOVE_M:
             lines.append(f"- MOVED    {name!r} by {moved:.0f} m: {p['latitude']},{p['longitude']} -> {c['latitude']},{c['longitude']}")
         if p["direction_token"] and not c["direction_token"]:
-            lines.append(f"- DIRECTION TOKEN LOST on {name!r} (now omnidirectional unless NAME_DIRECTION_OVERRIDES names it)")
+            lines.append(f"- DIRECTION TOKEN LOST on {name!r} (now omnidirectional unless NAME_DIRECTION_OVERRIDES names it; "
+                         f"read the POLE's side: {SIDE_RULE}; {maps_links(c['latitude'], c['longitude'])})")
         if c["direction_token"] and not p["direction_token"]:
             lines.append(f"- DIRECTION TOKEN GAINED on {name!r}")
     return lines
@@ -891,9 +921,11 @@ def write_map_alert(sections):
             "The updater has ALREADY PUBLISHED the new placemarks to camera_data.json "
             "(the file is the roster). A human now checks: did the city add, drop, move or "
             "relabel a camera? Re-key NAME_DIRECTION_OVERRIDES / ROAD_AXIS_OVERRIDES / "
-            "COORDINATE_OVERRIDES for any renamed placemark, and apply the standing rule — "
+            "COORDINATE_OVERRIDES for any renamed placemark, and apply the standing rules — "
             "a camera the city's PAGE still lists stays in KEEP_UNTIL_VERIFIED until a "
-            "ground check says it is gone.", ""]
+            "ground check says it is gone, and a placemark with no direction token gets its "
+            "direction from the POLE's side of the street (" + SIDE_RULE + "), read in Street "
+            "View — never from the pin itself when the pin is a corridor position.", ""]
     body += sections
     with open(MAP_ALERT, "w", encoding="utf-8") as f:
         f.write("\n".join(body) + "\n")
