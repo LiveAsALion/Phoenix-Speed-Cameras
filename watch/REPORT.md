@@ -1,4 +1,4 @@
-# City source watch — 2026-10-26T06:37:22+00:00
+# City source watch — 2026-10-27T06:32:36+00:00
 
 - **Phoenix (school-zone schedule)**: unchanged (9 location lines)
 - **Tempe**: unchanged (0 location lines)
