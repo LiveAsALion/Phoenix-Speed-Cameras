@@ -155,6 +155,16 @@ MANUAL_COORDS = {
     "Western Valley Middle School": (33.431766, -112.195322),  # 63rd Ave / Mohave St
     "David Crockett Elementary": (33.454908, -112.004176),     # 36th St / Fillmore St
     "Silvestre Herrera Elementary": (33.452623, -112.062068),  # 9th St / Polk St
+    # Action run #3 (2026-10-30, 24 min, five network rows): grid-checked
+    # the same way -- Hopi 110 m and Ingleside 85 m off the predicted
+    # longitude, Ingleside 6 m from the fall run's Osborn Rd pin.
+    "Hopi Elementary": (33.495543, -111.968701),               # Lafayette Blvd / 52nd Pl (OSM node)
+    "Ingleside Middle School": (33.487427, -111.965218),       # Osborn Rd / 54th St (OSM node)
+    # The PDF names only "47th Ave" for Sunburst, so this is the 47th Ave
+    # node nearest the school polygon (run #3): 45 m off the 47th Ave line,
+    # 0.3 mi north of Thunderbird, consistent with the school's 14218 N
+    # address. Camera-at-the-school tolerance; spot-check on a map.
+    "Sunburst Elementary": (33.614942, -112.159814),           # 47th Ave beside the school
     # NOT pinned from run #2, deliberately: Sweetwater School (its node came
     # back at 33.6036, a mile south of Sweetwater Ave -- an OSM naming fault
     # or a stray segment; the school-distance guard below now catches it),
@@ -545,6 +555,30 @@ def geocode(row):
             cache["pt"] = point or False
         return cache["pt"] or None
 
+    def school_anchor():
+        """The school's OSM polygon, but only when it fronts one of the
+        published streets (a node of that street within 800 m). OSM can hold
+        a same-named school elsewhere: run #3 (2026-10-30) anchored Vista
+        College Preparatory on its other campus 7.6 km away and refused the
+        correct 6th Ave & Hadley St corner because of it."""
+        point = school_point()
+        if not point or not row["cross_streets"]:
+            return point
+        if "fronts" not in cache:
+            fronts = False
+            for st in row["cross_streets"]:
+                try:
+                    if overpass_nearest_street_node(osm_street_name(st), point, max_m=800):
+                        fronts = True
+                        break
+                except Exception as error:
+                    print(f"      overpass error: {error}")
+            if not fronts:
+                print(f"      school polygon at {point[0]:.6f},{point[1]:.6f} fronts neither "
+                      f"published street -- another campus; not using it as an anchor")
+            cache["fronts"] = fronts
+        return point if cache["fronts"] else None
+
     def intersection_clusters(a, b):
         """(clusters, answered): answered is False when Overpass never replied,
         which is different from replying that the streets do not meet."""
@@ -556,7 +590,7 @@ def geocode(row):
 
     def street_beside_school(street):
         """Node of `street` nearest the school polygon, within 800 m, or None."""
-        point = school_point()
+        point = school_anchor()
         if not point:
             return None
         try:
@@ -580,11 +614,12 @@ def geocode(row):
             answered = answered or ok
             if len(clusters) == 1:
                 hit = clusters[0]
-                school = school_point()
+                school = school_anchor()
                 if school and _haversine_m(hit, school) > SCHOOL_MAX_M:
-                    print(f"      REFUSED: {pa} & {pb} resolved {_haversine_m(hit, school):.0f} m from the "
-                          f"school's own polygon ({school[0]:.6f},{school[1]:.6f}) -- a same-named "
-                          f"street elsewhere; taking {a} beside the school instead")
+                    print(f"      REFUSED: {pa} & {pb} resolved to {hit[0]:.6f},{hit[1]:.6f}, "
+                          f"{_haversine_m(hit, school):.0f} m from the school's own polygon "
+                          f"({school[0]:.6f},{school[1]:.6f}) -- a same-named street elsewhere; "
+                          f"taking {a} beside the school instead")
                     node = street_beside_school(a)
                     if node:
                         return node[0], node[1], "osm-street-near-school"
@@ -593,7 +628,7 @@ def geocode(row):
             if len(clusters) > 1:
                 # The two streets meet more than once. Pick the meeting point
                 # nearest the school; otherwise refuse rather than guess.
-                point = school_point()
+                point = school_anchor()
                 if point:
                     best = min(clusters, key=lambda c: _haversine_m(c, point))
                     if _haversine_m(best, point) <= 1500:
@@ -608,7 +643,8 @@ def geocode(row):
             # OSM, not for an outage: run #2 (2026-10-30) fell through here and
             # pinned Vista College Preparatory to its other campus, 7 km away.
             print("      Overpass never answered for this intersection -- not guessing from "
-                  "the school polygon; re-run")
+                  "the school polygon; will retry once at the end of the run")
+            row["retry"] = True
             return None
         for query, how in ((f"{a} & {b}, Phoenix, AZ", "intersection"),
                            (f"{a} and {b}, Phoenix, AZ", "intersection-alt")):
@@ -732,6 +768,22 @@ def main():
             failures.append(row)
             target = " & ".join(row["cross_streets"]) if row["cross_streets"] else "-"
             print(f"[{index:2}/{len(rows)}] FAIL  {row['school_name']:38} {target}")
+
+    # One more chance for rows Overpass never answered: by the end of the run
+    # the benched endpoints have had their two-minute cooldown.
+    retry = [r for r in failures if r.pop("retry", False)]
+    if retry:
+        print(f"\nretrying {len(retry)} row(s) Overpass never answered, after a 90 s pause")
+        time.sleep(90)
+        for row in retry:
+            found = geocode(row)
+            row.pop("retry", None)
+            if found:
+                row["latitude"], row["longitude"], row["how"] = found
+                failures.remove(row)
+                print(f"retry ok    {row['school_name']:38} {found[0]:.6f},{found[1]:.6f}  [{found[2]}]")
+            else:
+                print(f"retry FAIL  {row['school_name']}")
 
     # Duplicate detection. Two schools sharing a point means a lookup silently
     # fell back to something generic; the bbox and centroid checks both pass in
