@@ -129,6 +129,38 @@ MANUAL_COORDS = {
     "Glenn L Downs Academy": (33.489803, -112.160278),         # 47th Ave / Whitton Ave
     "Maryland School": (33.531375, -112.103967),               # 21st Ave / north of Maryland Ave
     "Gateway Elementary": (33.462644, -112.006102),            # 35th St / north of Belleview St
+    # Action run #2 (2026-10-30, 82 min under Overpass throttling): the OSM
+    # intersection nodes it printed for these rows, each within 270 m of the
+    # longitude the fall run's own numbered-road pins predict and, where a
+    # reference pin exists on the cross street, within 165 m of its latitude.
+    # Pinned here so the re-run only has to look up the rows that failed.
+    "Desert Foothills Junior High": (33.620418, -112.129425),  # Banff Ln / 33rd Ave
+    "Acacia Elementary School": (33.616826, -112.125130),      # 31st Ave / Evans Dr
+    "Chaparral Elementary": (33.607391, -112.142551),          # 39th Ave / Joan de Arc
+    "Whispering Wind Academy": (33.629378, -111.986534),       # 44th St / Carol Ann Ln
+    "Richard E Miller Elementary": (33.564111, -112.108276),   # 23rd Ave / Alice Ave
+    "Moon Mountain Elementary": (33.607472, -112.099721),      # 19th Ave / Joan De Arc Ave
+    "Constitution Elementary": (33.651716, -112.091519),       # 15th Ave / Villa Maria Dr
+    "Echo Mountain Intermediate": (33.647667, -112.043626),    # Grovers Ave / 18th St
+    "Cactus View Elementary": (33.645649, -112.074177),        # Central Ave / Muriel Dr
+    "Esperanza Elementary": (33.465941, -112.125805),          # 31st Ave / south of McDowell Rd
+    "Royal Palm Middle School": (33.560437, -112.099645),      # Butler Dr / west of 19th Ave
+    "Roadrunner Elementary": (33.550204, -112.142925),         # 39th Ave / Hayward Ave
+    "Ocotillo Elementary": (33.534897, -112.129964),           # 33rd Ave / Ocotillo Rd
+    "Larry C Kennedy Elementary": (33.489566, -112.021604),    # 28th St / Sherran Ln
+    "Madison Camelview Elementary": (33.502045, -112.036722),  # Campbell Ave / 21st St
+    "Union Elementary": (33.411706, -112.258961),              # Illini St / 92nd Ln
+    "Hurley Ranch Elementary": (33.413106, -112.250512),       # 89th Dr / north of Illini St
+    "Kings Ridge Preparatory Academy": (33.415022, -112.194891),  # 63rd Ave / Raymond St
+    "Western Valley Middle School": (33.431766, -112.195322),  # 63rd Ave / Mohave St
+    "David Crockett Elementary": (33.454908, -112.004176),     # 36th St / Fillmore St
+    "Silvestre Herrera Elementary": (33.452623, -112.062068),  # 9th St / Polk St
+    # NOT pinned from run #2, deliberately: Sweetwater School (its node came
+    # back at 33.6036, a mile south of Sweetwater Ave -- an OSM naming fault
+    # or a stray segment; the school-distance guard below now catches it),
+    # Hopi / Ingleside / Vista College Preparatory (Overpass 502'd on their
+    # intersections and the run fell back to school polygons -- Vista's is
+    # the wrong campus, 7 km away), Sunburst (Overpass timed out).
 }
 
 # Transcribed from the source PDF ("Phoenix SY 26-27 School Zone Schedule",
@@ -286,6 +318,12 @@ OVERPASS_BBOX = f"{LAT_MIN},{LON_MIN},{LAT_MAX},{LON_MAX}"  # south,west,north,e
 OVERPASS_INTERVAL_SECONDS = 1.5
 OVERPASS_ATTEMPTS = 2  # full passes over the endpoint list
 CLUSTER_METERS = 300  # nodes closer than this are one intersection (divided roads)
+# The city places each camera at a corner of the school's own block, so a
+# resolved intersection farther than this from the school's OSM polygon is
+# a same-named street somewhere else (run #2, 2026-10-30: "Sweetwater Ave &
+# 45th Ave" came back a mile south of the school). Such a hit is refused and
+# the row falls to the street beside the school, flagged for a map check.
+SCHOOL_MAX_M = 1500
 
 _STREET_TYPES = {
     "rd": "Road", "ln": "Lane", "ave": "Avenue", "dr": "Drive", "st": "Street",
@@ -508,11 +546,24 @@ def geocode(row):
         return cache["pt"] or None
 
     def intersection_clusters(a, b):
+        """(clusters, answered): answered is False when Overpass never replied,
+        which is different from replying that the streets do not meet."""
         try:
-            return overpass_intersection(osm_street_name(a), osm_street_name(b))
+            return overpass_intersection(osm_street_name(a), osm_street_name(b)), True
         except Exception as error:
             print(f"      overpass error: {error}")
-            return []
+            return [], False
+
+    def street_beside_school(street):
+        """Node of `street` nearest the school polygon, within 800 m, or None."""
+        point = school_point()
+        if not point:
+            return None
+        try:
+            return overpass_nearest_street_node(osm_street_name(street), point, max_m=800)
+        except Exception as error:
+            print(f"      overpass error: {error}")
+            return None
 
     if row["cross_streets"]:
         a, b = row["cross_streets"]
@@ -523,10 +574,22 @@ def geocode(row):
         for alt in ALT_QUERIES.get(row["school_name"], []):
             pairs.append(tuple(alt.split(" & ")))
 
+        answered = False
         for pa, pb in pairs:
-            clusters = intersection_clusters(pa, pb)
+            clusters, ok = intersection_clusters(pa, pb)
+            answered = answered or ok
             if len(clusters) == 1:
-                return clusters[0][0], clusters[0][1], "osm-intersection"
+                hit = clusters[0]
+                school = school_point()
+                if school and _haversine_m(hit, school) > SCHOOL_MAX_M:
+                    print(f"      REFUSED: {pa} & {pb} resolved {_haversine_m(hit, school):.0f} m from the "
+                          f"school's own polygon ({school[0]:.6f},{school[1]:.6f}) -- a same-named "
+                          f"street elsewhere; taking {a} beside the school instead")
+                    node = street_beside_school(a)
+                    if node:
+                        return node[0], node[1], "osm-street-near-school"
+                    return None
+                return hit[0], hit[1], "osm-intersection"
             if len(clusters) > 1:
                 # The two streets meet more than once. Pick the meeting point
                 # nearest the school; otherwise refuse rather than guess.
@@ -539,6 +602,14 @@ def geocode(row):
                       + "; ".join(f"https://www.google.com/maps?q={c[0]:.6f},{c[1]:.6f}"
                                   for c in clusters))
                 return None
+        if not answered:
+            # Every Overpass intersection query errored (502 / timeout). The
+            # school-polygon fallback below is for streets that do not meet in
+            # OSM, not for an outage: run #2 (2026-10-30) fell through here and
+            # pinned Vista College Preparatory to its other campus, 7 km away.
+            print("      Overpass never answered for this intersection -- not guessing from "
+                  "the school polygon; re-run")
+            return None
         for query, how in ((f"{a} & {b}, Phoenix, AZ", "intersection"),
                            (f"{a} and {b}, Phoenix, AZ", "intersection-alt")):
             found = _nominatim_first(query)
