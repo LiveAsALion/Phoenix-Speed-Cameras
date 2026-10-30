@@ -2,9 +2,11 @@
 """Build school_zone_cameras.json from a City of Phoenix Photo Safety schedule.
 
 The city publishes the rotating school-zone schedule as a PDF listing, per
-council district, seven schools and the week each is enforced. It gives an
-intersection in parentheses -- NOT coordinates -- so the intersections must be
-geocoded before the app can use them.
+council district, the schools and the dates each is enforced (seven one-week
+slots in the fall 2026 schedule; four or five two-week slots from the
+October 2026 schedule on). It gives an intersection in parentheses -- NOT
+coordinates -- so the intersections must be geocoded before the app can use
+them.
 
 Usage
 -----
@@ -13,7 +15,7 @@ Usage
         No network, no writes. Use it to eyeball the transcription.
 
     python3 scripts/build_school_zones.py --geocode
-        Look every row up, then -- only if all 56 pass every check -- archive
+        Look every row up, then -- only if every row passes every check -- archive
         the current school_zone_cameras.json per
         archive/school_zone_cameras/README.md, write the new active file, and
         update the archive manifest.
@@ -81,124 +83,128 @@ LON_MIN, LON_MAX = -112.50, -111.80
 # (proximity_service: `if (cam.directionDeg < 0) headingOk = true`).
 DIRECTION_DEG = -1
 
-# The seven enforcement weeks, in the order the schedule lists them. Every
-# district follows the same calendar.
-WEEKS = [
-    ("2026-08-17", "2026-08-21"),
-    ("2026-08-24", "2026-08-28"),
-    ("2026-08-31", "2026-09-04"),
-    ("2026-09-07", "2026-09-11"),
-    ("2026-09-14", "2026-09-18"),
-    ("2026-09-21", "2026-09-25"),
-    ("2026-09-28", "2026-10-02"),
+# Enforcement windows. From the October 2026 schedule on, every row carries
+# its own (from, until) because the districts no longer share one calendar:
+# Districts 1 and 3 run five windows from 10/19, the other six run four from
+# 10/26, and the last window of the five-window districts is a single week.
+# Both dates are inclusive calendar days (the app compares by day).
+WINDOWS_A = [  # Districts 1 and 3
+    ("2026-10-19", "2026-10-30"),
+    ("2026-11-02", "2026-11-13"),
+    ("2026-11-16", "2026-11-27"),
+    ("2026-11-30", "2026-12-11"),
+    ("2026-12-14", "2026-12-18"),
+]
+WINDOWS_B = [  # Districts 2, 4, 5, 6, 7, 8
+    ("2026-10-26", "2026-11-06"),
+    ("2026-11-09", "2026-11-20"),
+    ("2026-11-23", "2026-12-04"),
+    ("2026-12-07", "2026-12-18"),
 ]
 
-SCHEDULE_SOURCE = "Photo Safety Program School Schedule 8/17/26 to 10/2/26"
+SCHEDULE_SOURCE = "Phoenix SY 26-27 School Zone Schedule (October 2026 rotation, 10/19/26 to 12/18/26)"
 
 # Hand-supplied coordinates, keyed by school name. These take priority over
 # every lookup, so this is where a failed or wrong-looking row gets fixed:
 # find the camera location in a map, copy the coordinates, add a line here,
-# re-run. Two schools (Valley Academy, Kyrene Akimel A-Al) have only one
-# street in the city's PDF; they resolve by school name and are flagged for
-# a map check -- put a verified point here to pin them exactly.
+# re-run.
+#
+# The eight entries marked "fall 2026 run" are intersections this schedule
+# publishes with EXACTLY the same wording as the 8/17-10/2 schedule; their
+# coordinates are the OSM intersection nodes the 2026-09-03 run resolved and
+# shipped (archive/school_zone_cameras/, 56-row file). Reusing them keeps the
+# geocoder load at 26 rows and keeps those pins byte-identical to the ones
+# already field-exposed.
 MANUAL_COORDS = {
     # Campbell Ave meets Meadowbrook Ave twice; the school is at 4407 N 55th
     # Ave, so the eastern crossing (near 53rd Ave) is the one -- the other is
     # 3 km west at 71st Ave. Coordinate is that OSM intersection node.
     "John F Long Elementary": (33.502190, -112.175074),
+    # fall 2026 run, same published intersection:
+    "Copper Canyon Elementary": (33.646574, -111.960060),      # 56th St / Muriel Dr
+    "North Ranch Elementary": (33.636178, -111.951615),        # 60th St / Kings Ave
+    "Liberty Elementary": (33.620052, -111.969921),            # Acoma Dr / 50th St
+    "Morris K Udall Middle School": (33.458659, -112.138833),  # Roosevelt St / 37th Ave
+    "JB Sutton Elementary School": (33.461426, -112.125876),   # 31st Ave / south of Moreland St
+    "Glenn L Downs Academy": (33.489803, -112.160278),         # 47th Ave / Whitton Ave
+    "Maryland School": (33.531375, -112.103967),               # 21st Ave / north of Maryland Ave
+    "Gateway Elementary": (33.462644, -112.006102),            # 35th St / north of Belleview St
 }
 
-# Transcribed from the source PDF, district by district, in listed order.
-# (school name, location text exactly as printed, geocoder query)
+# Transcribed from the source PDF ("Phoenix SY 26-27 School Zone Schedule",
+# two pages, tester screenshots 2026-10-30), district by district, in listed
+# order. The PDF prefixes some locations with "*"; it does not say what the
+# mark means (the document is titled as a list of new mobile photo radar
+# locations, so it probably flags a changed spot), and it is kept in
+# location_text as printed and ignored for the lookup.
+# (school name, location text as printed, geocoder query, active_from, active_until)
 # A query of None means the PDF did not give a usable intersection -- those
-# rows must be resolved by hand before this file can be built.
+# rows resolve by school name and are flagged for a map check.
+def _rows(windows, entries):
+    if len(entries) != len(windows):
+        raise SystemExit(f"{len(entries)} schools but {len(windows)} windows")
+    return [(school, text, query) + window for (school, text, query), window in zip(entries, windows)]
+
+
 SCHEDULE = {
-    1: [
-        ("Desert Sage Elementary", "Alameda Rd / 40th Ln", "Alameda Rd & 40th Ln"),
-        ("Paseo Hills School", "31st Ave / Louise Dr", "31st Ave & Louise Dr"),
-        ("Valley Academy", "Rose Garden Ln", None),
-        ("Mountain Shadows Elementary", "Oraibi Dr / 47th Ave", "Oraibi Dr & 47th Ave"),
-        ("Sunrise Elementary", "Campo Bello Dr / 32nd Ave", "Campo Bello Dr & 32nd Ave"),
-        ("Imagine Bell Canyon", "27th Ave / Vila Maria Dr", "27th Ave & Vila Maria Dr"),
-        ("Village Meadows Elementary", "Morningside Dr / 20th Dr", "Morningside Dr & 20th Dr"),
-    ],
-    2: [
-        ("Boulder Creek Elementary", "22nd St / Cashman Dr", "22nd St & Cashman Dr"),
-        ("Wildfire Elementary", "Cashman Dr / 39th Way", "Cashman Dr & 39th Way"),
-        ("Explorer Middle School", "40th St / Rough Rider Rd", "40th St & Rough Rider Rd"),
-        ("Fireside Elementary", "Lone Cactus Dr / north of Sinclair St", "Lone Cactus Dr & Sinclair St"),
+    1: _rows(WINDOWS_A, [
+        ("Desert Foothills Junior High", "*Banff Ln / 33rd Ave", "Banff Ln & 33rd Ave"),
+        ("Acacia Elementary School", "*31st Ave / Evans Dr", "31st Ave & Evans Dr"),
+        ("Sunburst Elementary", "47th Ave", None),
+        ("Sweetwater School", "*Sweetwater Ave / 45th Ave", "Sweetwater Ave & 45th Ave"),
+        ("Chaparral Elementary", "*39th Ave / Joan de Arc", "39th Ave & Joan de Arc Ave"),
+    ]),
+    2: _rows(WINDOWS_B, [
         ("Copper Canyon Elementary", "56th St / Muriel Dr", "56th St & Muriel Dr"),
         ("North Ranch Elementary", "60th St / Kings Ave", "60th St & Kings Ave"),
-        ("Liberty Elementary", "Acoma Dr / 50th St", "Acoma Dr & 50th St"),
-    ],
-    3: [
-        ("Larkspur Elementary", "24th St / Larkspur Dr", "24th St & Larkspur Dr"),
-        ("Hidden Hills Elementary", "Sharon Dr / 19th St", "Sharon Dr & 19th St"),
-        ("Greenway Middle School", "Nisbet Rd / 30th Pl", "Nisbet Rd & 30th Pl"),
-        ("Scottsdale Country Day School", "56th St / Shea Blvd", "56th St & Shea Blvd"),
-        ("Mercury Mine Elementary", "26th St / Turquoise Dr", "26th St & Turquoise Dr"),
-        ("Sunnyslope School", "Mountain View Rd / 2nd Way", "Mountain View Rd & 2nd Way"),
-        ("Mountain View Elementary", "9th Ave / Cheryl Dr", "9th Ave & Cheryl Dr"),
-    ],
-    4: [
-        ("Morris K Udall Middle School", "Roosevelt St / 37th Ave", "Roosevelt St & 37th Ave"),
-        ("JB Sutton Elementary School", "31st Ave / south of Moreland St", "31st Ave & Moreland St"),
-        ("Isaac Middle School", "34th Ave / Granada Rd", "34th Ave & Granada Rd"),
-        ("Mitchell School", "41st Ave / Granada Rd", "41st Ave & Granada Rd"),
-        ("Glenn L Downs Academy", "47th Ave / Whitton Ave", "47th Ave & Whitton Ave"),
-        ("Granada Elementary", "31st Ave / Hazelwood St", "31st Ave & Hazelwood St"),
-        ("Loma Linda School", "20th St / Clarendon Ave", "20th St & Clarendon Ave"),
-    ],
-    5: [
-        ("Amberlea Neighborhood School", "Virginia Ave / 85th Ave", "Virginia Ave & 85th Ave"),
-        ("Desert Horizon Elementary", "87th Ave / Virginia Ave", "87th Ave & Virginia Ave"),
-        ("Starlight Park Elementary", "Osborn Rd / 80th Ave", "Osborn Rd & 80th Ave"),
-        ("John F Long Elementary", "Campbell Ave / Meadowbrook Ave", "Campbell Ave & Meadowbrook Ave"),
-        ("James W Rice Elementary", "47th Ave / Hazelwood St", "47th Ave & Hazelwood St"),
-        ("Sevilla Elementary", "Missouri Ave / 38th Ave", "Missouri Ave & 38th Ave"),
+        ("Liberty Elementary", "*Acoma Dr / 50th St", "Acoma Dr & 50th St"),
+        ("Whispering Wind Academy", "44th St / Carol Ann Ln", "44th St & Carol Ann Ln"),
+    ]),
+    3: _rows(WINDOWS_A, [
+        ("Richard E Miller Elementary", "23rd Ave / Alice Ave", "23rd Ave & Alice Ave"),
+        ("Moon Mountain Elementary", "19th Ave / Joan De Arc Ave", "19th Ave & Joan de Arc Ave"),
+        ("Constitution Elementary", "15th Ave / Villa Maria Dr", "15th Ave & Villa Maria Dr"),
+        ("Echo Mountain Intermediate", "*Grovers Ave / 18th St", "Grovers Ave & 18th St"),
+        ("Cactus View Elementary", "*Central Ave / Muriel Dr", "Central Ave & Muriel Dr"),
+    ]),
+    4: _rows(WINDOWS_B, [
+        ("Esperanza Elementary", "*31st Ave / south of McDowell Rd", "31st Ave & McDowell Rd"),
+        ("JB Sutton Elementary School", "*31st Ave / south of Moreland St", "31st Ave & Moreland St"),
+        ("Glenn L Downs Academy", "*47th Ave / Whitton Ave", "47th Ave & Whitton Ave"),
+        ("Morris K Udall Middle School", "*Roosevelt St / 37th Ave", "Roosevelt St & 37th Ave"),
+    ]),
+    5: _rows(WINDOWS_B, [
         ("Maryland School", "21st Ave / north of Maryland Ave", "21st Ave & Maryland Ave"),
-    ],
-    6: [
-        ("Kyrene Altadena Middle", "Desert Foothills Pkwy / Desert Broom Way", "Desert Foothills Pkwy & Desert Broom Way"),
-        ("Kyrene Akimel A-Al Middle School", "Liberty Ln", None),
-        ("Kyrene de los Lagos Elementary", "Lakewood Pkwy W / 36th St", "Lakewood Pkwy W & 36th St"),
-        ("Kyrene del Milenio Elementary", "Frye Rd / 46th St", "Frye Rd & 46th St"),
-        ("Horizon Honors School", "Frye Rd / east of 48th St", "Frye Rd & 48th St"),
-        ("Kyrene de la Esperanza Elementary", "Ranch Circle E / 41st Pl", "Ranch Circle E & 41st Pl"),
-        ("Tavan Elementary", "Osborn Rd / 46th St", "Osborn Rd & 46th St"),
-    ],
-    7: [
-        ("Kenilworth Elementary", "5th Ave / Culver St", "5th Ave & Culver St"),
-        ("William R Sullivan Elementary", "31st Ave / north of Washington St", "31st Ave & Washington St"),
-        ("Jack L Kuban Elementary", "31st Ave / Sherman St", "31st Ave & Sherman St"),
-        ("Sunridge Elementary", "Roosevelt St / 62nd Dr", "Roosevelt St & 62nd Dr"),
-        ("Charles W Harris Elementary", "55th Ave / Hubble St", "55th Ave & Hubble St"),
-        ("Palm Lane Elementary", "Encanto Blvd / 64th Dr", "Encanto Blvd & 64th Dr"),
-        ("Peralta Elementary", "Encanto Blvd / 71st Ln", "Encanto Blvd & 71st Ln"),
-    ],
-    8: [
-        ("Irene Lopez Academy", "12th St / Wier Ave", "12th St & Wier Ave"),
-        ("SABIS International School", "Roeser Rd / 20th St", "Roeser Rd & 20th St"),
-        ("TG Barr Academy", "Vineyard Rd / 21st Pl", "Vineyard Rd & 21st Pl"),
-        ("Brunson Lee Elementary", "48th St / north of Culver St", "48th St & Culver St"),
-        ("Griffith Elementary", "Palm Ln / 46th St", "Palm Ln & 46th St"),
-        ("Papago Elementary", "36th St / Monte Vista Rd", "36th St & Monte Vista Rd"),
-        ("Gateway Elementary", "35th St / north of Belleview St", "35th St & Belleview St"),
-    ],
+        ("Royal Palm Middle School", "*Butler Dr / west of 19th Ave", "Butler Dr & 19th Ave"),
+        ("Roadrunner Elementary", "*39th Ave / Hayward Ave", "39th Ave & Hayward Ave"),
+        ("Ocotillo Elementary", "*33rd Ave / Ocotillo Rd", "33rd Ave & Ocotillo Rd"),
+    ]),
+    6: _rows(WINDOWS_B, [
+        ("Hopi Elementary", "*Lafayette Blvd / 52nd Pl", "Lafayette Blvd & 52nd Pl"),
+        ("Ingleside Middle School", "*Osborn Rd / 54th St", "Osborn Rd & 54th St"),
+        ("Larry C Kennedy Elementary", "*28th St / Sherran Ln", "28th St & Sherran Ln"),
+        ("Madison Camelview Elementary", "Campbell Ave / 21st St", "Campbell Ave & 21st St"),
+    ]),
+    7: _rows(WINDOWS_B, [
+        ("Union Elementary", "Illini St / 92nd Ln", "Illini St & 92nd Ln"),
+        ("Hurley Ranch Elementary", "89th Dr / north of Illini St", "89th Dr & Illini St"),
+        ("Kings Ridge Preparatory Academy", "63rd Ave / Raymond St", "63rd Ave & Raymond St"),
+        ("Western Valley Middle School", "*63rd Ave / Mohave St", "63rd Ave & Mohave St"),
+    ]),
+    8: _rows(WINDOWS_B, [
+        ("Gateway Elementary", "35th St north of Belleview St", "35th St & Belleview St"),
+        ("David Crockett Elementary", "36th St / Fillmore St", "36th St & Fillmore St"),
+        ("Vista College Preparatory", "*6th Ave / Hadley St", "6th Ave & Hadley St"),
+        ("Silvestre Herrera Elementary", "*9th St / Polk St", "9th St & Polk St"),
+    ]),
 }
 
 
 def build_rows():
-    """Flatten SCHEDULE into one row per school, dated by its week slot."""
+    """Flatten SCHEDULE into one row per school with its own date window."""
     rows = []
     for district in sorted(SCHEDULE):
-        entries = SCHEDULE[district]
-        if len(entries) != len(WEEKS):
-            raise SystemExit(
-                f"District {district}: {len(entries)} schools but {len(WEEKS)} weeks defined"
-            )
-        for week_index, (school, location_text, query) in enumerate(entries):
-            active_from, active_until = WEEKS[week_index]
+        for school, location_text, query, active_from, active_until in SCHEDULE[district]:
             rows.append({
                 "school_name": school,
                 "district": district,
@@ -293,6 +299,9 @@ _PREFIXES = ("North ", "South ", "East ", "West ", "")
 # nothing in OSM. Keyed by school name.
 ALT_QUERIES = {
     "Imagine Bell Canyon": ["27th Ave & Villa Maria Dr"],
+    "Chaparral Elementary": ["39th Ave & Joan De Arc Ave"],
+    "Moon Mountain Elementary": ["19th Ave & Joan De Arc Ave"],
+    "Constitution Elementary": ["15th Ave & Vila Maria Dr"],
 }
 
 # Words that carry no identity when matching a school's OSM polygon by name.
