@@ -165,12 +165,19 @@ MANUAL_COORDS = {
     # 0.3 mi north of Thunderbird, consistent with the school's 14218 N
     # address. Camera-at-the-school tolerance; spot-check on a map.
     "Sunburst Elementary": (33.614942, -112.159814),           # 47th Ave beside the school
-    # NOT pinned from run #2, deliberately: Sweetwater School (its node came
-    # back at 33.6036, a mile south of Sweetwater Ave -- an OSM naming fault
-    # or a stray segment; the school-distance guard below now catches it),
-    # Hopi / Ingleside / Vista College Preparatory (Overpass 502'd on their
-    # intersections and the run fell back to school polygons -- Vista's is
-    # the wrong campus, 7 km away), Sunburst (Overpass timed out).
+    # Action run #4 (2026-10-30, the run that wrote the file): the last two
+    # rows, pinned so a re-run is fully offline and byte-identical.
+    # Sweetwater: the OSM node for Sweetwater Ave & 45th Ave. It was held
+    # back from runs #2/#3 on MY belief that Sweetwater Ave lies north of
+    # Thunderbird; it does not -- it is the half-mile road between Cactus
+    # and Thunderbird (a listing on Sweetwater Ave at 33.6037 reads Cactus
+    # 0.2 mi, Thunderbird 0.5 mi; the school's ZIP 85304 is that band), so
+    # the node was right all along and 18 m off the 45th Ave grid line.
+    # Vista: the 6th Ave & Hadley St node; OSM's only "Vista College
+    # Preparatory" polygon is the Maryvale campus 7.6 km away and the
+    # fronting check below correctly ignored it.
+    "Sweetwater School": (33.603551, -112.155767),             # Sweetwater Ave / 45th Ave (OSM node)
+    "Vista College Preparatory": (33.439091, -112.081521),     # 6th Ave / Hadley St (OSM node)
 }
 
 # Transcribed from the source PDF ("Phoenix SY 26-27 School Zone Schedule",
@@ -330,9 +337,12 @@ OVERPASS_ATTEMPTS = 2  # full passes over the endpoint list
 CLUSTER_METERS = 300  # nodes closer than this are one intersection (divided roads)
 # The city places each camera at a corner of the school's own block, so a
 # resolved intersection farther than this from the school's OSM polygon is
-# a same-named street somewhere else (run #2, 2026-10-30: "Sweetwater Ave &
-# 45th Ave" came back a mile south of the school). Such a hit is refused and
-# the row falls to the street beside the school, flagged for a map check.
+# a same-named street somewhere else. The polygon only counts when it
+# fronts a published street (see school_anchor): run #3 (2026-10-30)
+# anchored Vista College Preparatory on its other campus 7.6 km away and
+# would otherwise have refused the correct 6th Ave & Hadley St corner. A
+# refused hit falls to the street beside the school, flagged for a map
+# check.
 SCHOOL_MAX_M = 1500
 
 _STREET_TYPES = {
