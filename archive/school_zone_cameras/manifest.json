@@ -37,7 +37,7 @@
     "file": "archive/school_zone_cameras/school_zone_cameras__through_2026-10-30T08-05-32Z.json",
     "sha256": "2d41bffcfea672ac2c54bf7ee0b8728b72491321b0417dd6fe06ca21bb42b3a4",
     "valid_from": "2026-10-30T04:46:19Z",
-    "valid_to": null,
+    "valid_to": "2026-10-30T15:33:56Z",
     "archived_at": "2026-10-30T08:05:32Z",
     "source_active_file": "school_zone_cameras.json"
   }
