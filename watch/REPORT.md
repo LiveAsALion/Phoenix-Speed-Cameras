@@ -1,4 +1,4 @@
-# City source watch — 2026-11-05T08:06:37+00:00
+# City source watch — 2026-11-06T08:12:17+00:00
 
 - **Phoenix (school-zone schedule)**: unchanged (9 location lines)
 - **Tempe**: unchanged (0 location lines)
@@ -7,4 +7,4 @@
 - **Paradise Valley**: unchanged (6 location lines)
 - **Chandler (program page)**: unchanged (12 location lines)
 - **Chandler (camera map PDF)**: unchanged (0 location lines)
-- **Mesa**: page text changed, location lines unchanged (23)
+- **Mesa**: unchanged (23 location lines)
