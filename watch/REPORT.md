@@ -1,10 +1,10 @@
-# City source watch — 2026-11-14T07:46:33+00:00
+# City source watch — 2026-11-15T08:04:46+00:00
 
 - **Phoenix (school-zone schedule)**: unchanged (9 location lines)
 - **Tempe**: unchanged (0 location lines)
-- **Scottsdale (police page)**: page text changed, location lines unchanged (11)
+- **Scottsdale (police page)**: unchanged (11 location lines)
 - **Scottsdale (fixed-locations PDF)**: unchanged (11 location lines)
-- **Paradise Valley**: unchanged (6 location lines)
-- **Chandler (program page)**: page text changed, location lines unchanged (12)
+- **Paradise Valley**: page text changed, location lines unchanged (6)
+- **Chandler (program page)**: unchanged (12 location lines)
 - **Chandler (camera map PDF)**: unchanged (0 location lines)
 - **Mesa**: unchanged (23 location lines)
