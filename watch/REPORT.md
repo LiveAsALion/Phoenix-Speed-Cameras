@@ -1,6 +1,6 @@
-# City source watch — 2026-11-19T09:04:27+00:00
+# City source watch — 2026-11-20T08:48:38+00:00
 
-- **Phoenix (school-zone schedule)**: page text changed, location lines unchanged (9)
+- **Phoenix (school-zone schedule)**: unchanged (9 location lines)
 - **Tempe**: unchanged (0 location lines)
 - **Scottsdale (police page)**: unchanged (11 location lines)
 - **Scottsdale (fixed-locations PDF)**: unchanged (11 location lines)
