@@ -1,7 +1,7 @@
-# City source watch — 2026-11-25T10:03:58+00:00
+# City source watch — 2026-11-26T09:46:31+00:00
 
 - **Phoenix (school-zone schedule)**: unchanged (9 location lines)
-- **Tempe**: FETCH FAILED (HTTP 403 via chrome; HTTP 403 via safari; HTTP 403 via firefox; HTTP 403 via requests); 1 night(s) in a row
+- **Tempe**: unchanged (0 location lines)
 - **Scottsdale (police page)**: unchanged (11 location lines)
 - **Scottsdale (fixed-locations PDF)**: unchanged (11 location lines)
 - **Paradise Valley**: unchanged (6 location lines)
